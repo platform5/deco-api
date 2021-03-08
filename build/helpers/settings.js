@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+let debug = require('debug')('deco-api:helpers:settings');
+class Settings {
+    static locale(req, options) {
+        if (req && req.query && req.query.locale)
+            return req.query.locale;
+        if (options && options.defaultLocale)
+            return options.defaultLocale;
+        return Settings.defaultLocale;
+    }
+}
+exports.Settings = Settings;
+Settings.defaultDateFormat = 'DD-MM-YYYY';
+Settings.filePreviewSuffix = '_preview';
+Settings.fileRemoveSuffix = '_remove';
+Settings.fileClearSuffix = '_clear';
+Settings.defaultLocale = 'fr';
+Settings.cryptoKey = 'hewAdviwud52%289ynvsodaDahfbpwitd';
+//# sourceMappingURL=settings.js.map

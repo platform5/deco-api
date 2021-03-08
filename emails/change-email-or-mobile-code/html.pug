@@ -1,0 +1,17 @@
+link(rel="stylesheet", href="global.css", data-inline)
+
+div#main
+  div#header
+    div.title #{app.name}
+  div#content
+    p.small Change #{type}
+    h1 Hi #{user.firstname},
+    p You recently attempted to change your #{type} for #{app.name}.
+    p.
+    p.reason In order to validate this change you will need to enter the following code  (valid 1 hour):
+    p.
+    p.code #{token.code}
+  div#footer
+    p.small-details IP: #{device.ip}
+    p.small-details User-Agent: #{device.userAgent}
+    

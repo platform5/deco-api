@@ -1,0 +1,18 @@
+link(rel="stylesheet", href="global.css", data-inline)
+
+div#main
+  div#header
+    div.title #{app.name}
+  div#content
+    p.small Email validation
+    h1 Hi #{user.firstname},
+    p You recently attempted to authenticate with your account in #{app.name} with the following email address: #{user.email}.
+    p.
+    h2 Validate
+    p.reason In order to confirm your authentication, please enter the following code (valid 10 minutes):
+    p.
+    p.code #{token.code}
+  div#footer
+    p.small-details IP: #{device.ip}
+    p.small-details User-Agent: #{device.userAgent}
+    
