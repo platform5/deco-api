@@ -1,19 +1,12 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
-};
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./dynamic.helper"), exports);
-__exportStar(require("./dynamic2.middleware.controller"), exports);
-__exportStar(require("./dynamicconfig.controller"), exports);
-__exportStar(require("./dynamicconfig.model"), exports);
-__exportStar(require("./dynamicdata.controller"), exports);
-__exportStar(require("./dynamicdata2.model"), exports);
+__export(require("./dynamic.helper"));
+__export(require("./dynamic2.middleware.controller"));
+__export(require("./dynamicconfig.controller"));
+__export(require("./dynamicconfig.model"));
+__export(require("./dynamicdata.controller"));
+__export(require("./dynamicdata2.model"));
 //# sourceMappingURL=index.js.map

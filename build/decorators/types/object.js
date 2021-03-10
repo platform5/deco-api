@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.object = exports.objectDecorator = exports.validateObject = exports.inputObject = void 0;
 const type_decorator_1 = require("./type-decorator");
 const basics_1 = require("./basics");
 const basics_2 = require("./basics");

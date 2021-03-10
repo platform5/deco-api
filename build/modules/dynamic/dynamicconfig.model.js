@@ -6,7 +6,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DynamicConfigModel = void 0;
 const app_model_1 = require("./../app/app.model");
 const __1 = require("../../");
 let debug = require('debug')('app:models:dynamicconfig');

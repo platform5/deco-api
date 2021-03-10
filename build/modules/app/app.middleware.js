@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppMiddleware = void 0;
 const __1 = require("../../");
 const moment = require("moment");
 let debug = require('debug')('app:middleware:app');

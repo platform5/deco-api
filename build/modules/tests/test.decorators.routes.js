@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TestDecoratorsController = void 0;
 const multipart_1 = require("./../../middlewares/multipart");
 const decorators_1 = require("./decorators");
 const controller_1 = require("./../../middlewares/controller");

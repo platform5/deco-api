@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppController = void 0;
 const express_1 = require("express");
 const __1 = require("../../");
 const app_model_1 = require("./app.model");

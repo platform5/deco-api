@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.all = exports.sortable = exports.filterable = exports.searchable = exports.addTargetInfo = void 0;
 function addTargetInfo(target, typeName, key, options = {}) {
     if (!target[`_${typeName}`])
         target[`_${typeName}`] = [];

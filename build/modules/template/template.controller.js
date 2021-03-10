@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TemplateController = void 0;
 const app_middleware_1 = require("./../app/app.middleware");
 const auth_middleware_1 = require("./../user/auth.middleware");
 const controller_1 = require("./../../middlewares/controller");

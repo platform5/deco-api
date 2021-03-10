@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ObjectId = exports.datastore = exports.Datastore = void 0;
 const mongodb_1 = require("mongodb");
 let debug = require('debug')('deco-api:helpers:datastore');
 class Datastore {

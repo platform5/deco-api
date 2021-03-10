@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.increment = exports.validateIncrement = exports.inputIncrement = exports.incrementDecorator = void 0;
 const datastore_1 = require("./../../helpers/datastore");
 const type_decorator_1 = require("./type-decorator");
 let debug = require('debug')('deco-api:decorators:types:increment');

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.metadata = exports.metadataDecorator = exports.validateMetadata = exports.inputMetadata = void 0;
 const type_decorator_1 = require("./type-decorator");
 let debug = require('debug')('deco-api:decorators:types:metadata');
 exports.inputMetadata = (value, options) => {

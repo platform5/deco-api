@@ -1,24 +1,17 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
-};
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./app"), exports);
-__exportStar(require("./dico"), exports);
-__exportStar(require("./dynamic"), exports);
-__exportStar(require("./members"), exports);
-__exportStar(require("./model-hits"), exports);
-__exportStar(require("./operation"), exports);
-__exportStar(require("./push"), exports);
-__exportStar(require("./template"), exports);
-__exportStar(require("./tests"), exports);
-__exportStar(require("./user"), exports);
-__exportStar(require("./utils"), exports);
+__export(require("./app"));
+__export(require("./dico"));
+__export(require("./dynamic"));
+__export(require("./members"));
+__export(require("./model-hits"));
+__export(require("./operation"));
+__export(require("./push"));
+__export(require("./template"));
+__export(require("./tests"));
+__export(require("./user"));
+__export(require("./utils"));
 //# sourceMappingURL=index.js.map

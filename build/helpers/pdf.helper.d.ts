@@ -1,3 +1,4 @@
+/// <reference types="qs" />
 import { PDFDocument, PDFPage, PDFFont, CreateOptions } from 'pdf-lib';
 import { RGB, Grayscale, CMYK } from 'pdf-lib';
 import { Request, Response, NextFunction } from 'express';
@@ -18,7 +19,7 @@ export declare class PDF {
     constructor();
     create(options?: CreateOptions): Promise<void>;
     addPage(): Promise<void>;
-    static testRoute(): (req: Request, res: Response, next: NextFunction) => void;
+    static testRoute(): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
 }
 export declare abstract class PDFBlock {
     x?: number;

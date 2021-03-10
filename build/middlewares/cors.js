@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CorsMiddleware = void 0;
 class CorsMiddleware {
     static allowEverything() {
         return (req, res, next) => {

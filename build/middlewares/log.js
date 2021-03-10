@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Log = void 0;
 const morgan_1 = __importDefault(require("morgan"));
 const fs_1 = __importDefault(require("fs"));
 const rotating_file_stream_1 = __importDefault(require("rotating-file-stream"));
@@ -63,7 +62,7 @@ class Log {
                 filename = keep.replace(/:/g, '...');
                 filename = filename.trim();
             }
-            morgan_1.default(`:method :url :status ${err.message} ${filename}`, { stream: Log.errorsLogStream })(req, res, (logErr) => {
+            morgan_1.default(`:method :url :status ${err.message} ${filename}`, { stream: Log.errorsLogStream })(req, res, () => {
                 next(err); // we cannot really send the "err" anyway, because response is already away at this point
             });
         };

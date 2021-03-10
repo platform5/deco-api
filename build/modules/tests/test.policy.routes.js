@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TestPolicyController = void 0;
 const auth_middleware_1 = require("./../user/auth.middleware");
 const policy_factory_1 = require("./../user/policy/policy.factory");
 const app_middleware_1 = require("./../app/app.middleware");

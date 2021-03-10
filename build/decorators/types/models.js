@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.models = exports.validateModels = exports.inputModels = exports.modelsDecorator = exports.model = exports.validateModel = exports.inputModel = exports.relations = exports.modelDecorator = void 0;
 const type_decorator_1 = require("./type-decorator");
 const mongodb_1 = require("mongodb");
 const model_1 = require("../model");

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Policy = void 0;
 let debug = require('debug')('app:controller:policy:model');
 class Policy {
     constructor(data = {}) {

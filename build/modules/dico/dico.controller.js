@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DicoController = void 0;
 const dico_model_1 = require("./dico.model");
 const auth_middleware_1 = require("./../user/auth.middleware");
 const app_middleware_1 = require("./../app/app.middleware");

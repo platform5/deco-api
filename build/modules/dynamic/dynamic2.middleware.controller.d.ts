@@ -1,3 +1,4 @@
+/// <reference types="qs" />
 import { PolicyControllerMiddlware } from './../user/policy/policy.middleware.controller';
 import { AppModel } from './../app/app.model';
 import { DynamicConfigModel } from './dynamicconfig.model';
@@ -13,7 +14,7 @@ export declare class Dynamic2MiddlwareController extends PolicyControllerMiddlwa
     static postRoute(): string;
     static putRoute(): string;
     static deleteRoute(): string;
-    static placeDynamicConfigInRequestWithSlug(slug: string): (req: Request, res: Response, next: NextFunction) => void;
+    static placeDynamicConfigInRequestWithSlug(slug: string): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
     static placeDynamicConfigInRequest(req: Request, res: Response, next: NextFunction): void;
     static getDecoFromConfigModel(configModel: DynamicConfigModel, parentApp: AppModel | ObjectId, appModel: AppModel): Deco;
     static getDecoFromSlug(appId: ObjectId, slug: string): Promise<Deco>;

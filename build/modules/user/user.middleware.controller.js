@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserControllerMiddleware = void 0;
 const validation_token_model_1 = require("./validation-token.model");
 const app_model_1 = require("./../app/app.model");
 const user_model_1 = require("./user.model");

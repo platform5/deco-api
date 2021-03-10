@@ -10,7 +10,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var Operation_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Operation = void 0;
 const app_model_1 = require("./../app/app.model");
 const __1 = require("../../");
 const moment_1 = __importDefault(require("moment"));

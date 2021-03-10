@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DecoRoutes = void 0;
 const push_controller_1 = require("./modules/push/push.controller");
 const profile_controller_1 = require("./modules/user/profile.controller");
 const utils_controller_1 = require("./modules/utils/utils.controller");

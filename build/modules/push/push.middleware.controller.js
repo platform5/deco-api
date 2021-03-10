@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PushControllerMiddleware = void 0;
 const push_player_model_1 = require("./push.player.model");
 const controller_1 = require("./../../middlewares/controller");
 const __1 = require("../../");

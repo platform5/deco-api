@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addressArray = exports.addressArrayDecorator = exports.validateAddressArray = exports.inputAddressArray = exports.address = exports.addressDecorator = exports.validateAddress = exports.inputAddress = void 0;
 const index_1 = require("../index");
 let debug = require('debug')('app:decorators:address');
 exports.inputAddress = (value) => {

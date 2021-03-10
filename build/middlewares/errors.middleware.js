@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ErrorsMiddleware = void 0;
 let debug = require('debug')('app:middleware:errors');
 class ErrorsMiddleware {
     static convertToJsonOutput(err, req, res, next) {

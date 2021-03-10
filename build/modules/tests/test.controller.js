@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TestController = void 0;
 const test_decorators_routes_1 = require("./test.decorators.routes");
 const test_policy_routes_1 = require("./test.policy.routes");
 const express_1 = require("express");

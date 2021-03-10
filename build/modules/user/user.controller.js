@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
 const controller_1 = require("./../../middlewares/controller");
 const profile_model_1 = require("./profile.model");
 const auth_middleware_1 = require("./auth.middleware");

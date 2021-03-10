@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.index = exports.collectionIndex = void 0;
 const datastore_1 = require("./../helpers/datastore");
 let debug = require('debug')('deco-api:decorators:mongo-index');
 let defaultOptions = {

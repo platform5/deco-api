@@ -10,7 +10,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var ResetPasswordTokenModel_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResetPasswordTokenModel = void 0;
 const user_model_1 = require("./user.model");
 const app_model_1 = require("./../app/app.model");
 const __1 = require("../../");

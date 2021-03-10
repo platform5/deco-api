@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ControllerHooksMiddleware = void 0;
 let debug = require('debug')('deco-api:middleware:controller.hooks');
 class ControllerHooksMiddleware {
     /**

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PushController = void 0;
 const multipart_1 = require("./../../middlewares/multipart");
 const auth_middleware_1 = require("./../user/auth.middleware");
 const app_middleware_1 = require("./../app/app.middleware");
