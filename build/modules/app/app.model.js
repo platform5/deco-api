@@ -10,6 +10,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var AppModel_1;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AppModel = void 0;
 const __1 = require("../../");
 const crypto_1 = __importDefault(require("crypto"));
 let debug = require('debug')('app:models:app');

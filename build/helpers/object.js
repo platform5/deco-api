@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ObjectHelper = void 0;
 class ObjectHelper {
     static filter(original, allowed) {
         return Object.keys(original)

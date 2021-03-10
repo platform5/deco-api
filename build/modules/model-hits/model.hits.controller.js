@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ModelHitsMiddleware = void 0;
 const dynamicconfig_model_1 = require("./../dynamic/dynamicconfig.model");
 const model_hits_model_1 = require("./model.hits.model");
 let debug = require('debug')('app:middlewares:controllers:model.hits');

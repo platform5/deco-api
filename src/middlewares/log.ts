@@ -78,7 +78,7 @@ export class Log {
         filename = filename.trim();
       }
 
-      morgan(`:method :url :status ${err.message} ${filename}`, {stream: Log.errorsLogStream})(req, res, (logErr: string) => {
+      morgan(`:method :url :status ${err.message} ${filename}`, {stream: Log.errorsLogStream})(req, res, (logErr: Error | undefined) => {
         next(err); // we cannot really send the "err" anyway, because response is already away at this point
       });
     }

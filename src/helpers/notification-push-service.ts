@@ -222,9 +222,9 @@ setInterval(() => {
   NotificationPushService.shutdownUnsedService();
 }, 1000 * 60 * 30);
 
-setInterval(() => {
-  NotificationPushService.sendPendingNotifications();
-}, 1000 * 5);
+// setInterval(() => {
+//   NotificationPushService.sendPendingNotifications();
+// }, 1000 * 5);
 
 
 // let deviceIDs = [

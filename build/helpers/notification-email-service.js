@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.emailService = exports.NotificationEmailService = void 0;
 const path_1 = __importDefault(require("path"));
 const __1 = require("../");
 const email_templates_1 = __importDefault(require("email-templates"));
@@ -47,15 +48,14 @@ class NotificationEmailService {
         this.transporter = nodemailer_1.default.createTransport(options);
     }
     send(recipients, templatePath, data, templateOverride = null, attachments = []) {
-        var _a, _b;
         if (!this.transporter)
             throw new Error('You must create a transporter before you can send emails');
         if (!this.from)
             throw new Error('You must define the from property before to send an email');
         const env = process.env.NODE_ENV || 'development';
         recipients = env === 'production' ? recipients : process.env.DEV_EMAIL_TO || '';
-        const cssPath = ((_a = templateOverride) === null || _a === void 0 ? void 0 : _a.cssPath) || path_1.default.join(__dirname, '../../emails/css');
-        const emailPath = ((_b = templateOverride) === null || _b === void 0 ? void 0 : _b.rootPath) || path_1.default.join(__dirname, '../../emails');
+        const cssPath = (templateOverride === null || templateOverride === void 0 ? void 0 : templateOverride.cssPath) || path_1.default.join(__dirname, '../../emails/css');
+        const emailPath = (templateOverride === null || templateOverride === void 0 ? void 0 : templateOverride.rootPath) || path_1.default.join(__dirname, '../../emails');
         let options = {
             message: {
                 from: this.from,

@@ -1,4 +1,3 @@
-/// <reference types="qs" />
 import { GetOneOptions } from './../decorators/model';
 import { StringAnyMap } from '../interfaces/types';
 import { ControllerHooksMiddleware } from './controller.hooks';
@@ -71,11 +70,11 @@ export declare class ControllerMiddleware extends ControllerHooksMiddleware {
     filterQueryFromDeco(deco: Deco, query: Query, queryProps: StringAnyMap): Promise<Query>;
     filterQueryFromReq(req: Request, res: Response, query: Query, deco?: Deco): Promise<Query>;
     extendQueryBasedOnDecoPropAndValue(query: Query, deco: Deco, prop: string, filterValue: any): void;
-    prepareQueryFromReq(): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
-    autoFetch(autoFetchConfigs: Array<AutoFetchConfig>, send?: boolean): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => Promise<void> | undefined;
-    getAll(query?: Query | null, options?: ControllerGetAllOptions): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
+    prepareQueryFromReq(): (req: Request, res: Response, next: NextFunction) => void;
+    autoFetch(autoFetchConfigs: Array<AutoFetchConfig>, send?: boolean): (req: Request, res: Response, next: NextFunction) => Promise<void> | undefined;
+    getAll(query?: Query | null, options?: ControllerGetAllOptions): (req: Request, res: Response, next: NextFunction) => void;
     prepareGetOneQuery(elementId: string | ObjectId, req: Request, res: Response, options: GetOneOptions): Promise<Query>;
-    getOne(options?: ControllerGetOneOptions): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
+    getOne(options?: ControllerGetOneOptions): (req: Request, res: Response, next: NextFunction) => void;
     /**
      * Process the query to find any downloadable files
      * ?download=image : will try to download the file placed in the image property of the model (if any)
@@ -86,21 +85,21 @@ export declare class ControllerMiddleware extends ControllerHooksMiddleware {
      * For properties of type "files", the query must also contain a "fileId" paramater, indicating which file to download from the array
      */
     processDownload(req: Request, res: Response, element: Model): Promise<Model>;
-    post(options?: ControllerPostOptions): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
-    postMany(options?: ControllerPostManyOptions): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
-    put(options?: ControllerPutOptions): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
+    post(options?: ControllerPostOptions): (req: Request, res: Response, next: NextFunction) => void;
+    postMany(options?: ControllerPostManyOptions): (req: Request, res: Response, next: NextFunction) => void;
+    put(options?: ControllerPutOptions): (req: Request, res: Response, next: NextFunction) => void;
     delete(options?: {
         ignoreSend: boolean;
-    }): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
-    sendLocals(key: string, output?: boolean | 'list', model?: typeof Model): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => any;
-    allowOnlyInBody(props: Array<string>): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
-    debug(message: string): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
+    }): (req: Request, res: Response, next: NextFunction) => void;
+    sendLocals(key: string, output?: boolean | 'list', model?: typeof Model): (req: Request, res: Response, next: NextFunction) => any;
+    allowOnlyInBody(props: Array<string>): (req: Request, res: Response, next: NextFunction) => void;
+    debug(message: string): (req: Request, res: Response, next: NextFunction) => void;
     static getAllRoute(): string;
     static getOneRoute(): string;
     static postRoute(): string;
     static putRoute(): string;
     static deleteRoute(): string;
-    static preventProperties(props: Array<string>): (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
+    static preventProperties(props: Array<string>): (req: Request, res: Response, next: NextFunction) => void;
 }
 export interface QueryFromReqOptions {
     searchQuery?: {

@@ -1,3 +1,4 @@
+import { ModelOperation } from '../';
 export declare class QueryByModel {
     model: string;
     query: any;
@@ -31,6 +32,6 @@ export interface Policy {
     inputPolicy?: Array<IOPolicy>;
     outputPolicy?: Array<IOPolicy>;
 }
-export declare const modelPolicy: (operation: "delete" | "post" | "put" | "getAll" | "getOne" | "globalModel", policy?: ModelAccessPolicy) => (target: any) => void;
-export declare const propertyPolicy: (operation: "input" | "output" | "globalIO", policies: IOPolicy[]) => (target: any) => void;
+export declare const modelPolicy: (operation: ModelOperation | 'globalModel', policy?: ModelAccessPolicy) => (target: any) => void;
+export declare const propertyPolicy: (operation: 'input' | 'output' | 'globalIO', policies: Array<IOPolicy>) => (target: any) => void;
 //# sourceMappingURL=policy.d.ts.map

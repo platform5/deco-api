@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DynamicDataController = void 0;
 const model_hits_controller_1 = require("./../model-hits/model.hits.controller");
 const user_model_1 = require("./../user/user.model");
 const app_middleware_1 = require("./../app/app.middleware");

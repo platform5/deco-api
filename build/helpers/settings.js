@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Settings = void 0;
 let debug = require('debug')('deco-api:helpers:settings');
 class Settings {
     static locale(req, options) {

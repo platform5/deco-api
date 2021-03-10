@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ControllerMiddleware = void 0;
 const controller_hooks_1 = require("./controller.hooks");
 const decorators_1 = require("../decorators");
 const mongodb_1 = require("mongodb");
@@ -38,14 +39,13 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
         return instance.queryFromReq(req, res, deco);
     }
     queryFromReq(req, res, deco, options) {
-        var _a;
         if (!deco) {
             // check if we have the right model
             if (!this.model)
                 throw new Error('queryFromReq: missing deco or model');
         }
         let query = new query_1.Query();
-        if ((_a = options) === null || _a === void 0 ? void 0 : _a.filterQueries) {
+        if (options === null || options === void 0 ? void 0 : options.filterQueries) {
             for (const q of options.filterQueries) {
                 query.addQuery(q);
             }
@@ -55,8 +55,7 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
         }).then((query) => {
             return this.limitQueryFromReq(req, res, query, deco);
         }).then((query) => {
-            var _a;
-            return this.searchQueryFromReq(req, res, query, deco, (_a = options) === null || _a === void 0 ? void 0 : _a.searchQuery);
+            return this.searchQueryFromReq(req, res, query, deco, options === null || options === void 0 ? void 0 : options.searchQuery);
         }).then((query) => {
             return this.addRelatedModelsFiltersInReq(req, res, query, deco);
         }).then(() => {
@@ -850,10 +849,9 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
             this.extendRequest(req, 'getAll').then(() => {
                 return this.extendGetAllQuery(_query, req, res);
             }).then(() => __awaiter(this, void 0, void 0, function* () {
-                var _a;
                 let modelOptions = {};
                 modelOptions.deco = this.getModelDeco(req, res);
-                modelOptions.addCountInKey = (_a = currentRequestOptions) === null || _a === void 0 ? void 0 : _a.addCountInKey;
+                modelOptions.addCountInKey = currentRequestOptions === null || currentRequestOptions === void 0 ? void 0 : currentRequestOptions.addCountInKey;
                 if (currentRequestOptions && currentRequestOptions.enableLastModifiedCaching) {
                     const lastElements = yield modelOptions.deco.db.collection(modelOptions.deco.collectionName)
                         .find(_query.onlyQuery())
@@ -874,13 +872,12 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
                 }
                 return this.model.getAll(_query, modelOptions);
             })).then((elements) => {
-                var _a;
                 for (let element of elements) {
                     element.request = req;
                 }
                 if (currentRequestOptions && currentRequestOptions.ignoreOutput)
                     return Promise.resolve(elements);
-                const allowExtra = ((_a = currentRequestOptions) === null || _a === void 0 ? void 0 : _a.addCountInKey) ? [currentRequestOptions.addCountInKey] : [];
+                const allowExtra = (currentRequestOptions === null || currentRequestOptions === void 0 ? void 0 : currentRequestOptions.addCountInKey) ? [currentRequestOptions.addCountInKey] : [];
                 return this.model.outputList(elements, undefined, false, allowExtra);
             }).then((element) => {
                 return this.postOutputList(element, req, res);
@@ -1215,8 +1212,7 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
             }).then((element) => {
                 return this.postElement(element, req, res);
             }).then((element) => __awaiter(this, void 0, void 0, function* () {
-                var _a;
-                const quantity = yield this.postManyQuantity(element, req, res, (_a = options) === null || _a === void 0 ? void 0 : _a.quantity);
+                const quantity = yield this.postManyQuantity(element, req, res, options === null || options === void 0 ? void 0 : options.quantity);
                 let elements = yield element.insertMany(quantity);
                 elements = yield Promise.all(elements.map((element) => __awaiter(this, void 0, void 0, function* () {
                     return yield this.postAfterInsert(element, req, res);

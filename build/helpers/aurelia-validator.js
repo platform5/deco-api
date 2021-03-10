@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.aureliaValidator = void 0;
 require("aurelia-polyfills");
 const aurelia_pal_nodejs_1 = require("aurelia-pal-nodejs");
 const aurelia_dependency_injection_1 = require("aurelia-dependency-injection");

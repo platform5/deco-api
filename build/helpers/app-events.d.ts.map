@@ -1,1 +1,1 @@
-{"version":3,"file":"app-events.d.ts","sourceRoot":"","sources":["../../src/helpers/app-events.ts"],"names":[],"mappings":";AAAA,OAAO,MAAM,MAAM,QAAQ,CAAC;AAC5B,QAAA,MAAM,SAAS,qBAA4B,CAAC;AAC5C,OAAO,EAAE,SAAS,EAAE,CAAA"}
+{"version":3,"file":"app-events.d.ts","sourceRoot":"","sources":["../../src/helpers/app-events.ts"],"names":[],"mappings":";AAAA,OAAO,MAAM,MAAM,QAAQ,CAAC;AAC5B,QAAA,MAAM,SAAS,QAA4B,CAAC;AAC5C,OAAO,EAAE,SAAS,EAAE,CAAA"}

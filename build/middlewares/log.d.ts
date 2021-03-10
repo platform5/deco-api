@@ -16,6 +16,6 @@ export declare class Log {
     static logRequests(): RequestHandler;
     static logAccessErrors(): RequestHandler;
     static logDevConsole(): RequestHandler;
-    static errorsMiddleware(): (err: Error, req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void;
+    static errorsMiddleware(): (err: Error, req: Request, res: Response, next: NextFunction) => void;
 }
 //# sourceMappingURL=log.d.ts.map

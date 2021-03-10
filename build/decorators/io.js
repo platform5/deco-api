@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetch = exports.all = exports.inout = exports.toDocument = exports.output = exports.input = void 0;
 let debug = require('debug')('deco-api:io');
 function addTargetInfo(target, infoName, key) {
     if (!target[`_${infoName}`])

@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NotificationPushService = void 0;
 const __1 = require("../");
 const node_pushnotifications_1 = __importDefault(require("node-pushnotifications"));
 const moment_1 = __importDefault(require("moment"));
@@ -206,9 +207,9 @@ NotificationPushService.servicesByApp = {};
 setInterval(() => {
     NotificationPushService.shutdownUnsedService();
 }, 1000 * 60 * 30);
-setInterval(() => {
-    NotificationPushService.sendPendingNotifications();
-}, 1000 * 5);
+// setInterval(() => {
+//   NotificationPushService.sendPendingNotifications();
+// }, 1000 * 5);
 // let deviceIDs = [
 //   'd6187479b7b08de810b0e7313c06a1cb0f359eb3651b64e0d2e8de72a518633e',
 //   //'d4wCeIjxqoE:APA91bEbF06Uv-lbIMpbXd1Aflsx-bVzrilp11vzq5UP5JZA-vTrg0XL9OIe9x5KDMJ39MbW97mt75u0epjcEDyE-hmEk15NSCkTXtlHvzf7naRoqTfF4rLy9XO0HBAysXyOIpTPSbSW'

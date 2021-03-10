@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.cloneDeco = void 0;
 function cloneDeco(deco) {
     let cloned = {
         collectionName: deco.collectionName,
