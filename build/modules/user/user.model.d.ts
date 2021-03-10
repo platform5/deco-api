@@ -14,10 +14,8 @@ export declare class UserModel extends Model {
     roles: Array<string>;
     hideOnboarding: boolean;
     static hashFromPassword(password: string): string;
-    static mint2HashFromPassword(password: string): string;
     generateHash(password: string): void;
     toDocument(operation: 'insert' | 'update' | 'upsert', properties?: Array<string>): Promise<UpdateQuery>;
     static authUser(appId: ObjectId, username: string, password: string): Promise<UserModel | false>;
-    static checkMintello2User(username: string, password: string): Promise<UserModel | false>;
 }
 //# sourceMappingURL=user.model.d.ts.map

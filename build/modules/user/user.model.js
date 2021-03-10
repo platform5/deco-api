@@ -14,7 +14,6 @@ const app_model_1 = require("./../app/app.model");
 const __1 = require("../../");
 const crypto_1 = __importDefault(require("crypto"));
 const moment_1 = __importDefault(require("moment"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
 const hmacsha1 = require('crypto-js/hmac-sha1');
 // import hmacsha1 from 'crypto-js/hmac-sha1';
 let debug = require('debug')('app:models:user');
@@ -37,10 +36,6 @@ let UserModel = UserModel_1 = class UserModel extends __1.Model {
     static hashFromPassword(password) {
         return crypto_1.default.createHmac('sha1', __1.Settings.cryptoKey).update(password).digest('hex');
     }
-    static mint2HashFromPassword(password) {
-        let hash = bcrypt_1.default.hashSync(password, 8);
-        return hash;
-    }
     generateHash(password) {
         this.hash = UserModel_1.hashFromPassword(password);
         this.hashUpdateDate = moment_1.default().toDate();
@@ -60,31 +55,8 @@ let UserModel = UserModel_1 = class UserModel extends __1.Model {
         query.addQuery({ hash: UserModel_1.hashFromPassword(password.trim()) });
         return UserModel_1.getOneWithQuery(query.onlyQuery()).then((user) => {
             if (!user)
-                return UserModel_1.checkMintello2User(username, password.trim());
+                return false;
             return user;
-        });
-    }
-    static checkMintello2User(username, password) {
-        let query = new __1.Query({ email: username });
-        let user;
-        return UserModel_1.getOneWithQuery(query.onlyQuery()).then((u) => {
-            if (!u)
-                return false;
-            user = u;
-            if (user.hash.length === '966cfa2aa7626f872c6f985a3a73fa464d3088f8'.length) {
-                // check login using MD5 system (Mintello 1)
-                if (hmacsha1(password, 'd8c9a9245fd928afde5cb2b53e8882bba3f9e273').toString() === user.hash)
-                    return true;
-                return false;
-            }
-            else {
-                // check login using the bcrypt system (Mintello 2)
-                return bcrypt_1.default.compareSync(password, user.hash);
-            }
-        }).then((valid) => {
-            if (valid)
-                return user;
-            return false;
         });
     }
 };

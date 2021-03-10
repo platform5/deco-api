@@ -2,7 +2,6 @@ import { AppModel } from './../app/app.model';
 import { Policies, model, Model, type, io, query, validate, ObjectId, Settings, Query, UpdateQuery, mongo } from '../../';
 import crypto from 'crypto';
 import moment from 'moment';
-import bcrypt from 'bcrypt';
 const hmacsha1 = require('crypto-js/hmac-sha1');
 // import hmacsha1 from 'crypto-js/hmac-sha1';
 let debug = require('debug')('app:models:user');
@@ -98,11 +97,6 @@ export class UserModel extends Model {
     return crypto.createHmac('sha1', Settings.cryptoKey).update(password).digest('hex');
   }
 
-  static mint2HashFromPassword(password: string) {
-    let hash = bcrypt.hashSync(password, 8);
-    return hash;
-  }
-
   generateHash(password: string) {
     this.hash = UserModel.hashFromPassword(password);
     this.hashUpdateDate = moment().toDate();
@@ -124,30 +118,11 @@ export class UserModel extends Model {
     query.addQuery({hash: UserModel.hashFromPassword(password.trim())});
 
     return UserModel.getOneWithQuery(query.onlyQuery()).then((user) => {
-      if (!user) return UserModel.checkMintello2User(username, password.trim());
+      if (!user) return false;
       return user;
     });
   }
 
-  static checkMintello2User(username: string, password: string): Promise<UserModel | false> {
-    let query = new Query({email: username});
-    let user: UserModel;
-    return UserModel.getOneWithQuery(query.onlyQuery()).then((u): boolean => {
-      if (!u) return false;
-      user = u;
-      if(user.hash.length === '966cfa2aa7626f872c6f985a3a73fa464d3088f8'.length) {
-        // check login using MD5 system (Mintello 1)
-        if(hmacsha1(password, 'd8c9a9245fd928afde5cb2b53e8882bba3f9e273').toString() === user.hash) return true;
-        return false;
-      } else {
-        // check login using the bcrypt system (Mintello 2)
-        return bcrypt.compareSync(password, user.hash);
-      }
-    }).then((valid) => {
-      if (valid) return user;
-      return false;
-    });
-  }
 }
 
 // the following lines fixes the AppModel config of the appId property of the UserModel.
