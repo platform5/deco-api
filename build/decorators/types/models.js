@@ -23,6 +23,9 @@ exports.modelDecorator.optionsHook = (options, target, key) => {
     if (options.biDirectional && options.model !== 'self') {
         throw new Error('options.biDirectional is only supported on self relations');
     }
+    if (options.crossDirectional && options.model !== 'self') {
+        throw new Error('options.crossDirectional is only supported on self relations');
+    }
     if (options && options.model === 'self')
         options.model = target.constructor;
     return options;
@@ -179,6 +182,33 @@ exports.modelsDecorator.validate = (value, obj, options) => {
 exports.modelsDecorator.toDocument = (updateQuery, key, value, operation, options, element, target) => __awaiter(void 0, void 0, void 0, function* () {
     const newValue = Array.isArray(value) ? value : [];
     // const originalValue: ObjectId[] = Array.isArray(element[key]) ? element[key] : [];
+    if (options.crossDirectional) {
+        const model = options.model;
+        if (value === undefined) {
+            // remove this item from any relationship on this key
+            const query = {};
+            query[key] = element._id;
+            const pullQuery = Object.assign({}, query);
+            const currentRelatedModels = yield model.getAll(new query_1.Query(query));
+            yield model.deco.db.collection(model.deco.collectionName).updateMany({ _id: { $in: currentRelatedModels.map(i => i._id) } }, { $pull: pullQuery });
+        }
+        else if (Array.isArray(value)) {
+            // must fetch all related elements and check if we must add some more ids into the relation
+            const valuesString = value.map(v => v.toString());
+            const related = yield model.deco.db.collection(model.deco.collectionName).find({ _id: { $in: value } }).toArray();
+            for (const r of related) {
+                if (!valuesString.includes(r._id.toString())) {
+                    value.push(r._id);
+                }
+            }
+            // value is now a ObjectId[] with all valid relationships
+            const addQuery = {};
+            addQuery[key] = { $each: value };
+            yield model.deco.db.collection(model.deco.collectionName).updateMany({ _id: { $in: value } }, { $addToSet: addQuery });
+            // and remove all these values from any other documents that might be linked to it
+            yield model.deco.db.collection(model.deco.collectionName).updateMany({ _id: { $nin: value } }, { $pull: addQuery });
+        }
+    }
     if (value === undefined) {
         // no-value, unlink everything
         if (operation === 'insert') {
