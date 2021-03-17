@@ -965,7 +965,7 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
             return Promise.resolve(element);
         // here we know that we have a download request for a file property
         if (!element[prop])
-            return Promise.reject('File not found');
+            throw new Error('File not found');
         let typeDecorator = deco.propertyTypes[prop];
         let options = deco.propertyTypesOptions[prop];
         let propValue = element[prop];
@@ -1114,8 +1114,9 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
                 minWidth = dims[0] ? parseInt(dims[0], 10) : 0;
                 minHeight = dims[1] ? parseInt(dims[1], 10) : 0;
             }
-            if (typeof minWidth !== 'number' || typeof minHeight !== 'number' || isNaN(minWidth) || isNaN(minHeight))
-                return Promise.reject(new Error('Invalid preview request'));
+            if (typeof minWidth !== 'number' || typeof minHeight !== 'number' || isNaN(minWidth) || isNaN(minHeight)) {
+                throw new Error('Invalid preview request');
+            }
             // find the best possible preview
             let currentFilePreview = null;
             let currentFilePreviewSize = Infinity;
@@ -1136,7 +1137,7 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
             }
         }
         if (!fileSettings) {
-            return Promise.reject(new Error('Preview not found'));
+            throw new Error('Preview not found');
         }
         // let filename = fileSettings.originalname;
         // res.setHeader('Content-Type', fileSettings.mimetype);

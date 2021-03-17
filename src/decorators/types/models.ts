@@ -170,20 +170,38 @@ modelsDecorator.toDocument = async (updateQuery: UpdateQuery, key: string, value
       const currentRelatedModels = await model.getAll(new Query(query));
       await model.deco.db.collection(model.deco.collectionName).updateMany({_id: {$in: currentRelatedModels.map(i => i._id)}}, {$pull: pullQuery});
     } else if (Array.isArray(value)) {
+      // first thing: compare which relationships have been removed in this operation
+      // for this we compare between the value requested as new value and the
+      // currently stored value
+      const originalValue = element[`_original${key}`] || [];
+      const idsNotToAdd: string[] = originalValue.map((id: any) => id.toString());
       // must fetch all related elements and check if we must add some more ids into the relation
+      // for this we only query "new" elements that were not in the relationship before
+      // also we will not add any 
       const valuesString = value.map(v => v.toString());
-      const related = await model.deco.db.collection(model.deco.collectionName).find({_id: {$in: value}}).toArray();
+      const related = await model.deco.db.collection(model.deco.collectionName).find({_id: {$in: value, $nin: originalValue}}).toArray();
       for (const r of related) {
-        if (!valuesString.includes(r._id.toString())) {
-          value.push(r._id);
+        if (Array.isArray(r[key])) {
+          for (const rr of r[key])  {
+            if (!valuesString.includes(rr.toString()) && !idsNotToAdd.includes(rr.toString())) {
+              valuesString.push(rr.toString());
+              value.push(rr);
+            }
+          }
         }
       }
       // value is now a ObjectId[] with all valid relationships
-      const addQuery: any = {};
-      addQuery[key] = {$each: value};
-      await model.deco.db.collection(model.deco.collectionName).updateMany({_id: {$in: value}}, {$addToSet: addQuery});
+      if (!valuesString.includes(element._id.toString())) {
+        valuesString.push(element._id.toString());
+        value.push(element._id);
+      }
+      const setQuery: any = {};
+      setQuery[key] = value;
+      const unsetQuery: any = {};
+      unsetQuery[key] = [];
+      await model.deco.db.collection(model.deco.collectionName).updateMany({_id: {$in: value}}, {$set: setQuery});
       // and remove all these values from any other documents that might be linked to it
-      await model.deco.db.collection(model.deco.collectionName).updateMany({_id: {$nin: value}}, {$pull: addQuery});
+      await model.deco.db.collection(model.deco.collectionName).updateMany({_id: {$nin: value}}, {$set: unsetQuery});
     }
   }
 

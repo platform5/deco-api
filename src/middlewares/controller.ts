@@ -923,7 +923,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
         return this.prepareGetOneQuery(elementId, req, res, getOneOptions);
       }).then((query) => {
         return this.model.getOneWithQuery(query, getOneOptions);
-      }).then((element) => {
+      }).then((element: any): Promise<any> => {
         if (!element) return Promise.reject('Element not found');
         element.request = req;
         return this.getOneElement(element, req, res);
@@ -966,7 +966,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
 
     if (fileProperties.indexOf(prop) === -1) return Promise.resolve(element);
     // here we know that we have a download request for a file property
-    if (!(element as any)[prop]) return Promise.reject('File not found');
+    if (!(element as any)[prop]) throw new Error('File not found');
 
 
     let typeDecorator = deco.propertyTypes[prop];
@@ -1115,7 +1115,9 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
         minWidth = dims[0] ? parseInt(dims[0], 10) : 0;
         minHeight = dims[1] ? parseInt(dims[1], 10) : 0;
       }
-      if (typeof minWidth !== 'number' || typeof minHeight !== 'number' || isNaN(minWidth) || isNaN(minHeight)) return Promise.reject(new Error('Invalid preview request'));
+      if (typeof minWidth !== 'number' || typeof minHeight !== 'number' || isNaN(minWidth) || isNaN(minHeight)) {
+        throw new Error('Invalid preview request');
+      }
       // find the best possible preview
       let currentFilePreview: any = null;
       let currentFilePreviewSize: number = Infinity;
@@ -1135,7 +1137,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
       }
     }
     if (!fileSettings) {
-      return Promise.reject(new Error('Preview not found'));
+      throw new Error('Preview not found')
     }
     // let filename = fileSettings.originalname;
     // res.setHeader('Content-Type', fileSettings.mimetype);
@@ -1252,7 +1254,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
         return this.prepareGetOneQuery(elementId, req, res, getOneOptions);
       }).then((query) => {
         return this.model.getOneWithQuery(query, getOneOptions);
-      }).then((element) => {
+      }).then((element: any): Promise<any> => {
         if (!element) return Promise.reject('Element not found');
         element.request = req;
         return this.putElement(element, req, res);
@@ -1294,7 +1296,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
         return this.prepareGetOneQuery(elementId, req, res, getOneOptions);
       }).then((query) => {
         return this.model.getOneWithQuery(query, getOneOptions);
-      }).then((element) => {
+      }).then((element: any): Promise<any> => {
         if (!element) return Promise.reject('element not found');
         element.request = req;
         return this.deleteElement(element, req, res);

@@ -135,7 +135,7 @@ export class Model {
   static async getAll<T extends typeof Model>(this: T, query: Query | null = null, options?: GetAllOptions): Promise<Array<InstanceType<T>>> {
     let deco = (options && options.deco) ? options.deco : this.deco;
     if (query === null) query = new Query();
-    if (!datastore.db) return Promise.reject(new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)'));
+    if (!datastore.db) throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
     const cursor = deco.db.collection(deco.collectionName)
       .find(query.onlyQuery())
       .skip(query.onlySkip())
@@ -166,12 +166,12 @@ export class Model {
   }
 
   static getOneWithId<T extends typeof Model>(this: T, id: string | ObjectId, options?: GetOneOptions): Promise<InstanceType<T> | null> {
-    if (!datastore.db) return Promise.reject(new Error('[getOneWithId] Missing db (did you call the method before datastore.isReady() ?)'));
+    if (!datastore.db) throw new Error('[getOneWithId] Missing db (did you call the method before datastore.isReady() ?)');
     if (typeof id === 'string') {
       try {
         id = new ObjectId(id);
       } catch (error) {
-        return Promise.reject(new Error('Invalid id'));
+        throw new Error('Invalid id');
       }
     }
     let query = {_id: id};
@@ -180,7 +180,7 @@ export class Model {
 
   static getOneWithQuery<T extends typeof Model>(this: T, query: Query | any = {}, options?: GetOneOptions): Promise<InstanceType<T> | null> {
     let deco = (options && options.deco) ? options.deco : this.deco;
-    if (!datastore.db) return Promise.reject(new Error('[getOneWithQuery] Missing db (did you call the method before datastore.isReady() ?)'));
+    if (!datastore.db) throw new Error('[getOneWithQuery] Missing db (did you call the method before datastore.isReady() ?)');
     if (query instanceof Query) {
       query = query.onlyQuery();
     }
@@ -190,7 +190,7 @@ export class Model {
       if (options && options.deco) ifdOptions.deco = options.deco;
       if (documents.length) {
         promise = this.instanceFromDocument(documents[0], ifdOptions).then((element) => {
-          return element.canGetOne().then((authorized) => {
+          return element.canGetOne().then((authorized: any): Promise<any> => {
             if (!authorized) return Promise.reject(new Error('Access denied'));
             return Promise.resolve(element);
           });
@@ -211,7 +211,7 @@ export class Model {
   
   public async insert() { 
     if (!datastore.db) return Promise.reject(new Error('[insert] Missing db (did you call the method before datastore.isReady() ?)'));
-    return this.canInsert().then((authorized) =>{
+    return this.canInsert().then((authorized: any): Promise<any> =>{
       if (!authorized) return Promise.reject(new Error('Permission denied'));
       return this.toDocument('insert');
     }).then((documentToInsert): Promise<InsertOneWriteOpResult<any>> => {
@@ -241,11 +241,11 @@ export class Model {
     if (int !== quantity) {
       throw new Error('Quantity must be a postive integer');
     }    
-    if (!datastore.db) return Promise.reject(new Error('[insert] Missing db (did you call the method before datastore.isReady() ?)'));
+    if (!datastore.db) throw new Error('[insert] Missing db (did you call the method before datastore.isReady() ?)');
     return this.canInsert().then((authorized) =>{
-      if (!authorized) return Promise.reject(new Error('Permission denied'));
+      if (!authorized) throw new Error('Permission denied');
       return this.toDocument('insert');
-    }).then(async (documentToInsert): Promise<InsertWriteOpResult<any>> => {
+    }).then(async (documentToInsert: any): Promise<InsertWriteOpResult<any>> => {
       const doc = documentToInsert.getInsertDocument();
       const docs: any[] = [];
       for (let i = 0; i < quantity; i++) {
@@ -253,33 +253,33 @@ export class Model {
         docs[i]._id = new ObjectId();
       }
       return this.deco.db.collection(this.deco.collectionName).insertMany(docs, {forceServerObjectId: false});
-    }).then(async (result) => {
+    }).then(async (result: any) => {
       try {
         let document = result.ops;
         let ifdOptions: InstanceFromDocumentOptions = {};
         ifdOptions.deco = this.deco;
         if (this.model) {
-          return await Promise.all(document.map(async (doc) => {
+          return await Promise.all(document.map(async (doc: any) => {
             return await (this.model as typeof Model).instanceFromDocument(doc, ifdOptions);
           }));
         }
         throw new Error('this.model is missing in .insertMany()');
       } catch (error) {
-        return Promise.reject(error);
+        throw error;
       }
     });
   }
 
   public insertWithDocument<T extends Model>(this: T): Promise<T> {
-    if (!datastore.db) return Promise.reject(new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)'));
-    return Promise.reject(new Error('[insertWithDocument] Not implemented yet'))
+    if (!datastore.db) throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
+    throw new Error('[insertWithDocument] Not implemented yet')
     //return Promise.resolve(new Model);
   }
 
   public update<T extends Model>(this: T, properties: Array<string> = []): Promise<T> {
-    if (!datastore.db) return Promise.reject(new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)'));
+    if (!datastore.db) throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
     return this.canUpdate().then((authorized) =>{
-      if (!authorized) return Promise.reject(new Error('Permission denied'));
+      if (!authorized) throw new Error('Permission denied');
       return this.toDocument('update', properties);
     }).then((documentToUpdate) => {
       return this.deco.db.collection(this.deco.collectionName).findOneAndUpdate({_id: this._id}, documentToUpdate.getUpdateQuery(), {returnOriginal: false});
@@ -309,14 +309,14 @@ export class Model {
    * and only update keys that have been changed since
    */
   public smartUpdate<T extends Model>(this: T): Promise<T> {
-    return Promise.reject(new Error('[update] Not implemented yet'))
+    throw new Error('[update] Not implemented yet')
   }
 
   public remove(): Promise<boolean> {
-    if (!datastore.db) return Promise.reject(new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)'));
+    if (!datastore.db) throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
 
     return this.canRemove().then((authorized) =>{
-      if (!authorized) return Promise.reject(new Error('Permission denied'));
+      if (!authorized) throw new Error('Permission denied');
       return this.deco.db.collection(this.deco.collectionName).deleteOne({_id: this._id});
     }).then((result: DeleteWriteOpResultObject) => {
       if (result.result.ok) {
@@ -516,7 +516,7 @@ export class Model {
   }
 
   static instanceFromRequest<T extends typeof Model>(this: T, req: Request, res: Response): Promise<InstanceType <T>> {
-    if (!datastore.db) return Promise.reject(new Error('[instanceFromRequest] Missing db (did you call the method before datastore.isReady() ?)'));
+    if (!datastore.db) throw new Error('[instanceFromRequest] Missing db (did you call the method before datastore.isReady() ?)');
     
     // identify the constructor prototype to find out how the class has been decorated
     let deco = this.decoFromRequest(req, res);
@@ -564,7 +564,7 @@ export class Model {
     // update this._deco;
     // Object.getPrototypeOf(this)._deco = deco;
     this._deco = deco;
-    if (!deco.db) return Promise.reject(new Error('[updateInstanceFromRequest] Missing db (did you call the method before datastore.isReady() ?)'));
+    if (!deco.db) throw new Error('[updateInstanceFromRequest] Missing db (did you call the method before datastore.isReady() ?)');
   
     // keeping the request in the instance for further context use
     this.request = req;

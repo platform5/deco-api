@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./decorators"));
 __export(require("./helpers"));
 __export(require("./middlewares"));
-var mongodb_1 = require("mongodb");
+const mongodb_1 = require("mongodb");
 exports.ObjectId = mongodb_1.ObjectId;
 __export(require("./interfaces"));
 __export(require("./modules"));
