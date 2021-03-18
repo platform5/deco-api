@@ -162,7 +162,7 @@ modelsDecorator.toDocument = async (updateQuery: UpdateQuery, key: string, value
 
   if (options.crossDirectional) {
     const model = (options.model as typeof Model);
-    if (value === undefined) {
+    if (value === undefined || (Array.isArray(value) && value.length === 0)) {
       // remove this item from any relationship on this key
       const query: any = {};
       query[key] = element._id;

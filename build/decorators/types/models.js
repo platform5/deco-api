@@ -184,7 +184,7 @@ exports.modelsDecorator.toDocument = (updateQuery, key, value, operation, option
     // const originalValue: ObjectId[] = Array.isArray(element[key]) ? element[key] : [];
     if (options.crossDirectional) {
         const model = options.model;
-        if (value === undefined) {
+        if (value === undefined || (Array.isArray(value) && value.length === 0)) {
             // remove this item from any relationship on this key
             const query = {};
             query[key] = element._id;
