@@ -162,7 +162,7 @@ modelsDecorator.toDocument = async (updateQuery: UpdateQuery, key: string, value
 
   if (options.crossDirectional) {
     const model = (options.model as typeof Model);
-    if (value === undefined || (Array.isArray(value) && value.length === 0)) {
+    if (operation !== 'insert' && value === undefined || (Array.isArray(value) && value.length === 0)) {
       // remove this item from any relationship on this key
       const query: any = {};
       query[key] = element._id;
@@ -173,6 +173,9 @@ modelsDecorator.toDocument = async (updateQuery: UpdateQuery, key: string, value
       // first thing: compare which relationships have been removed in this operation
       // for this we compare between the value requested as new value and the
       // currently stored value
+      if (operation === 'insert' && !element._id) {
+        element._id = new ObjectId();
+      }
       const originalValue = element[`_original${key}`] || [];
       const idsNotToAdd: string[] = originalValue.map((id: any) => id.toString());
       // must fetch all related elements and check if we must add some more ids into the relation
@@ -202,6 +205,7 @@ modelsDecorator.toDocument = async (updateQuery: UpdateQuery, key: string, value
       await model.deco.db.collection(model.deco.collectionName).updateMany({_id: {$in: value}}, {$set: setQuery});
       // and remove all these values from any other documents that might be linked to it
       await model.deco.db.collection(model.deco.collectionName).updateMany({_id: {$nin: value}}, {$set: unsetQuery});
+      updateQuery.set(key, value);
     }
   }
 

@@ -184,7 +184,7 @@ exports.modelsDecorator.toDocument = (updateQuery, key, value, operation, option
     // const originalValue: ObjectId[] = Array.isArray(element[key]) ? element[key] : [];
     if (options.crossDirectional) {
         const model = options.model;
-        if (value === undefined || (Array.isArray(value) && value.length === 0)) {
+        if (operation !== 'insert' && value === undefined || (Array.isArray(value) && value.length === 0)) {
             // remove this item from any relationship on this key
             const query = {};
             query[key] = element._id;
@@ -196,6 +196,9 @@ exports.modelsDecorator.toDocument = (updateQuery, key, value, operation, option
             // first thing: compare which relationships have been removed in this operation
             // for this we compare between the value requested as new value and the
             // currently stored value
+            if (operation === 'insert' && !element._id) {
+                element._id = new mongodb_1.ObjectId();
+            }
             const originalValue = element[`_original${key}`] || [];
             const idsNotToAdd = originalValue.map((id) => id.toString());
             // must fetch all related elements and check if we must add some more ids into the relation
@@ -225,6 +228,7 @@ exports.modelsDecorator.toDocument = (updateQuery, key, value, operation, option
             yield model.deco.db.collection(model.deco.collectionName).updateMany({ _id: { $in: value } }, { $set: setQuery });
             // and remove all these values from any other documents that might be linked to it
             yield model.deco.db.collection(model.deco.collectionName).updateMany({ _id: { $nin: value } }, { $set: unsetQuery });
+            updateQuery.set(key, value);
         }
     }
     if (value === undefined) {
