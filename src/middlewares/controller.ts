@@ -881,7 +881,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
             }
           }
         }
-        return this.model.getAll(_query, modelOptions);
+        return this.model.getAll(_query, modelOptions, req, res);
       }).then((elements) => {
         for (let element of elements) {
           element.request = req;
