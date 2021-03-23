@@ -136,44 +136,35 @@ export class Model {
     let deco = (options && options.deco) ? options.deco : this.deco;
     if (query === null) query = new Query();
     if (!datastore.db) throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
-    const {cursor, count} = await this.getAllCursorAndcount(query, deco, req, res);
-    // const cursor = deco.db.collection(deco.collectionName)
-    //   .find(query.onlyQuery())
-    //   .skip(query.onlySkip())
-    //   .limit(query.onlyLimit())
-    //   .sort(query.onlySort());
-    // const count = cursor.count();
-    return cursor  
-      .toArray()
-      .then(async (documents: Array<any>) => {
-      let promises = [];
-      let ifdOptions: InstanceFromDocumentOptions = {};
-      if (options && options.deco) ifdOptions.deco = options.deco;
-      if (documents.length) {
-        for (let document of documents) {
-          promises.push(this.instanceFromDocument(document, ifdOptions));
-        }
-        const elements = await Promise.all(promises);
-        if (options && options.addCountInKey) {
-          const countValue = count;
-          for (let element of elements) {
-            element.set(options.addCountInKey, countValue);
-          }
-        }
-        return elements;
+    const {documents, count} = await this.getDocumentsAndcount(query, deco, req, res);
+    
+    let promises = [];
+    let ifdOptions: InstanceFromDocumentOptions = {};
+    if (options && options.deco) ifdOptions.deco = options.deco;
+    if (documents.length) {
+      for (let document of documents) {
+        promises.push(this.instanceFromDocument(document, ifdOptions));
       }
-      return Promise.resolve([]);
-    });
+      const elements = await Promise.all(promises);
+      if (options && options.addCountInKey) {
+        const countValue = count;
+        for (let element of elements) {
+          element.set(options.addCountInKey, countValue);
+        }
+      }
+      return elements;
+    }
+    return Promise.resolve([]);
   }
 
-  static async getAllCursorAndcount(query: Query, deco: Deco, req?: Request, res?: Response): Promise<{cursor: Cursor<any> | AggregationCursor<any>, count: number}> {  
+  static async getDocumentsAndcount(query: Query, deco: Deco, req?: Request, res?: Response): Promise<{documents: any[], count: number}> {  
     const cursor = deco.db.collection(deco.collectionName)
       .find(query.onlyQuery())
       .skip(query.onlySkip())
       .limit(query.onlyLimit())
       .sort(query.onlySort());
     const count = await cursor.count();
-    return {cursor, count};
+    return {documents: (await cursor.toArray()), count};
   }
 
   static getOneWithId<T extends typeof Model>(this: T, id: string | ObjectId, options?: GetOneOptions): Promise<InstanceType<T> | null> {

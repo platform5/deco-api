@@ -85,38 +85,28 @@ class Model {
                 query = new query_1.Query();
             if (!datastore_1.datastore.db)
                 throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
-            const { cursor, count } = yield this.getAllCursorAndcount(query, deco, req, res);
-            // const cursor = deco.db.collection(deco.collectionName)
-            //   .find(query.onlyQuery())
-            //   .skip(query.onlySkip())
-            //   .limit(query.onlyLimit())
-            //   .sort(query.onlySort());
-            // const count = cursor.count();
-            return cursor
-                .toArray()
-                .then((documents) => __awaiter(this, void 0, void 0, function* () {
-                let promises = [];
-                let ifdOptions = {};
-                if (options && options.deco)
-                    ifdOptions.deco = options.deco;
-                if (documents.length) {
-                    for (let document of documents) {
-                        promises.push(this.instanceFromDocument(document, ifdOptions));
-                    }
-                    const elements = yield Promise.all(promises);
-                    if (options && options.addCountInKey) {
-                        const countValue = count;
-                        for (let element of elements) {
-                            element.set(options.addCountInKey, countValue);
-                        }
-                    }
-                    return elements;
+            const { documents, count } = yield this.getDocumentsAndcount(query, deco, req, res);
+            let promises = [];
+            let ifdOptions = {};
+            if (options && options.deco)
+                ifdOptions.deco = options.deco;
+            if (documents.length) {
+                for (let document of documents) {
+                    promises.push(this.instanceFromDocument(document, ifdOptions));
                 }
-                return Promise.resolve([]);
-            }));
+                const elements = yield Promise.all(promises);
+                if (options && options.addCountInKey) {
+                    const countValue = count;
+                    for (let element of elements) {
+                        element.set(options.addCountInKey, countValue);
+                    }
+                }
+                return elements;
+            }
+            return Promise.resolve([]);
         });
     }
-    static getAllCursorAndcount(query, deco, req, res) {
+    static getDocumentsAndcount(query, deco, req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const cursor = deco.db.collection(deco.collectionName)
                 .find(query.onlyQuery())
@@ -124,7 +114,7 @@ class Model {
                 .limit(query.onlyLimit())
                 .sort(query.onlySort());
             const count = yield cursor.count();
-            return { cursor, count };
+            return { documents: (yield cursor.toArray()), count };
         });
     }
     static getOneWithId(id, options) {

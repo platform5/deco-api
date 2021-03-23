@@ -1,6 +1,6 @@
 import { UpdateQuery } from './../helpers/update-query';
 import { Query } from './../helpers/query';
-import { Db, ObjectId, Cursor, AggregationCursor } from 'mongodb';
+import { Db, ObjectId } from 'mongodb';
 import { Request, Response } from 'express';
 import { Deco } from '../interfaces/deco';
 export declare type ModelOperation = 'getAll' | 'getOne' | 'post' | 'put' | 'delete';
@@ -40,8 +40,8 @@ export declare class Model {
     get deco(): Deco;
     static getDecoProperties(deco: Deco, type?: string | Array<string>): string[];
     static getAll<T extends typeof Model>(this: T, query?: Query | null, options?: GetAllOptions, req?: Request, res?: Response): Promise<Array<InstanceType<T>>>;
-    static getAllCursorAndcount(query: Query, deco: Deco, req?: Request, res?: Response): Promise<{
-        cursor: Cursor<any> | AggregationCursor<any>;
+    static getDocumentsAndcount(query: Query, deco: Deco, req?: Request, res?: Response): Promise<{
+        documents: any[];
         count: number;
     }>;
     static getOneWithId<T extends typeof Model>(this: T, id: string | ObjectId, options?: GetOneOptions): Promise<InstanceType<T> | null>;
