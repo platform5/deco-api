@@ -3,7 +3,7 @@ import { UpdateQuery } from './../helpers/update-query';
 import { Query } from './../helpers/query';
 import { datastore } from '../helpers/datastore';
 import { TypeDecorator } from './types/index';
-import { Db, ObjectId, InsertOneWriteOpResult,  InsertWriteOpResult, FindAndModifyWriteOpResultObject, DeleteWriteOpResultObject } from 'mongodb';
+import { Db, ObjectId, Cursor, AggregationCursor, InsertOneWriteOpResult,  InsertWriteOpResult, FindAndModifyWriteOpResultObject, DeleteWriteOpResultObject } from 'mongodb';
 import { Request, Response } from 'express';
 import { Deco } from '../interfaces/deco';
 import moment from 'moment';
@@ -136,12 +136,13 @@ export class Model {
     let deco = (options && options.deco) ? options.deco : this.deco;
     if (query === null) query = new Query();
     if (!datastore.db) throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
-    const cursor = deco.db.collection(deco.collectionName)
-      .find(query.onlyQuery())
-      .skip(query.onlySkip())
-      .limit(query.onlyLimit())
-      .sort(query.onlySort());
-    const count = cursor.count();
+    const {cursor, count} = await this.getAllCursorAndcount(query, deco);
+    // const cursor = deco.db.collection(deco.collectionName)
+    //   .find(query.onlyQuery())
+    //   .skip(query.onlySkip())
+    //   .limit(query.onlyLimit())
+    //   .sort(query.onlySort());
+    // const count = cursor.count();
     return cursor  
       .toArray()
       .then(async (documents: Array<any>) => {
@@ -154,7 +155,7 @@ export class Model {
         }
         const elements = await Promise.all(promises);
         if (options && options.addCountInKey) {
-          const countValue = await count;
+          const countValue = count;
           for (let element of elements) {
             element.set(options.addCountInKey, countValue);
           }
@@ -163,6 +164,16 @@ export class Model {
       }
       return Promise.resolve([]);
     });
+  }
+
+  static async getAllCursorAndcount(query: Query, deco: Deco): Promise<{cursor: Cursor<any> | AggregationCursor<any>, count: number}> {  
+    const cursor = deco.db.collection(deco.collectionName)
+      .find(query.onlyQuery())
+      .skip(query.onlySkip())
+      .limit(query.onlyLimit())
+      .sort(query.onlySort());
+    const count = await cursor.count();
+    return {cursor, count};
   }
 
   static getOneWithId<T extends typeof Model>(this: T, id: string | ObjectId, options?: GetOneOptions): Promise<InstanceType<T> | null> {

@@ -85,12 +85,13 @@ class Model {
                 query = new query_1.Query();
             if (!datastore_1.datastore.db)
                 throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
-            const cursor = deco.db.collection(deco.collectionName)
-                .find(query.onlyQuery())
-                .skip(query.onlySkip())
-                .limit(query.onlyLimit())
-                .sort(query.onlySort());
-            const count = cursor.count();
+            const { cursor, count } = yield this.getAllCursorAndcount(query, deco);
+            // const cursor = deco.db.collection(deco.collectionName)
+            //   .find(query.onlyQuery())
+            //   .skip(query.onlySkip())
+            //   .limit(query.onlyLimit())
+            //   .sort(query.onlySort());
+            // const count = cursor.count();
             return cursor
                 .toArray()
                 .then((documents) => __awaiter(this, void 0, void 0, function* () {
@@ -104,7 +105,7 @@ class Model {
                     }
                     const elements = yield Promise.all(promises);
                     if (options && options.addCountInKey) {
-                        const countValue = yield count;
+                        const countValue = count;
                         for (let element of elements) {
                             element.set(options.addCountInKey, countValue);
                         }
@@ -113,6 +114,17 @@ class Model {
                 }
                 return Promise.resolve([]);
             }));
+        });
+    }
+    static getAllCursorAndcount(query, deco) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const cursor = deco.db.collection(deco.collectionName)
+                .find(query.onlyQuery())
+                .skip(query.onlySkip())
+                .limit(query.onlyLimit())
+                .sort(query.onlySort());
+            const count = yield cursor.count();
+            return { cursor, count };
         });
     }
     static getOneWithId(id, options) {
