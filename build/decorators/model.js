@@ -78,14 +78,14 @@ class Model {
         }
         return properties;
     }
-    static getAll(query = null, options) {
+    static getAll(query = null, options, req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let deco = (options && options.deco) ? options.deco : this.deco;
             if (query === null)
                 query = new query_1.Query();
             if (!datastore_1.datastore.db)
                 throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
-            const { cursor, count } = yield this.getAllCursorAndcount(query, deco);
+            const { cursor, count } = yield this.getAllCursorAndcount(query, deco, req, res);
             // const cursor = deco.db.collection(deco.collectionName)
             //   .find(query.onlyQuery())
             //   .skip(query.onlySkip())
@@ -116,7 +116,7 @@ class Model {
             }));
         });
     }
-    static getAllCursorAndcount(query, deco) {
+    static getAllCursorAndcount(query, deco, req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const cursor = deco.db.collection(deco.collectionName)
                 .find(query.onlyQuery())

@@ -39,8 +39,8 @@ export declare class Model {
     static get deco(): Deco;
     get deco(): Deco;
     static getDecoProperties(deco: Deco, type?: string | Array<string>): string[];
-    static getAll<T extends typeof Model>(this: T, query?: Query | null, options?: GetAllOptions): Promise<Array<InstanceType<T>>>;
-    static getAllCursorAndcount(query: Query, deco: Deco): Promise<{
+    static getAll<T extends typeof Model>(this: T, query?: Query | null, options?: GetAllOptions, req?: Request, res?: Response): Promise<Array<InstanceType<T>>>;
+    static getAllCursorAndcount(query: Query, deco: Deco, req?: Request, res?: Response): Promise<{
         cursor: Cursor<any> | AggregationCursor<any>;
         count: number;
     }>;

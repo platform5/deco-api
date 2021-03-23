@@ -132,11 +132,11 @@ export class Model {
     return properties;
   }
 
-  static async getAll<T extends typeof Model>(this: T, query: Query | null = null, options?: GetAllOptions): Promise<Array<InstanceType<T>>> {
+  static async getAll<T extends typeof Model>(this: T, query: Query | null = null, options?: GetAllOptions, req?: Request, res?: Response): Promise<Array<InstanceType<T>>> {
     let deco = (options && options.deco) ? options.deco : this.deco;
     if (query === null) query = new Query();
     if (!datastore.db) throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
-    const {cursor, count} = await this.getAllCursorAndcount(query, deco);
+    const {cursor, count} = await this.getAllCursorAndcount(query, deco, req, res);
     // const cursor = deco.db.collection(deco.collectionName)
     //   .find(query.onlyQuery())
     //   .skip(query.onlySkip())
@@ -166,7 +166,7 @@ export class Model {
     });
   }
 
-  static async getAllCursorAndcount(query: Query, deco: Deco): Promise<{cursor: Cursor<any> | AggregationCursor<any>, count: number}> {  
+  static async getAllCursorAndcount(query: Query, deco: Deco, req?: Request, res?: Response): Promise<{cursor: Cursor<any> | AggregationCursor<any>, count: number}> {  
     const cursor = deco.db.collection(deco.collectionName)
       .find(query.onlyQuery())
       .skip(query.onlySkip())
