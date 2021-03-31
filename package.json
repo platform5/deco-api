@@ -52,7 +52,8 @@
     "smsapicom": "^1.5.1",
     "traverse": "^0.6.6",
     "traverse-async": "^0.1.6",
-    "typescript": "^3.0.0"
+    "typedoc": "^0.20.34",
+    "typescript": "^3.9.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.0",
