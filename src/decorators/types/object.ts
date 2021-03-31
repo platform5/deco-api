@@ -47,7 +47,9 @@ export let validateObject = async (value: any, options: any) => {
     // validate required fields
     for (let key of Object.keys(options.keys)) {
       let keySettings = options.keys[key];
-      if (keySettings.required === true && value[key] === undefined) return false;
+      if (keySettings.required === true && value[key] === undefined) {
+        debug('missing required key', key, '; value: ', value);
+      }
     }
 
     for (let key of Object.keys(value)) {
