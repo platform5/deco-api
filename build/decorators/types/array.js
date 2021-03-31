@@ -60,22 +60,43 @@ exports.arrayDecorator.input = (key, value, options, target) => {
 exports.validateArray = (value, options) => __awaiter(void 0, void 0, void 0, function* () {
     if (value === null || value === undefined)
         return true;
-    if (!Array.isArray(value))
+    if (!Array.isArray(value)) {
+        debug('is not an array', value);
         return false;
+    }
     if (options && options.type) {
-        for (let item of value) {
-            if (options.type === 'string' && !basics_2.validateString(item))
+        for (let index in value) {
+            const item = value[index];
+            if (options.type === 'string' && !basics_2.validateString(item)) {
+                debug('Invalid item', index, '; should be ', options.type, '; is:', item);
                 return false;
-            if (options.type === 'integer' && !basics_2.validateInteger(item))
+            }
+            ;
+            if (options.type === 'integer' && !basics_2.validateInteger(item)) {
+                debug('Invalid item', index, 'should be ', options.type, '; is:', item);
                 return false;
-            if (options.type === 'float' && !basics_2.validateFloat(item))
+            }
+            ;
+            if (options.type === 'float' && !basics_2.validateFloat(item)) {
+                debug('Invalid item', index, 'should be ', options.type, '; is:', item);
                 return false;
-            if (options.type === 'boolean' && !basics_2.validateBoolean(item))
+            }
+            ;
+            if (options.type === 'boolean' && !basics_2.validateBoolean(item)) {
+                debug('Invalid item', index, 'should be ', options.type, '; is:', item);
                 return false;
-            if (options.type === 'date' && !basics_2.validateDate(item))
+            }
+            ;
+            if (options.type === 'date' && !basics_2.validateDate(item)) {
+                debug('Invalid item', index, 'should be ', options.type, '; is:', item);
                 return false;
-            if (options.type === 'object' && options.options && !(yield object_1.validateObject(item, options.options)))
+            }
+            ;
+            if (options.type === 'object' && options.options && !(yield object_1.validateObject(item, options.options))) {
+                debug('Invalid item', index, 'should be ', options.type, '; is:', item);
                 return false;
+            }
+            ;
         }
     }
     return true;

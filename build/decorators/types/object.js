@@ -58,8 +58,10 @@ exports.inputObject = (value, options) => {
 exports.validateObject = (value, options) => __awaiter(void 0, void 0, void 0, function* () {
     if (value === null || value === undefined)
         return true;
-    if (typeof value !== 'object')
+    if (typeof value !== 'object') {
+        debug('is not an object', value);
         return false;
+    }
     if (options && options.keys) {
         let allowOtherKeys = (options.allowOtherKeys === true);
         // validate required fields
@@ -70,26 +72,52 @@ exports.validateObject = (value, options) => __awaiter(void 0, void 0, void 0, f
         }
         for (let key of Object.keys(value)) {
             let keySettings = options.keys[key];
-            if (!keySettings && !allowOtherKeys)
+            if (!keySettings && !allowOtherKeys) {
+                debug('other key not allowed', key);
                 return false;
+            }
             if (!keySettings)
                 continue;
-            if (keySettings.type === 'string' && !basics_2.validateString(value[key]))
+            if (keySettings.type === 'string' && !basics_2.validateString(value[key])) {
+                debug('Invalid key', key, '; should be ', keySettings.type, '; is:', value[key]);
                 return false;
-            if (keySettings.type === 'integer' && !basics_2.validateInteger(value[key]))
+            }
+            ;
+            if (keySettings.type === 'integer' && !basics_2.validateInteger(value[key])) {
+                debug('Invalid key', key, '; should be ', keySettings.type, '; is:', value[key]);
                 return false;
-            if (keySettings.type === 'float' && !basics_2.validateFloat(value[key]))
+            }
+            ;
+            if (keySettings.type === 'float' && !basics_2.validateFloat(value[key])) {
+                debug('Invalid key', key, '; should be ', keySettings.type, '; is:', value[key]);
                 return false;
-            if (keySettings.type === 'boolean' && !basics_2.validateBoolean(value[key]))
+            }
+            ;
+            if (keySettings.type === 'boolean' && !basics_2.validateBoolean(value[key])) {
+                debug('Invalid key', key, '; should be ', keySettings.type, '; is:', value[key]);
                 return false;
-            if (keySettings.type === 'date' && !basics_2.validateDate(value[key]))
+            }
+            ;
+            if (keySettings.type === 'date' && !basics_2.validateDate(value[key])) {
+                debug('Invalid key', key, '; should be ', keySettings.type, '; is:', value[key]);
                 return false;
-            if (keySettings.type === 'array' && !(yield array_1.validateArray(value[key], keySettings.options)))
+            }
+            ;
+            if (keySettings.type === 'array' && !(yield array_1.validateArray(value[key], keySettings.options))) {
+                debug('Invalid key', key, '; should be ', keySettings.type, '; is:', value[key]);
                 return false;
-            if (keySettings.type === 'model' && !(yield models_1.validateModel(value[key], keySettings.options)))
+            }
+            ;
+            if (keySettings.type === 'model' && !(yield models_1.validateModel(value[key], keySettings.options))) {
+                debug('Invalid key', key, '; should be ', keySettings.type, '; is:', value[key]);
                 return false;
-            if (keySettings.type === 'models' && !(yield models_1.validateModels(value[key], keySettings.options)))
+            }
+            ;
+            if (keySettings.type === 'models' && !(yield models_1.validateModels(value[key], keySettings.options))) {
+                debug('Invalid key', key, '; should be ', keySettings.type, '; is:', value[key]);
                 return false;
+            }
+            ;
         }
     }
     return true;

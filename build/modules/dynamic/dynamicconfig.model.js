@@ -83,7 +83,7 @@ __decorate([
                 options: { type: 'any' },
                 required: { type: 'boolean' },
                 type: { type: 'string' },
-                validation: { type: 'array', options: { type: 'ane' } },
+                validation: { type: 'array', options: { type: 'any' } },
                 filterable: { type: 'string' },
                 searchable: { type: 'boolean' },
                 sortable: { type: 'boolean' },
