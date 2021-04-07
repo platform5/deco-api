@@ -242,6 +242,7 @@ exports.validateDate = (value, dateFormat) => {
         // in which case we suppose a ISO format
         const date = dateFormat ? moment_1.default(value, dateFormat) : date_1.DateHelper.moment(value);
         if (!date || !date.isValid()) {
+            debug('invalid date', value, '; dateFormat: ', dateFormat);
             return false;
         }
         value = date.toDate();

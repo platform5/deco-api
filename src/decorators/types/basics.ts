@@ -207,6 +207,7 @@ export let validateDate = (value: any, dateFormat?: string) => {
     // in which case we suppose a ISO format
     const date = dateFormat ? moment(value, dateFormat) : DateHelper.moment(value);
     if (!date || !date.isValid()) {
+      debug('invalid date', value, '; dateFormat: ', dateFormat);
       return false;
     }
     value = date.toDate();
