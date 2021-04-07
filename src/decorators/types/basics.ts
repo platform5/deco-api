@@ -1,6 +1,7 @@
 import { TypeDecorator } from './type-decorator';
 import moment from 'moment';
 import { Settings } from '../../helpers/settings';
+import { DateHelper } from '../../helpers/date';
 let debug = require('debug')('deco-api:decorators:types:basics');
 
 export let anyDecorator = new TypeDecorator('any');
@@ -198,14 +199,17 @@ export let inputDate = (value: any, dateFormat = Settings.defaultDateFormat) => 
   }
   return value;
 };
-export let validateDate = (value: any) => {
+export let validateDate = (value: any, dateFormat?: string) => {
   if (typeof value === 'string') {
     // we do this string test / convert here because
     // the validateDate can be called from an array or object validator
     // which did not pass through the inputDate()
     // in which case we suppose a ISO format
-    let date = moment(value);
-    if (date.isValid()) value = date.toDate();
+    const date = dateFormat ? moment(value, dateFormat) : DateHelper.moment(value);
+    if (!date || !date.isValid()) {
+      return false;
+    }
+    value = date.toDate();
   }
   return value === null || value === undefined || value instanceof Date
 };
@@ -225,7 +229,8 @@ dateDecorator.output = (key: string, value: any, options: any, element: any, tar
   return Promise.resolve(value);
 };
 dateDecorator.validate = (value: any, obj: any, options: any) => {
-  return validateDate(value);
+  let dateFormat = options.dateFormat || undefined;
+  return validateDate(value, dateFormat);
 };
 export const date = dateDecorator.decorator();
 

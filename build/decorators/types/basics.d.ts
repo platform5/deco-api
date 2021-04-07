@@ -18,7 +18,7 @@ export declare let validateBoolean: (value: any) => boolean;
 export declare let booleanDecorator: TypeDecorator;
 export declare const boolean: (optionsOrTarget?: any, key?: string | undefined, descriptor?: PropertyDescriptor | undefined) => any;
 export declare let inputDate: (value: any, dateFormat?: string) => any;
-export declare let validateDate: (value: any) => boolean;
+export declare let validateDate: (value: any, dateFormat?: string | undefined) => boolean;
 export declare let dateDecorator: TypeDecorator;
 export declare const date: (optionsOrTarget?: any, key?: string | undefined, descriptor?: PropertyDescriptor | undefined) => any;
 export declare let inputFloat: (value: any) => any;

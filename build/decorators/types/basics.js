@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const type_decorator_1 = require("./type-decorator");
 const moment_1 = __importDefault(require("moment"));
 const settings_1 = require("../../helpers/settings");
+const date_1 = require("../../helpers/date");
 let debug = require('debug')('deco-api:decorators:types:basics');
 exports.anyDecorator = new type_decorator_1.TypeDecorator('any');
 exports.any = exports.anyDecorator.decorator();
@@ -233,15 +234,17 @@ exports.inputDate = (value, dateFormat = settings_1.Settings.defaultDateFormat) 
     }
     return value;
 };
-exports.validateDate = (value) => {
+exports.validateDate = (value, dateFormat) => {
     if (typeof value === 'string') {
         // we do this string test / convert here because
         // the validateDate can be called from an array or object validator
         // which did not pass through the inputDate()
         // in which case we suppose a ISO format
-        let date = moment_1.default(value);
-        if (date.isValid())
-            value = date.toDate();
+        const date = dateFormat ? moment_1.default(value, dateFormat) : date_1.DateHelper.moment(value);
+        if (!date || !date.isValid()) {
+            return false;
+        }
+        value = date.toDate();
     }
     return value === null || value === undefined || value instanceof Date;
 };
@@ -261,7 +264,8 @@ exports.dateDecorator.output = (key, value, options, element, target) => {
     return Promise.resolve(value);
 };
 exports.dateDecorator.validate = (value, obj, options) => {
-    return exports.validateDate(value);
+    let dateFormat = options.dateFormat || undefined;
+    return exports.validateDate(value, dateFormat);
 };
 exports.date = exports.dateDecorator.decorator();
 exports.inputFloat = (value) => {
