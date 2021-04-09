@@ -257,6 +257,7 @@ export class MembersController {
             throw new Error('This role do not already exists, please use a POST request')
           }
           instance.roles[req.params.role] = req.body.actions;
+          await instance.update(['roles']);
           resolve(null);
         } catch (error) {
           reject(error);
