@@ -3,13 +3,13 @@
 
 ## Développement
 
-Le package `deco-api` est destiné à être utilisé dans une application maîtresse. Dès lors, pour développer le package `deco-api` il est idéal d'en avoir une copie résidant dans l'application maîtresse afin de pouvoir utiliser les outils de débogage conventionnels.
+Le package `deco-api` est destiné à être utilisé dans une application maitresse. Dès lors, pour développer le package `deco-api` il est idéal d'en avoir une copie résidant dans l'application maitresse afin de pouvoir utiliser les outils de débogage conventionnels.
 
 Pour cela, voici quelques conseils à suivre:
 
 ### Importer le package via un fichier proxy
 
-Créer dans l'application maîtresse un fichier `deco-api-proxy.ts` et placer le contenu suivant avec le contenu suivant:
+Créer dans l'application maitresse un fichier `deco-api-proxy.ts` et placer le contenu suivant avec le contenu suivant:
 
 ```ts
 export * from 'deco-api';
@@ -17,11 +17,11 @@ export * from 'deco-api';
 
 Ensuite, dans l'application, au lieu d'écrire `import { Deco } from 'deco-api'`, l'astuce est d'écrire `import { Deco } from './deco-api-proxy';`. Cela aura pour effet que chaque importation passe par le fichier proxy au lieu de directement importer le paquet dépendant.
 
-Une fois ce proxy en place, on peut l'utiliser pour *activer* un mode debug lorsque c'est nécessaire.
+Une fois, ce proxy en place, on peut l'utiliser pour *activer* un mode debug lorsque c'est nécessaire.
 
 ### Utiliser une version locale (copiée du package)
 
-Tout d'abord il convient de copier une version locale du package `deco-api` dans l'application maîtresse. Supposons donc une application avec l'arborescence suivante:
+Tout d'abord, il convient de copier une version locale du package `deco-api` dans l'application maitresse. Supposons donc une application avec l'arborescence suivante:
 
 ```
 /build
@@ -50,7 +50,7 @@ Une fois cette modification effectuée l'application utilisera la version locale
 
 ### Valider les changements dans le dossier package original
 
-Il s'agit tout simplement de recopier le code modifier dans le package original:
+Il s'agit tout simplement de recopier le code modifié dans le package original:
 
 ```sh
 rm ./app/deco-api/.gitignore
@@ -137,13 +137,13 @@ export class ProductModel extends Model {
 }
 ```
 
-Pour décorer une propriété on a plusieurs catégories de décorateurs à notre disposition:
+Pour décorer une propriété, on a plusieurs catégories de décorateurs à notre disposition:
 
-1. `@type.` sont les décorateurs de type. Les types de base fournis par `deco-api` sont: `id`, `string`, `select`, `integer`, `float`, `date`, `boolean`, `array`, `files`, `geojson`, `increment-by-app`, `increment`, `metadata`, `model`, `models`, `object`, `random`
+1. `@type.` sont les décorateurs de type. Les types de bases fournis par `deco-api` sont: `id`, `string`, `select`, `integer`, `float`, `date`, `boolean`, `array`, `files`, `geojson`, `increment-by-app`, `increment`, `metadata`, `model`, `models`, `object`, `random`
 2. `@io.` sont les décorateurs qui définissent la façon dont la propriété est traitée dans le flux d'une requête. Les possibilités sont: 
     1. `@io.input` qui indique qu'il est possible de modifier la valeur de cette propriété via des requêtes POST ou PUT
     2. `@io.output`  qui indique que cette propriété est renvoyée par l'API lors de l'appel à ce modèle
-    3. `@io.toDocument` qui indique que cette propriété doit être persistée dans la base de données
+    3. `@io.toDocument` qui indique que cette propriété doit être persistante dans la base de données
     4. `@io.all` qui est un raccourci pour décrire les 3 décorateurs ci-dessus comme il est souvent souhaité d'avoir la combinaison des trois fonctions
 3. `@validate.` pour indiquer des critères requis pour la validation de la donnée. Il s'agit de:
     1. `@validate.required`
