@@ -165,12 +165,12 @@ Pour commencer nous allons créer un controller basic permettant de faire des re
 ```ts 
 
 import { ProductModel } from './product.model';
-import { AppMiddleware, AuthMiddleware, ControllerMiddelware } from '../deco-api-proxy';
+import { AppMiddleware, AuthMiddleware, ControllerMiddleware } from '../deco-api-proxy';
 import { Router, Request, Response, NextFunction } from 'express';
 
 const router: Router = Router();
 
-let controller = new ControllerMiddelware(ProductModel);
+let controller = new ControllerMiddleware(ProductModel);
 
 // This first block create a GET / route that return *all* elements in this model
 // the AppMiddleware.fetchWithPublicKey is a middleware that forces the request to filter elements in the current app (via the apiKey)
@@ -192,7 +192,7 @@ router.get(
   ControllerMiddleware.getOneRoute(),
   AppMiddleware.fetchWithPublicKey,
   AuthMiddleware.authenticateWithoutError,
-  mdController.getOne()
+  controller.getOne()
 );
 
 // This block create a POST / route to create a new element
@@ -203,7 +203,7 @@ router.post(
   ControllerMiddleware.postRoute(),
   AppMiddleware.fetchWithPublicKey,
   AuthMiddleware.authenticate,
-  mdController.post()
+  controller.post()
 );
 
 // This block create a PUT /:elementId route to edit an existing element
@@ -213,7 +213,7 @@ router.put(
   ControllerMiddleware.putRoute(),
   AppMiddleware.fetchWithPublicKey,
   AuthMiddleware.authenticate,
-  mdController.put()
+  controller.put()
 );
 
 // This block create a PUT /:elementId route to edit an existing element
@@ -223,7 +223,7 @@ router.delete(
   ControllerMiddleware.deleteRoute(),
   AppMiddleware.fetchWithPublicKey,
   AuthMiddleware.authenticate,
-  mdController.delete()
+  controller.delete()
 );
 
 export const ProductController: Router = router;
