@@ -3,7 +3,7 @@ import { AuthMiddleware } from './../user/auth.middleware';
 import { AppMiddleware } from './../app/app.middleware';
 import { DicoControllerMiddleware } from './dico.middleware.controller';
 import { Router, Request, Response, NextFunction } from 'express';
-import { ControllerMiddleware, Query,  ObjectId } from '../../';
+import { ControllerMiddleware, Query,  ObjectId } from '../../';
 let debug = require('debug')('app:controller:dico');
 
 const router: Router = Router();
@@ -47,7 +47,7 @@ router.get('/init-translation-memory-for-app/:appId', (req: Request, res: Respon
       result.migrated = 0;
       for (let element of appDicoElements) {
         const key = element.key;
-        if (!isGlobalDico(key)) {
+        if (!isGlobalDico(key)) {
           result.notGlobal++;
           continue;
         }
@@ -60,7 +60,7 @@ router.get('/init-translation-memory-for-app/:appId', (req: Request, res: Respon
         newElement.appId = appTMId;
         newElement.key = element.key;
         newElement.value = element.value;
-        newElement.tags = element.tags || [];
+        newElement.tags = element.tags || [];
         await newElement.insert();
         result.migrated++;
       }

@@ -1,7 +1,7 @@
 import { UpdateQuery } from './../../helpers/update-query';
 import { TypeDecorator } from './type-decorator';
 import { Settings } from '../../helpers/settings';
-import { Model } from '../model';
+import { Model } from '../model';
 import Calipers from 'calipers';
 let debug = require('debug')('deco-api:decorators:types:files');
 
@@ -28,7 +28,7 @@ fileDecorator.input = (key: string, value: any, options: any, element: any, targ
   if (value === 'null') value = null;
   if (value === 'undefined') value = undefined;
   // clear null values
-  if (value === null || value === undefined) {
+  if (value === null || value === undefined) {
     value = undefined;
     if (element[key] && typeof element[key] === 'object' && element[key].path) {
       addFileToRemoveToElementInstance(element, element[key]);
@@ -47,7 +47,7 @@ fileDecorator.input = (key: string, value: any, options: any, element: any, targ
   let measurementPromises: Array<Promise<any>> = [];
 
   // find previews
-  for (let preview of element.request.body[key + Settings.filePreviewSuffix] || []) {
+  for (let preview of element.request.body[key + Settings.filePreviewSuffix] || []) {
     if (preview.originalname !== value.originalname) continue;
     // measure preview size
     measurementPromises.push(Calipers('png', 'gif', 'jpeg').measure(preview.path));
@@ -70,7 +70,7 @@ fileDecorator.input = (key: string, value: any, options: any, element: any, targ
     return Promise.all(measurementPromises);
   }).then((measures: Array<any>) => {
     let index = 0;
-    for (let preview of element.request.body[key + Settings.filePreviewSuffix] || []) {
+    for (let preview of element.request.body[key + Settings.filePreviewSuffix] || []) {
       if (preview.originalname !== value.originalname) continue;
       let measure = measures[index];
       
@@ -89,7 +89,7 @@ fileDecorator.input = (key: string, value: any, options: any, element: any, targ
         filePreview.ratio = measure.pages[0].width / measure.pages[0].height;
       }
 
-      value.previews = value.previews || [];
+      value.previews = value.previews || [];
       value.previews.push(filePreview);
 
       index++;
@@ -112,7 +112,7 @@ fileDecorator.output = (key: string, value: any, options: any, element: any, tar
 fileDecorator.validate = (value: any, obj: any, options: any) => {
   if (value === undefined || value === null) return true;
   if (typeof value !== 'object') return false;
-  if (!value.originalname || !value.encoding || !value.mimetype || !value.destination || !value.filename || !value.path || !value.size) return false;
+  if (!value.originalname || !value.encoding || !value.mimetype || !value.destination || !value.filename || !value.path || !value.size) return false;
   return true;
 };
 
@@ -125,7 +125,7 @@ filesDecorator.defaultOptions = {
   maxCount: 12
 }
 filesDecorator.input = (key: string, value: any, options: any, element: any, target: any) => {
-  if (value === 'null' || value === 'undefined' || value === null || value === undefined) value = [];
+  if (value === 'null' || value === 'undefined' || value === null || value === undefined) value = [];
   if (value === 'changed') value = [];
   if (!Array.isArray(value) && typeof value === 'object') value = [value];
 
@@ -153,7 +153,7 @@ filesDecorator.input = (key: string, value: any, options: any, element: any, tar
 
   // measures files promises
   for (let valueItem of value) {
-    if (valueItem.mimetype.substr(0, 6) !== 'image/' || valueItem.mimetype.includes('svg')) continue;
+    if (valueItem.mimetype.substr(0, 6) !== 'image/' || valueItem.mimetype.includes('svg')) continue;
     fileMeasurementPromises.push(Calipers('png', 'gif', 'jpeg').measure(valueItem.path).then((measure: any) => {
       if (measure && measure.pages && measure.pages[0]) {
         valueItem.width = measure.pages[0].width,
@@ -164,7 +164,7 @@ filesDecorator.input = (key: string, value: any, options: any, element: any, tar
   } 
 
   // find previews
-  for (let preview of element.request.body[key + Settings.filePreviewSuffix] || []) {
+  for (let preview of element.request.body[key + Settings.filePreviewSuffix] || []) {
     if (originalNames.indexOf(preview.originalname) === -1) continue;
     // measure preview size
     previewMeasurementPromises.push(Calipers('png', 'gif', 'jpeg').measure(preview.path).then((measure: any) => {
@@ -203,7 +203,7 @@ filesDecorator.input = (key: string, value: any, options: any, element: any, tar
             filePreview.ratio = measure.pages[0].width / measure.pages[0].height;
           }
     
-          valueItem.previews = valueItem.previews || [];
+          valueItem.previews = valueItem.previews || [];
           valueItem.previews.push(filePreview);
         }
       }
@@ -244,7 +244,7 @@ filesDecorator.toDocument = (updateQuery: UpdateQuery, key: string, value: any, 
     // if not array, do nothing
     return Promise.resolve();
   }
-  let finalValue = element[key].originalValue || [];
+  let finalValue = element[key].originalValue || [];
   let clearOrRemove = false; // if this become true, it means that the property cannot be altered with a $push and must be completely rewritten ($set)
   if ((value as any).clearFiles) {
     finalValue = [];
@@ -282,7 +282,7 @@ filesDecorator.validate = (value: any, obj: any, options: any) => {
   if (value === null) return false;
   if (value === undefined || value === []) return true;
   for (let file of value) {
-    if (!file.originalname || !file.encoding || !file.mimetype || !file.destination || !file.filename || !file.path || !file.size) return false;
+    if (!file.originalname || !file.encoding || !file.mimetype || !file.destination || !file.filename || !file.path || !file.size) return false;
   }
   return true;
 };

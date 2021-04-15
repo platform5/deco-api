@@ -1,5 +1,5 @@
 import path from 'path';
-import { TemplateModel, StringStringMap,  AppModel } from '../';
+import { TemplateModel, StringStringMap,  AppModel } from '../';
 import Email from 'email-templates';
 import nodemailer from 'nodemailer';
 import { Transporter } from 'nodemailer';
@@ -51,7 +51,7 @@ export class NotificationEmailService {
     return emailService;
   }
 
-  public initTransporter(options:  SMTPTransport.Options | SMTPPool.Options) {
+  public initTransporter(options:  SMTPTransport.Options | SMTPPool.Options) {
     this.transporter = nodemailer.createTransport(options);
   }
 
@@ -61,9 +61,9 @@ export class NotificationEmailService {
 
     const env = process.env.NODE_ENV || 'development';
 
-    recipients = env === 'production' ? recipients : process.env.DEV_EMAIL_TO || '';
-    const cssPath = templateOverride?.cssPath || path.join(__dirname, '../../emails/css');
-    const emailPath = templateOverride?.rootPath || path.join(__dirname, '../../emails');
+    recipients = env === 'production' ? recipients : process.env.DEV_EMAIL_TO || '';
+    const cssPath = templateOverride?.cssPath || path.join(__dirname, '../../emails/css');
+    const emailPath = templateOverride?.rootPath || path.join(__dirname, '../../emails');
 
     let options: any = {
       message: {
@@ -160,12 +160,12 @@ export class NotificationEmailService {
 
 let emailService = new NotificationEmailService();
 emailService.initTransporter({
-  host: process.env.MAIL_HOST || '',
-  port: parseInt(process.env.MAIL_PORT || '', 10) || 587,
+  host: process.env.MAIL_HOST || '',
+  port: parseInt(process.env.MAIL_PORT || '', 10) || 587,
   secure: false, // use SSL
   auth: {
-    user: process.env.MAIL_USER || '',
-    pass: process.env.MAIL_PASSWORD || ''
+    user: process.env.MAIL_USER || '',
+    pass: process.env.MAIL_PASSWORD || ''
   }
 });
 emailService.from = process.env.MAIL_FROM || '';

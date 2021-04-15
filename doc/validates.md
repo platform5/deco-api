@@ -10,7 +10,7 @@ Will prevent saving if the property is empty, null or undefined.
 
 Will prevent saving if the property has a length smaller than `minLength`.
 
-## @validate.maxLength(maxLength: number = 0)
+## @validate.maxLength(maxLength: number = 0)
 
 Will prevent saving if the property has a length longer than `maxLength`.
 
@@ -18,7 +18,7 @@ Will prevent saving if the property has a length longer than `maxLength`.
 
 Only accept valid email addresses. This is only a regex check.
 
-## @validate.slug
+## @validate.slug
 
 Only accept strings that can be used as slugs.
 

@@ -8,7 +8,7 @@ let debug = require('debug')('app:controller:test:policy');
 
 const router: Router = Router();
 
-let mdController = new  PolicyController(DataModel);
+let mdController = new  PolicyController(DataModel);
 
 type FN = (req: Request, res: Response, next: NextFunction) => void;
 

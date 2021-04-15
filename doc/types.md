@@ -10,16 +10,16 @@
 
 ## @type.boolean
 
-## @type.date
+## @type.date
 
 ## @type.array
 
 ## @type.object
 
-## @type.file
+## @type.file
 
-## @type.files
+## @type.files
 
-## @type.model
+## @type.model
 
-## @type.models
+## @type.models

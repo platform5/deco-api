@@ -6,7 +6,7 @@ export class Query {
   private _limit: number = 0;
   private _skip: number = 0;
 
-  constructor(query: any | null = null) {
+  constructor(query: any | null = null) {
     if (query !== null) this.addQuery(query);
     return this;
   }

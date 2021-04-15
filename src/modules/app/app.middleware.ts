@@ -139,7 +139,7 @@ export class AppMiddleware {
       if (!res.locals.element) return next(new Error('Missing Element - did you forget to add a getOne middleware?'));
       if (typeof res.locals.element !== 'object') return next(new Error('Invalid Element (not object)'));
       if (req.params.type !== 'private' && req.params.type !== 'public') return next(new Error('Invalid request'));
-      if (!req.body.name || typeof req.body.name !== 'string') return next(new Error('Missing or invalid key name'));
+      if (!req.body.name || typeof req.body.name !== 'string') return next(new Error('Missing or invalid key name'));
       let type = req.params.type;
 
       let key: ApiKey = {

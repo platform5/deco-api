@@ -28,7 +28,7 @@ Allow the property to be sent in the final response when fetching a Model. For e
 Only if the properties `firstname` and `lastname` are decorated with `@io.output`
 
 
-## @io.toDocument
+## @io.toDocument
 
 Allow the property to be saved in the collection. It means that the `firstname` of the model will only be saved if the property is decorated with `@io.toDocument`
 
@@ -44,11 +44,11 @@ Alias for:
 
 This alias is often used as most properties must be inputed, outputed and saved in database.
 
-## @io.fetch (TBC)
+## @io.fetch (TBC)
 
 Not yet implemented.
 
-# Use cases
+# Use cases
 
 As mentionned earlier, most use cases use the `@io.all` decorator. But in some use case it is very usefull to trick the system a little bit. For exemple, when creating a user with a password, you might not want to save the password in clear in the database. Therefore you might have a model like this: 
 

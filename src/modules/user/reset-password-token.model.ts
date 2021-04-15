@@ -39,7 +39,7 @@ export class ResetPasswordTokenModel extends Model {
     this.model = ResetPasswordTokenModel;
   }
 
-  init(userId: ObjectId, appId: ObjectId,  validity: number = 1, validityUnit: 'hours' | 'minutes' | 'days' | 'weeks' = 'hours') {
+  init(userId: ObjectId, appId: ObjectId,  validity: number = 1, validityUnit: 'hours' | 'minutes' | 'days' | 'weeks' = 'hours') {
     //super();
     this.userId = userId;
     this.appId = appId;

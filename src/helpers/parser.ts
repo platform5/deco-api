@@ -13,7 +13,7 @@ export class Parser {
   }
 
   private static parseMetadata(key: string, object: {metadata: Metadata[]}): string | '' {
-    for (let meta of object.metadata || []) {
+    for (let meta of object.metadata || []) {
       if (meta.key === key) {
         return meta.value;
       }

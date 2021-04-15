@@ -37,7 +37,7 @@ incrementByAppDecorator.toDocument = (updateQuery: UpdateQuery, key: string, val
     throw new Error('incrementByAppDecorator: invalid appId');
   }
   let counterId = options.deco.collectionName + ':' + appIdString + ':' + key;
-  let counterMin = options.min || 1;
+  let counterMin = options.min || 1;
 
   let counterPromise: Promise<Number>;
   if (counters[counterId] && false) {

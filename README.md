@@ -3,25 +3,25 @@
 
 ## Developpement
 
-Le package `deco-api` est destiné à être utilsé dans une application maître. Dès lors, pour déveloper le package `deco-api` il est idéal d'en avoir une copie résidant dans l'application maître afin de pouvoir utiliser les outils de debuggage conventionnels.
+Le package `deco-api` est destiné à être utilisé dans une application maîtressesse. Dès lors, pour déveloper le package `deco-api` il est idéal d'en avoir une copie résidant dans l'application maîtressesse afin de pouvoir utiliser les outils de débogage conventionnels.
 
 Pour cela, voici quelques conseils à suivre:
 
 ### Importer le package via un fichier proxy
 
-Créer dans l'application maître un fichier `deco-api-proxy.ts` et placer le contenu suivant avec le contenu suivant:
+Créer dans l'application maîtresse un fichier `deco-api-proxy.ts` et placer le contenu suivant avec le contenu suivant:
 
 ```ts
 export * from 'deco-api';
 ```
 
-Ensuite, dans l'application, au lieu d'écrire `import { Deco } from 'deco-api'`, l'astuce est d'écrire `import { Deco } from './deco-api-proxy';`. Cela aura pour effet que chaque importation passe par le fichier proxy au lieu de directement importer le paquet dépendant.
+Ensuite, dans l'application, au lieu d'écrire `import { Deco } from 'deco-api'`, l'astuce est d'écrire `import { Deco } from './deco-api-proxy';`. Cela aura pour effet que chaque importation passe par le fichier proxy au lieu de directement importer le paquet dépendant.
 
 Une fois ce proxy en place, on peut l'utiliser pour *activer* un mode debug lorsque c'est nécessaire.
 
 ### Utiliser une version locale (copiée du package)
 
-Tout d'abord il convient de copier une version locale du package `deco-api` dans l'application maître. Supposons donc une application avec l'arborscence suivante:
+Tout d'abord il convient de copier une version locale du package `deco-api` dans l'application maîtresse. Supposons donc une application avec l'arborescence suivante:
 
 ```
 /build
@@ -35,7 +35,7 @@ Tout d'abord il convient de copier une version locale du package `deco-api` dans
 Depuis le dossier `/` de l'application lancez la commande suivante:
 
 ```sh
-rm -rf ./app/deco-api # efface le dossier dans le cas où une copie antérieur y réside encore
+rm -rf ./app/deco-api # efface le dossier dans le cas où une copie antérieur y réside encore
 cp -R ../deco-api/src ./app/deco-api
 echo "*" >> ./app/deco-api/.gitignore # Important pour éviter que le dossier deco-api soit commité dans l'application principale
 ```
@@ -60,13 +60,13 @@ rm -rf ./app/deco-api
 
 ## Structure description
 
-Au-travers de l'usage de decorateurs javascript, `deco-api` facilile la mise en oeuvre d'une API Rest en NodeJS et express.
+Au-travers de l'usage de décorateurs javascript, `deco-api` facilite la mise en oeuvre d'une API Rest en NodeJS et express.
 
 Le code est structuré de la façon suivante:
 
 * `/decorators` contient le code des décorateurs à proprement parlé. On y trouvera par exemple le code de `@model()` dans le fichier `./model.ts` ou les décorateurs de type comment `@type.string` dans `/types/basics.ts`
 
-* `/helpers` contient une série de code utiles pour résoudre des fonctions spécifiques. On y trouvera notament la gestion de la base de donneé (`datastore.ts`, le servie pour les emails ou sms, un parser, un utilitaire de date ou encore un helper pour gérer les requêtes `query`)
+* `/helpers` contient une série de code utiles pour résoudre des fonctions spécifiques. On y trouvera notamment la gestion de la base de donneé (`datastore.ts`, le servie pour les emails ou sms, un parser, un utilitaire de date ou encore un helper pour gérer les requêtes `query`)
 
 * `/interfaces` contient des fichiers d'interfaces facilitant le typing (typescrpit)
 
@@ -233,7 +233,7 @@ Une fois que l'on a un controlleur prêt pour notre modèle, il est temps de l'i
 
 ```ts
 
-import { ProductController } from './products/product.controller';
+import { ProductController } from './products/product.controller';
 
 // omitted code created and serving the application in app
 

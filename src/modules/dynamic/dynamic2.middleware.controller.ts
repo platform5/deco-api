@@ -4,7 +4,7 @@ import { AppModel } from './../app/app.model';
 import { DynamicConfigModel } from './dynamicconfig.model';
 import { DynamicDataModel2 } from './dynamicdata2.model';
 import { Request, Response, NextFunction } from 'express';
-import { RelatedModelFilterQueryConfig, StringTMap, Policies } from '../../';
+import { RelatedModelFilterQueryConfig, StringTMap, Policies } from '../../';
 import { Deco, TypeDecorator, type, ObjectId, Query, Model, MultipartMiddleware, UpdateQuery, StringStringMap } from '../../';
 import { NotificationEmailService, TemplateOverride } from '../../';
 import moment from 'moment';
@@ -12,19 +12,19 @@ let debug = require('debug')('app:middleware:controllers:dynamic2');
 
 const collectionName = DynamicDataModel2.deco.collectionName;
 
-const propertyTypes = Object.assign({}, DynamicDataModel2.deco.propertyTypes);
-const propertyTypesOptions = Object.assign({}, DynamicDataModel2.deco.propertyTypesOptions);
+const propertyTypes = Object.assign({}, DynamicDataModel2.deco.propertyTypes);
+const propertyTypesOptions = Object.assign({}, DynamicDataModel2.deco.propertyTypesOptions);
 
-const propertyInputs = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertyInputs));
-const propertyOutputs = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertyOutputs));
-const propertyToDocuments = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertyToDocuments));
+const propertyInputs = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertyInputs));
+const propertyOutputs = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertyOutputs));
+const propertyToDocuments = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertyToDocuments));
 
-const propertyValidations = Object.assign({}, DynamicDataModel2.deco.propertyValidations);
+const propertyValidations = Object.assign({}, DynamicDataModel2.deco.propertyValidations);
 
-const propertySearchables = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertySearchables));
-const propertySortables = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertySortables));
-const propertyFilterables = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertyFilterables));
-const propertyFilterablesOptions = Object.assign({}, DynamicDataModel2.deco.propertyFilterablesOptions);
+const propertySearchables = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertySearchables));
+const propertySortables = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertySortables));
+const propertyFilterables = JSON.parse(JSON.stringify(DynamicDataModel2.deco.propertyFilterables));
+const propertyFilterablesOptions = Object.assign({}, DynamicDataModel2.deco.propertyFilterablesOptions);
 
 export let dynamicModelDecorator = new TypeDecorator('dynamicmodel');
 dynamicModelDecorator.input = type.modelDecorator.input;
@@ -53,7 +53,7 @@ dynamicModelDecorator.validate = (value: any, obj: any, options: any) => {
   return DynamicConfigModel.getOneWithQuery(configQuery).then((cm): Promise<any> | boolean => {
     if (!cm) return false;
     configModel = cm;
-    if (!configModel.appId || !configModel.relatedToAppId) throw new Error('Invalid configModel');
+    if (!configModel.appId || !configModel.relatedToAppId) throw new Error('Invalid configModel');
     return Promise.all([
       AppModel.getOneWithId(configModel.appId),
       AppModel.getOneWithId(configModel.relatedToAppId)
@@ -61,7 +61,7 @@ dynamicModelDecorator.validate = (value: any, obj: any, options: any) => {
   }).then((values) => {
     let deco: Deco = Dynamic2MiddlwareController.getDecoFromConfigModel(configModel, values[0], values[1]);
     return DynamicDataModel2.getOneWithQuery({appId: options.relatedToAppId, modelId: modelId, _id: value}, {deco: deco});
-  }).then((data) => {
+  }).then((data) => {
     if (!data) return false;
     return true;
   });
@@ -72,7 +72,7 @@ export let dynamicModelsDecorator = new TypeDecorator('dynamicmodels');
 dynamicModelsDecorator.input = type.modelsDecorator.input;
 dynamicModelsDecorator.output = type.modelsDecorator.output;
 dynamicModelsDecorator.toDocument = (updateQuery: UpdateQuery, key: string, value: any, operation: 'insert' | 'update' | 'upsert', options: any, element: any, target: any) => {
-  if (value === null || value === undefined) return Promise.resolve();
+  if (value === null || value === undefined) return Promise.resolve();
   updateQuery.set(key, value);
   return Promise.resolve();
 };
@@ -109,7 +109,7 @@ dynamicModelsDecorator.validate = (value: any, obj: any, options: any) => {
   return DynamicConfigModel.getOneWithQuery(configQuery).then((cm): Promise<any> | boolean => {
     if (!cm) return false;
     configModel = cm;
-    if (!configModel.appId || !configModel.relatedToAppId) throw new Error('Invalid configModel');
+    if (!configModel.appId || !configModel.relatedToAppId) throw new Error('Invalid configModel');
     return Promise.all([
       AppModel.getOneWithId(configModel.appId),
       AppModel.getOneWithId(configModel.relatedToAppId)
@@ -117,7 +117,7 @@ dynamicModelsDecorator.validate = (value: any, obj: any, options: any) => {
   }).then((values) => {
     let deco: Deco = Dynamic2MiddlwareController.getDecoFromConfigModel(configModel, values[0], values[1]);
     return DynamicDataModel2.getAll(new Query({appId: options.relatedToAppId, modelId: modelId, _id: {$in: uniqueValue}}), {deco: deco});
-  }).then((elements: Array<any>) => {
+  }).then((elements: Array<any>) => {
     if (elements.length === uniqueValue.length) return true;
     return false;
   });
@@ -219,7 +219,7 @@ export class Dynamic2MiddlwareController extends PolicyControllerMiddlware {
     return Dynamic2MiddlwareController.placeDynamicConfigInRequestWithSlug(slug)(req, res, next);
   }
 
-  static getDecoFromConfigModel(configModel: DynamicConfigModel, parentApp: AppModel | ObjectId, appModel: AppModel): Deco {
+  static getDecoFromConfigModel(configModel: DynamicConfigModel, parentApp: AppModel | ObjectId, appModel: AppModel): Deco {
 
     let parentAppId: ObjectId;
     if (parentApp instanceof AppModel) {
@@ -269,7 +269,7 @@ export class Dynamic2MiddlwareController extends PolicyControllerMiddlware {
         field.options.relatedToAppId = appModel._id;
       } else {
         let typeDecoratorKey: string = `${field.type}Decorator`;
-        deco.propertyTypes[field.name] = (type as any)[typeDecoratorKey] || type.anyDecorator;
+        deco.propertyTypes[field.name] = (type as any)[typeDecoratorKey] || type.anyDecorator;
       }
       deco.propertyTypesOptions[field.name] = field.options;
       deco.propertyValidations[field.name] = [];
@@ -425,7 +425,7 @@ export class Dynamic2MiddlwareController extends PolicyControllerMiddlware {
         relatedModelsConfigs[config._id.toString()] = (config as DynamicConfigModel);
       }
       for (let field of config.fields) {
-        if (field.type !== 'model' && field.type !== 'models') continue;
+        if (field.type !== 'model' && field.type !== 'models') continue;
         if (!field.options || !field.options.model) continue;
         let baseQuery = new Query({appId: res.locals.dynamicModelApp._id});
         let modelId: ObjectId;
@@ -470,7 +470,7 @@ export class Dynamic2MiddlwareController extends PolicyControllerMiddlware {
     }).then((configs) => {
       for (let config of (configs) as Array<DynamicConfigModel>) {
         for (let field of config.fields) {
-          if (field.type !== 'model' && field.type !== 'models') continue;
+          if (field.type !== 'model' && field.type !== 'models') continue;
           if (!field.options || !field.options.model || field.options.model !== res.locals.dynamicConfigModel._id.toString()) continue;
           let baseQuery = new Query({appId: res.locals.dynamicModelApp._id});
           baseQuery.addQuery({modelId: config._id});
@@ -535,7 +535,7 @@ export class Dynamic2MiddlwareController extends PolicyControllerMiddlware {
           let prefix = config.notificationUserContentPrefix;
           let suffix = config.notificationUserContentSuffix;
           let templatePath = 'model-notification';
-          let templateOverride: TemplateOverride | null = config.notificationUserTemplate ? {html:config.notificationUserTemplate, subject: config.notificationUserSubject} : null;
+          let templateOverride: TemplateOverride | null = config.notificationUserTemplate ? {html:config.notificationUserTemplate, subject: config.notificationUserSubject} : null;
           let sendAdminEmailPromise = this.sendNotification(res.locals.app, email, subject, element, keyValues, prefix, suffix, templatePath, templateOverride).then(() => {
             return Promise.resolve(element);
           });

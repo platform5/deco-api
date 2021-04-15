@@ -21,7 +21,7 @@ randomDecorator.toDocument = (updateQuery: UpdateQuery, key: string, value: any,
     updateQuery.set(key, value);
     return Promise.resolve();
   } 
-  let len = options.nbChars || 8;
+  let len = options.nbChars || 8;
   let token = crypto.randomBytes(Math.ceil(len / 2)).toString('hex').slice(0, len);
   updateQuery.set(key, token);
   return Promise.resolve();

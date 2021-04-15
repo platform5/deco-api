@@ -107,7 +107,7 @@ export class UserModel extends Model {
     return super.toDocument(operation, properties)
   }
 
-  static authUser(appId: ObjectId, username: string, password: string): Promise<UserModel | false> {
+  static authUser(appId: ObjectId, username: string, password: string): Promise<UserModel | false> {
     let query = new Query({appId: appId});
     username = username.toLowerCase().trim();
     query.addQuery({$or: [

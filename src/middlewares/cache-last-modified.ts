@@ -4,20 +4,20 @@ import moment from 'moment';
 export class CacheLastModified {
   static init() {
     return (req: Request, res: Response, next: NextFunction) => {
-      const lastModifiedRequest = req.header('If-Modified-Since') || '';
+      const lastModifiedRequest = req.header('If-Modified-Since') || '';
       CacheLastModified.registerCacheLastModified(res, lastModifiedRequest);
       next();
     };
   }
 
-  static send(prop: 'auto' | 'element' | 'elements' | string = 'auto', source: 'locals' = 'locals') {
+  static send(prop: 'auto' | 'element' | 'elements' | string = 'auto', source: 'locals' = 'locals') {
     return (req: Request, res: Response, next: NextFunction) => {
       let lastModifiedResponse = '';
       if (!res.locals.cacheLastModified) {
         return next('Missing cacheLastModified');
       }
       const lastModifiedRequest = res.locals.cacheLastModified.lastModified || '';
-      let data: any | any[];
+      let data: any | any[];
       if (source === 'locals') {
         if (prop === 'auto') {
           data = res.locals.elements || res.locals.element;

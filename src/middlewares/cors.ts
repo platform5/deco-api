@@ -4,7 +4,7 @@ export class CorsMiddleware {
   static allowEverything() {
     return (req: Request, res: Response, next: NextFunction) => {
 
-      let allowHeaders = req.get('Access-Control-Request-Headers') || 'content-type, authorization, Cache-Control, X-Requested-With';
+      let allowHeaders = req.get('Access-Control-Request-Headers') || 'content-type, authorization, Cache-Control, X-Requested-With';
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.setHeader('Access-Control-Allow-Headers', allowHeaders);
       res.setHeader('Access-Control-Allow-Methods', 'OPTIONS,HEAD,PATCH,GET,POST,PUT,DELETE');

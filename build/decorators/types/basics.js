@@ -211,7 +211,7 @@ exports.booleanDecorator.validate = (value, obj, options) => {
     return exports.validateBoolean(value);
 };
 // booleanDecorator.toDocument = (updateQuery: UpdateQuery, key: string, value: any, operation: 'insert' | 'update' | 'upsert', options: any, element: any, target: any) => {
-//   if (value !== true && value !== false && value !== undefined) value = undefined;
+//   if (value !== true && value !== false && value !== undefined) value = undefined;
 //   if (value === undefined && operation === 'insert') {
 //     return Promise.resolve();
 //   } else if (value === undefined) {

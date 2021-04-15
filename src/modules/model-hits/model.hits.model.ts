@@ -1,12 +1,12 @@
 import { UserModel } from './../user/user.model';
 import { AppModel } from './../app/app.model';
 import { model, Model, type, io, query, validate, ObjectId  } from '../../';
-import { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import moment from 'moment';
 let debug = require('debug')('app:models:models.hits.model');
 
 export class Hit {
-  method: 'get' | 'post' | 'put' | 'delete';
+  method: 'get' | 'post' | 'put' | 'delete';
   date: Date;
 }
 
@@ -54,7 +54,7 @@ export class ModelHitsModel extends Model {
   hits: Array<Hit> = [];
 
   static singleHit(req: Request, res: Response, modelId: string, elementId?: string) {
-    if (!res || !res.locals || !res.locals.app) throw new Error('Missing app in res.locals');
+    if (!res || !res.locals || !res.locals.app) throw new Error('Missing app in res.locals');
     let appId = res.locals.app._id;
     let userId = (res.locals.user) ? res.locals.user._id : undefined;
     let elId = ModelHitsModel.elementIdFromRequest(req, res, elementId);
@@ -96,7 +96,7 @@ export class ModelHitsModel extends Model {
   }
 
   static singleStats(req: Request, res: Response, modelId: string, elementId?: string) {
-    if (!res || !res.locals || !res.locals.app) throw new Error('Missing app in res.locals');
+    if (!res || !res.locals || !res.locals.app) throw new Error('Missing app in res.locals');
     let appId = res.locals.app._id;
     let elId = ModelHitsModel.elementIdFromRequest(req, res, elementId);
     let findQuery = {appId: appId, modelId: modelId, elementId: elId};

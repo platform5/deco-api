@@ -33,7 +33,7 @@ export class DynamicDataModel2 extends Model {
   @io.all
   @validate.required
   @mongo.index({type: 'single'})
-  public modelId: ObjectId | null = null
+  public modelId: ObjectId | null = null
 
   static decoFromRequest(req: Request, res: Response): Deco {
     return res.locals.dynamicDeco;

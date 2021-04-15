@@ -12,7 +12,7 @@ export class QueryByModel {
 }
 
 export interface ModelAccessPolicy {
-  public?: boolean | string; // default is true, if a string is given, we check the value of the property of this string, exemple: 'active'
+  public?: boolean | string; // default is true, if a string is given, we check the value of the property of this string, exemple: 'active'
   roles?: Array<string>; // exemple: ['admin', 'user']
   excludeRoles?: Array<string>; // exemple: ['limited']
   userIdByProperty?: string | Array<string>; // exemple: _createdBy

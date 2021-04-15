@@ -3,7 +3,7 @@ import { UpdateQuery } from './../helpers/update-query';
 import { Query } from './../helpers/query';
 import { datastore } from '../helpers/datastore';
 import { TypeDecorator } from './types/index';
-import { Db, ObjectId, Cursor, AggregationCursor, InsertOneWriteOpResult,  InsertWriteOpResult, FindAndModifyWriteOpResultObject, DeleteWriteOpResultObject } from 'mongodb';
+import { Db, ObjectId, Cursor, AggregationCursor, InsertOneWriteOpResult,  InsertWriteOpResult, FindAndModifyWriteOpResultObject, DeleteWriteOpResultObject } from 'mongodb';
 import { Request, Response } from 'express';
 import { Deco } from '../interfaces/deco';
 import moment from 'moment';
@@ -50,19 +50,19 @@ export const model = (collectionName: string, options: ModelOptions = {}) => {
 
     let deco: Deco = {
       collectionName: collectionName,
-      modelName: options.modelName || collectionName,
+      modelName: options.modelName || collectionName,
       db: datastore.db,
       options: options,
-      propertyTypes: target.prototype._types || {},
-      propertyTypesOptions: target.prototype._typesOptions || {},
-      propertyInputs: target.prototype._inputs || [],
-      propertyOutputs: target.prototype._outputs || [],
-      propertyToDocuments: target.prototype._toDocuments || [],
-      propertyValidations: target.prototype._validations || {},
-      propertySearchables: target.prototype._searchables || [],
-      propertySortables: target.prototype._sortables || [],
-      propertyFilterables: target.prototype._filterables || [],
-      propertyFilterablesOptions: target.prototype._filterablesOptions || {}
+      propertyTypes: target.prototype._types || {},
+      propertyTypesOptions: target.prototype._typesOptions || {},
+      propertyInputs: target.prototype._inputs || [],
+      propertyOutputs: target.prototype._outputs || [],
+      propertyToDocuments: target.prototype._toDocuments || [],
+      propertyValidations: target.prototype._validations || {},
+      propertySearchables: target.prototype._searchables || [],
+      propertySortables: target.prototype._sortables || [],
+      propertyFilterables: target.prototype._filterables || [],
+      propertyFilterablesOptions: target.prototype._filterablesOptions || {}
     };
 
     target.prototype._deco = deco;
@@ -132,7 +132,7 @@ export class Model {
     return properties;
   }
 
-  static async getAll<T extends typeof Model>(this: T, query: Query | null = null, options?: GetAllOptions, req?: Request, res?: Response): Promise<Array<InstanceType<T>>> {
+  static async getAll<T extends typeof Model>(this: T, query: Query | null = null, options?: GetAllOptions, req?: Request, res?: Response): Promise<Array<InstanceType<T>>> {
     let deco = (options && options.deco) ? options.deco : this.deco;
     if (query === null) query = new Query();
     if (!datastore.db) throw new Error('[getAll] Missing db (did you call the method before datastore.isReady() ?)');
@@ -167,7 +167,7 @@ export class Model {
     return {documents: (await cursor.toArray()), count};
   }
 
-  static getOneWithId<T extends typeof Model>(this: T, id: string | ObjectId, options?: GetOneOptions): Promise<InstanceType<T> | null> {
+  static getOneWithId<T extends typeof Model>(this: T, id: string | ObjectId, options?: GetOneOptions): Promise<InstanceType<T> | null> {
     if (!datastore.db) throw new Error('[getOneWithId] Missing db (did you call the method before datastore.isReady() ?)');
     if (typeof id === 'string') {
       try {
@@ -180,7 +180,7 @@ export class Model {
     return this.getOneWithQuery(query, options);
   }
 
-  static getOneWithQuery<T extends typeof Model>(this: T, query: Query | any = {}, options?: GetOneOptions): Promise<InstanceType<T> | null> {
+  static getOneWithQuery<T extends typeof Model>(this: T, query: Query | any = {}, options?: GetOneOptions): Promise<InstanceType<T> | null> {
     let deco = (options && options.deco) ? options.deco : this.deco;
     if (!datastore.db) throw new Error('[getOneWithQuery] Missing db (did you call the method before datastore.isReady() ?)');
     if (query instanceof Query) {
@@ -342,11 +342,11 @@ export class Model {
       if (properties.length && properties.indexOf(key) === -1) continue;
       let type:TypeDecorator = this.deco.propertyTypes[key];
       let options: any = this.deco.propertyTypesOptions[key];
-      let validation = this.deco.propertyValidations[key] || null;
+      let validation = this.deco.propertyValidations[key] || null;
       rules = (rules || ValidationRules).ensure(key);
       const ruleOptions = Object.assign({}, options, {key: key, instance: this, target: this.constructor});
       rules = rules.satisfiesRule(`type:${type.name}`, ruleOptions);
-      for (let validate of validation || []) {
+      for (let validate of validation || []) {
         if (validate.type === 'required') {
           rules = rules.required();
         }  else if (validate.type === 'email') {
@@ -478,7 +478,7 @@ export class Model {
   }
 
   static outputList(elements: Array<Model>, includeProps?: Array<string>, ignoreIO: boolean = false, includeExtraKeys: Array<string> = []): Promise<Array<any>> {
-    let promises: Array<Promise<any>> = [];
+    let promises: Array<Promise<any>> = [];
     for (let element of elements) {
       promises.push(element.output(includeProps, ignoreIO, includeExtraKeys));
     }
@@ -523,7 +523,7 @@ export class Model {
     // identify the constructor prototype to find out how the class has been decorated
     let deco = this.decoFromRequest(req, res);
     let target = this.prototype;
-    let body = req.body || req.query || {};
+    let body = req.body || req.query || {};
 
     let element = (new this as InstanceType<T>);
     element.model = this;
@@ -577,7 +577,7 @@ export class Model {
       warn('this.model missing in .updateInstanceFromRequest(). Please trace and fix');
     }
     let target = this.model ? this.model : Object.getPrototypeOf(this);
-    let body = req.body || req.query || {};
+    let body = req.body || req.query || {};
     if (!deco.propertyInputs) return Promise.resolve(this);
     let inputPromises = [];
     for (let bodyKey in body) {

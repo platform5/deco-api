@@ -29,7 +29,7 @@ export class PushControllerMiddleware extends ControllerMiddleware {
       if (!res.locals.app) return next(new Error('Missing app'));
       if (!req.body.regId) return next(new Error('Missing regId'));
       if (!req.body.uuid) return next(new Error('Missing uuid'));
-      if (!req.body.type || (req.body.type !== 'fcm' && req.body.type !== 'apn')) return next(new Error('Missing or invalid type, must be apn or fcm'));
+      if (!req.body.type || (req.body.type !== 'fcm' && req.body.type !== 'apn')) return next(new Error('Missing or invalid type, must be apn or fcm'));
       
       let players: Array<PushPlayerModel> = [];
 
@@ -104,7 +104,7 @@ export class PushControllerMiddleware extends ControllerMiddleware {
     };
   }
 
-  extendRequest(req: Request, control: 'getAll' | 'getOne' | 'post' | 'put' | 'delete'): Promise<void> {
+  extendRequest(req: Request, control: 'getAll' | 'getOne' | 'post' | 'put' | 'delete'): Promise<void> {
     if (req.params.regId && (control === 'put' || control === 'getOne')) {
       return PushPlayerModel.getOneWithQuery({regId: req.params.regId}).then((player) => {
         if (!player) throw new Error('Player not found');
@@ -115,7 +115,7 @@ export class PushControllerMiddleware extends ControllerMiddleware {
   }
 
   sendTags(req: Request, res: Response, next: NextFunction) {
-    let tags = res.locals.element.tags || [];
+    let tags = res.locals.element.tags || [];
     res.send(tags);
   }
 

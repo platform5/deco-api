@@ -2,7 +2,7 @@ import { AuthMiddleware } from './../user/auth.middleware';
 import { UserModel } from './../user/user.model';
 import { ObjectId, PolicyFactory, Policy } from '../../';
 import { Request, Response, NextFunction } from "express";
-import { Members } from './members.abstract';
+import { Members } from './members.abstract';
 
 export class MembersController {
   private static async validateUserIdAndRoles(req: Request, instance: Members, validateRoles: boolean = true): Promise<UserModel> {
@@ -34,7 +34,7 @@ export class MembersController {
     return user;
   }
 
-  private static getInstance(res: Response, localsProperty: string): Members | null {
+  private static getInstance(res: Response, localsProperty: string): Members | null {
     if (!res.locals[localsProperty]) {
       return null;
     }
@@ -338,7 +338,7 @@ export class MembersController {
             res.locals.actions = instance.actions();
           } else {
             res.locals.actions = roles.reduce((actions, role) => {
-              const newActions = instance.roles[role] || [];
+              const newActions = instance.roles[role] || [];
               newActions.map((action) => {
                 if (actions.indexOf(action) === -1) actions.push(action);
               });

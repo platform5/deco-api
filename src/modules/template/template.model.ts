@@ -23,19 +23,19 @@ export class TemplateModel extends Model {
   @type.string({multilang: true, locales: []})
   @io.all
   @validate.required
-  public subject: string | StringStringMap = '';
+  public subject: string | StringStringMap = '';
 
   @type.string({multilang: true, locales: []})
   @io.all
   @validate.required
-  public html: string | StringStringMap = '';
+  public html: string | StringStringMap = '';
 
   @type.string({multilang: true, locales: []})
   @io.all
-  public text: string | StringStringMap = '';
+  public text: string | StringStringMap = '';
 
   @type.string({multilang: true, locales: []})
   @io.all
-  public sms: string | StringStringMap = '';
+  public sms: string | StringStringMap = '';
 
 }

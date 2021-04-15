@@ -38,7 +38,7 @@ export interface Policy {
   outputPolicy?: Array<IOPolicy>;
 }
 
-export const modelPolicy = (operation: ModelOperation | 'globalModel', policy: ModelAccessPolicy = {}) => {
+export const modelPolicy = (operation: ModelOperation | 'globalModel', policy: ModelAccessPolicy = {}) => {
   return function (target: any): void {
     if (!target.prototype._policy) target.prototype._policy = {};
     let policyKey = `${operation}Policy`;

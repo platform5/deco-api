@@ -22,7 +22,7 @@ declare module 'geojson-validation' {
 declare module 'traverse-async' {
   var traverse: (
     object: any, 
-    callback: (this: {parent: any, node: any, key: string, path: Array<string>}, node: any, next: () => void | any) => any,
+    callback: (this: {parent: any, node: any, key: string, path: Array<string>}, node: any, next: () => void | any) => any,
     onComplete?: (newObj: any) => any,
     onError?: (error: Error) => any) => {};
   var config: any;

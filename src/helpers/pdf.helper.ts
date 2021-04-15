@@ -1,6 +1,6 @@
 import { PDFDocument, PDFPage, PDFFont, CreateOptions, StandardFonts, rgb } from 'pdf-lib';
-import { RGB, Grayscale, CMYK } from 'pdf-lib';
-import { Request, Response, NextFunction } from 'express';
+import { RGB, Grayscale, CMYK } from 'pdf-lib';
+import { Request, Response, NextFunction } from 'express';
 import marked from 'marked';
 
 
@@ -108,7 +108,7 @@ export abstract class PDFBlock {
     this.pdf.currentPage.moveDown(value);
     const top = this.pdf.currentPage.getY();
     const left = this.pdf.currentPage.getX();
-    const marginBottom = options?.marginBottom || 0;
+    const marginBottom = options?.marginBottom || 0;
     if (top < marginBottom) {
       this.pdf.addPage();
       const offsetX = options?.newPageOffsetX || 0;
@@ -144,7 +144,7 @@ export class PDFTextBlock extends PDFBlock {
   public lineHeight: number = 1.2;
   public paragraphSpacing: number = 16;
   public color: RGB | Grayscale | CMYK;
-  public maxWidth: 'auto' | number = 'auto';
+  public maxWidth: 'auto' | number = 'auto';
   public align: 'left' | 'center' | 'right' = 'left';
 
   private currentColor: RGB | Grayscale | CMYK;
@@ -173,8 +173,8 @@ export class PDFTextBlock extends PDFBlock {
 
     this.currentColor = this.color;
 
-    const x = this.x || this.pdf.currentPage.getX();
-    const y = this.y || this.pdf.currentPage.getY();
+    const x = this.x || this.pdf.currentPage.getX();
+    const y = this.y || this.pdf.currentPage.getY();
     
     this.pdf.currentPage.moveTo(x, y);
     const autoMaxWidth = this.pdf.pageWidth - x - this.pdf.marginRight;
@@ -185,7 +185,7 @@ export class PDFTextBlock extends PDFBlock {
     const lex: any = marked.lexer(this.text, {smartypants: false});
 
     for (let block of lex) {
-      if (block.type === 'paragraph' || block.type === 'heading') {
+      if (block.type === 'paragraph' || block.type === 'heading') {
         const fontSize = block.type === 'heading' ? this.fontSizeHeader[block.depth] : this.fontSize;
         let paragraph: PDFTextBlockParagraph = [];
         for (let token of block.tokens) {
@@ -205,7 +205,7 @@ export class PDFTextBlock extends PDFBlock {
 
           for (let word of words) {
             const index = word.indexOf("\n");
-            if (index === 0 || word === '(new-line)') {
+            if (index === 0 || word === '(new-line)') {
               const newLineWord: PDFTextBlockWord = {
                 type: 'new-line',
                 text: '',

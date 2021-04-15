@@ -49,7 +49,7 @@ export class TypeDecorator {
     }
   }
 
-  decorator() {
+  decorator() {
     if (!this.customValidationRuleReady) {
       this.createCustomValidationRule();
       this.customValidationRuleReady = true;
@@ -64,7 +64,7 @@ export class TypeDecorator {
         options = Object.assign(options, this.defaultOptions, optionsOrTarget);
       }
 
-      let deco = (target: any, key: string, descriptor?: PropertyDescriptor): void | any => {
+      let deco = (target: any, key: string, descriptor?: PropertyDescriptor): void | any => {
         if (descriptor) descriptor.writable = true;
         if (!target._types) {
           target._types = setBaseModelTypes();

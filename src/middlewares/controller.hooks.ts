@@ -14,7 +14,7 @@ export class ControllerHooksMiddleware {
    * @param req 
    * @param control 
    */
-  extendRequest(req: Request, control: 'getAll' | 'getOne' | 'post' | 'put' | 'delete'): Promise<void> {
+  extendRequest(req: Request, control: 'getAll' | 'getOne' | 'post' | 'put' | 'delete'): Promise<void> {
     return Promise.resolve();
   }
 
