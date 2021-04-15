@@ -165,12 +165,12 @@ Pour commencer nous allons créer un controller basic permettant de faire des re
 ```ts 
 
 import { ProductModel } from './product.model';
-import { AppMiddleware, AuthMiddleware, ControllerMiddelware } from '../deco-api-proxy';
+import { AppMiddleware, AuthMiddleware, ControllerMiddleware } from '../deco-api-proxy';
 import { Router, Request, Response, NextFunction } from 'express';
 
 const router: Router = Router();
 
-let controller = new ControllerMiddelware(ProductModel);
+let controller = new ControllerMiddleware(ProductModel);
 
 // This first block create a GET / route that return *all* elements in this model
 // the AppMiddleware.fetchWithPublicKey is a middleware that forces the request to filter elements in the current app (via the apiKey)
@@ -190,9 +190,9 @@ router.get(
 // in res.locals.user but the route can still be reached
 router.get(
   ControllerMiddleware.getOneRoute(),
-  AuthMiddleware.authenticateWithoutError,
   AppMiddleware.fetchWithPublicKey,
-  mdController.getOne()
+  AuthMiddleware.authenticateWithoutError,
+  controller.getOne()
 );
 
 // This block create a POST / route to create a new element
@@ -201,9 +201,9 @@ router.get(
 // to reach this route
 router.post(
   ControllerMiddleware.postRoute(),
-  AuthMiddleware.authenticate,
   AppMiddleware.fetchWithPublicKey,
-  mdController.post()
+  AuthMiddleware.authenticate,
+  controller.post()
 );
 
 // This block create a PUT /:elementId route to edit an existing element
@@ -211,9 +211,9 @@ router.post(
 // to reach this route
 router.put(
   ControllerMiddleware.putRoute(),
-  AuthMiddleware.authenticate,
   AppMiddleware.fetchWithPublicKey,
-  mdController.put()
+  AuthMiddleware.authenticate,
+  controller.put()
 );
 
 // This block create a PUT /:elementId route to edit an existing element
@@ -221,12 +221,12 @@ router.put(
 // to reach this route
 router.delete(
   ControllerMiddleware.deleteRoute(),
-  AuthMiddleware.authenticate,
   AppMiddleware.fetchWithPublicKey,
-  mdController.delete()
+  AuthMiddleware.authenticate,
+  controller.delete()
 );
 
-export const ProductController: Router = router;^
+export const ProductController: Router = router;
 ```
 
 Une fois que l'on a un contrôleur prêt pour notre modèle, il est temps de l'inclure dans l'application. Pour cela on va *utiliser* le contrôleur dans l'instance de l'application express. La bonne pratique est d'avoir une variable `app` qui contient l'app et d'écrire: 
