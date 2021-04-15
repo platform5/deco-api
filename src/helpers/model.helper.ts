@@ -1,4 +1,4 @@
-import { Model, Query } from '../';
+import { Model, Query } from '../';
 
 export interface TagCount {
   tag: string;

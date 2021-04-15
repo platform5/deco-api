@@ -12,7 +12,7 @@ export class ErrorsMiddleware {
       if (message && message.substr(-1) === '.') {
         message = message.substr(0, message.length - 1);
       }
-      let statusCode = res.locals.statusCode || 500;
+      let statusCode = res.locals.statusCode || 500;
       let jsonError = {
         error: message,
         stack: err.stack

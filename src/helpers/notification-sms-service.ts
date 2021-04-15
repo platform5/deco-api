@@ -15,11 +15,11 @@ export class NotificationSMSService {
     this.templatePath = templatePath;
   }
 
-  public send(mobile: string, template: string, data: any, templateSettings?: {rootPath?: string}) {
+  public send(mobile: string, template: string, data: any, templateSettings?: {rootPath?: string}) {
     data.cache = true;
     data.pretty = false;
 
-    let options = Object.assign({}, data, {pretty: false, cache: true});
+    let options = Object.assign({}, data, {pretty: false, cache: true});
 
     const templatePath = templateSettings?.rootPath ? templateSettings.rootPath : this.templatePath;
 

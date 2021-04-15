@@ -1,5 +1,5 @@
 import { Model } from './../../../decorators/model';
-import { Policy } from './policy.model';
+import { Policy } from './policy.model';
 
 export class PolicyContainer {
 
@@ -13,7 +13,7 @@ export class PolicyContainer {
 
 
 
-  public register(key: string, policy: Policy) {
+  public register(key: string, policy: Policy) {
     if (!this.policies[key]) {
       this.policies[key] = [];
     }
@@ -21,7 +21,7 @@ export class PolicyContainer {
   }
 
   public get(key: string) {
-    return this.policies[key] || [];
+    return this.policies[key] || [];
   }
 
   public registerQueryModel(name: string, model: typeof Model) {
@@ -34,4 +34,4 @@ export class PolicyContainer {
 }
 
 const policyContainer = new PolicyContainer;
-export { policyContainer};
+export { policyContainer};

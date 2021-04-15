@@ -1,4 +1,4 @@
-import { PushPlayerModel, PushNotificationModel, StringTMap, Query, ObjectId, AppModel } from '../';
+import { PushPlayerModel, PushNotificationModel, StringTMap, Query, ObjectId, AppModel } from '../';
 import PushNotifications from 'node-pushnotifications';
 import moment from 'moment';
 let debug = require('debug')('app:helpers:notification-push-service');
@@ -189,7 +189,7 @@ export class NotificationPushService {
                 successRegId.push(regId);
               } else if (message.error instanceof Error) {
                 debug('-> sent error');
-                if (message.error.message === 'InvalidRegistration' || message.error.message === 'BadDeviceToken') {
+                if (message.error.message === 'InvalidRegistration' || message.error.message === 'BadDeviceToken') {
                   debug('-> make player inactive', regId);
                   PushPlayerModel.getOneWithQuery({regId: regId}).then((p) => {
                     if (p) {

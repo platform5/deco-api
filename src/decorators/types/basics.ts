@@ -1,7 +1,7 @@
 import { TypeDecorator } from './type-decorator';
 import moment from 'moment';
 import { Settings } from '../../helpers/settings';
-import { DateHelper } from '../../helpers/date';
+import { DateHelper } from '../../helpers/date';
 let debug = require('debug')('deco-api:decorators:types:basics');
 
 export let anyDecorator = new TypeDecorator('any');
@@ -166,7 +166,7 @@ export let inputBoolean = (value: any) => {
   } else if (value === 0 || value === '0' || value === 'false') {
     value = false;
   }
-  if (value !== true && value !== false && value !== undefined) value = undefined;
+  if (value !== true && value !== false && value !== undefined) value = undefined;
   return value;
 };
 export let validateBoolean = (value: any) => {return value === null || value === undefined || typeof value === 'boolean'};
@@ -178,7 +178,7 @@ booleanDecorator.validate = (value: any, obj: any, options: any) => {
   return validateBoolean(value);
 };
 // booleanDecorator.toDocument = (updateQuery: UpdateQuery, key: string, value: any, operation: 'insert' | 'update' | 'upsert', options: any, element: any, target: any) => {
-//   if (value !== true && value !== false && value !== undefined) value = undefined;
+//   if (value !== true && value !== false && value !== undefined) value = undefined;
 //   if (value === undefined && operation === 'insert') {
 //     return Promise.resolve();
 //   } else if (value === undefined) {
@@ -206,7 +206,7 @@ export let validateDate = (value: any, dateFormat?: string) => {
     // which did not pass through the inputDate()
     // in which case we suppose a ISO format
     const date = dateFormat ? moment(value, dateFormat) : DateHelper.moment(value);
-    if (!date || !date.isValid()) {
+    if (!date || !date.isValid()) {
       debug('invalid date', value, '; dateFormat: ', dateFormat);
       return false;
     }
@@ -219,18 +219,18 @@ dateDecorator.defaultOptions = {
   dateFormat: Settings.defaultDateFormat
 };
 dateDecorator.input = (key: string, value: any, options: any, element: any, target: any) => {
-  let dateFormat = options.dateFormat || Settings.defaultDateFormat;
+  let dateFormat = options.dateFormat || Settings.defaultDateFormat;
   return Promise.resolve(inputDate(value, dateFormat));
 };
 dateDecorator.output = (key: string, value: any, options: any, element: any, target: any) => {
   if (value instanceof Date) {
-    let dateFormat = options.dateFormat || Settings.defaultDateFormat;
+    let dateFormat = options.dateFormat || Settings.defaultDateFormat;
     value = moment(value).format(dateFormat);
   }
   return Promise.resolve(value);
 };
 dateDecorator.validate = (value: any, obj: any, options: any) => {
-  let dateFormat = options.dateFormat || undefined;
+  let dateFormat = options.dateFormat || undefined;
   return validateDate(value, dateFormat);
 };
 export const date = dateDecorator.decorator();

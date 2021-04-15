@@ -104,7 +104,7 @@ export class UserControllerMiddleware extends ControllerMiddleware {
 
   private createUserAndToken(req: Request, res: Response, next: NextFunction) {
     if (!res.locals.app.openUserRegistration) return next(new Error('User registration not allowed for this app'));
-    if (!req.body || !req.body.password) return next(new Error('Missing password'));
+    if (!req.body || !req.body.password) return next(new Error('Missing password'));
     return this.model.instanceFromRequest(req, res).then((element: Model) => {
       // here we have a valid user ready to be created
       // we save it inside a token a request validation
@@ -129,7 +129,7 @@ export class UserControllerMiddleware extends ControllerMiddleware {
     }).then((tokenElement) => {
       // send email for validation and return token
       let app: AppModel = (res.locals.app as AppModel);
-      if (app.createAccountValidation === 'mobileOnly' || app.createAccountValidation === 'none' || !req.body.email) {
+      if (app.createAccountValidation === 'mobileOnly' || app.createAccountValidation === 'none' || !req.body.email) {
         return Promise.resolve(tokenElement);
       }
       let emailServiceForApp = NotificationEmailService.serviceForApp(res.locals.app);
@@ -159,7 +159,7 @@ export class UserControllerMiddleware extends ControllerMiddleware {
     }).then((tokenElement) => {
       // send SMS for validation and return token
       let app: AppModel = (res.locals.app as AppModel);
-      if (app.createAccountValidation === 'emailOnly' || app.createAccountValidation === 'none' || !req.body.mobile) {
+      if (app.createAccountValidation === 'emailOnly' || app.createAccountValidation === 'none' || !req.body.mobile) {
         return Promise.resolve(tokenElement);
       }
       if (tokenElement.mobileCode === `${tokenElement.data.mobile}a1b2c3`) return Promise.resolve(tokenElement);
@@ -226,9 +226,9 @@ export class UserControllerMiddleware extends ControllerMiddleware {
         validated = true;
       } else if (app.createAccountValidation === 'mobileOnly' && t.mobileValidated) {
         validated = true;
-      } else if (app.createAccountValidation === 'emailOrMobile' && (t.mobileValidated || t.emailValidated)) {
+      } else if (app.createAccountValidation === 'emailOrMobile' && (t.mobileValidated || t.emailValidated)) {
         validated = true;
-      } else if (app.createAccountValidation === 'emailAndMobile' && (t.mobileValidated && t.emailValidated)) {
+      } else if (app.createAccountValidation === 'emailAndMobile' && (t.mobileValidated && t.emailValidated)) {
         validated = true;
       }
 

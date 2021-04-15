@@ -67,9 +67,9 @@ export class PushNotificationModel extends Model {
 
   output(includeProps?: Array<string>): Promise<any> {
 
-    let nbSent = this.sentToRegIds.length || 0;
-    let nbViewed = this.viewedByRegIds.length || 0;
-    let nbOpened = this.openedByRegIds.length || 0;
+    let nbSent = this.sentToRegIds.length || 0;
+    let nbViewed = this.viewedByRegIds.length || 0;
+    let nbOpened = this.openedByRegIds.length || 0;
 
     return super.output(includeProps).then((data) => {
       data.nbSent = nbSent;

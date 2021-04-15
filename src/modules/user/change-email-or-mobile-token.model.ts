@@ -57,7 +57,7 @@ export class ChangeEmailOrMobileTokenModel extends Model {
     this.model = ChangeEmailOrMobileTokenModel;
   }
 
-  init(userId: ObjectId, appId: ObjectId, validity: number = 1, validityUnit: 'hours' | 'minutes' | 'days' | 'weeks' = 'hours') {
+  init(userId: ObjectId, appId: ObjectId, validity: number = 1, validityUnit: 'hours' | 'minutes' | 'days' | 'weeks' = 'hours') {
     //super();
     this.userId = userId;
     this.appId = appId;

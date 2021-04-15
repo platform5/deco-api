@@ -6,7 +6,7 @@ import events from 'events';
 let debug = require('debug')('app:models:dico');
 let emmiter = new events.EventEmitter();
 
-type Status = 'pending' | 'in-progress' | 'completed' | 'errored';
+type Status = 'pending' | 'in-progress' | 'completed' | 'errored';
 
 @model('operation')
 export class Operation extends Model {
@@ -17,7 +17,7 @@ export class Operation extends Model {
   @mongo.index({type: 'single'})
   public appId: ObjectId | null = null;
 
-  @type.select({options: ['pending', 'in-progress', 'completed', 'errored']})
+  @type.select({options: ['pending', 'in-progress', 'completed', 'errored']})
   @io.toDocument
   @io.output
   @query.filterable({type: 'auto'})
@@ -43,7 +43,7 @@ export class Operation extends Model {
     let operation = new Operation();
     operation.appId = appId;
     operation.status = status;
-    operation.startedAt = startedAt || moment().toDate();
+    operation.startedAt = startedAt || moment().toDate();
     return operation.insert();
   }
 
@@ -58,11 +58,11 @@ export class Operation extends Model {
     });
   }
 
-  static complete(operationId: string | ObjectId, message?: string): Promise<Operation> {
+  static complete(operationId: string | ObjectId, message?: string): Promise<Operation> {
     return Operation.getOneWithId(operationId).then((operation) => {
       if (!operation) throw new Error('Operation not found');
       operation.status = 'completed';
-      operation.message = message || '';
+      operation.message = message || '';
       return operation.update(['status', 'message']);
     }).then((operation) => {
       emmiter.emit('completed', operation);
@@ -70,11 +70,11 @@ export class Operation extends Model {
     });
   }
 
-  static errored(operationId: string | ObjectId, message?: string): Promise<Operation> {
+  static errored(operationId: string | ObjectId, message?: string): Promise<Operation> {
     return Operation.getOneWithId(operationId).then((operation) => {
       if (!operation) throw new Error('Operation not found');
       operation.status = 'errored';
-      operation.message = message || '';
+      operation.message = message || '';
       return operation.update(['status', 'message']);
     }).then((operation) => {
       emmiter.emit('completed', operation);
@@ -83,7 +83,7 @@ export class Operation extends Model {
   }
 
   static startMiddelware(req: Request, res: Response, next: NextFunction) {
-    if (!res.locals.app) {
+    if (!res.locals.app) {
       next(new Error('Missing app'));
       return;
     }
@@ -99,7 +99,7 @@ export class Operation extends Model {
     }).catch(next);
   }
 
-  static completeCurrentOperation(res: Response, status: 'completed' | 'errored', message?: string): Promise<Operation> {
+  static completeCurrentOperation(res: Response, status: 'completed' | 'errored', message?: string): Promise<Operation> {
     if (!res.locals.currentOperation) {
       throw new Error('No currentOperation found');
     }
@@ -151,7 +151,7 @@ export class Operation extends Model {
     }
     Operation.getOneWithId(operationId).then((operation) => {
       if (!operation) throw new Error('Operation not found');
-      if (operation.status === 'completed' || operation.status === 'errored') {
+      if (operation.status === 'completed' || operation.status === 'errored') {
         send(operation);
       } else {
         let sent = false;

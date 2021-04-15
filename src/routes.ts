@@ -9,7 +9,7 @@ import { AuthController } from './modules/user/auth.controller';
 import { UserController } from './modules/user/user.controller';
 import { AppController } from './modules/app/app.controller';
 import { TestController } from './modules/tests/test.controller';
-import { Router } from 'express';
+import { Router } from 'express';
 
 const router: Router = Router();
 router.use('/', UserController);

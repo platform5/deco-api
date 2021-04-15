@@ -104,12 +104,12 @@ export class AccessControllerMiddlware extends ControllerMiddleware {
     if (this.writeByUsersArray) {
       if (!res.locals.user) throw new Error('Missing user');
       let e: ModelWithUsers = (element as ModelByApp);
-      if (!e.users || !Array.isArray(e.users) || e.users.length === 0) e.users = [res.locals.user._id];
+      if (!e.users || !Array.isArray(e.users) || e.users.length === 0) e.users = [res.locals.user._id];
     }
     if (this.writeByUsersRoles) {
       if (!res.locals.user) throw new Error('Missing user');
       let e: ModelWithUsersRoles = (element as ModelByApp);
-      if (!e.users || !Array.isArray(e.users) || e.users.length === 0) e.users = [{
+      if (!e.users || !Array.isArray(e.users) || e.users.length === 0) e.users = [{
         _id: res.locals.user._id,
         roles: this.writeUsersRoles
       }];
@@ -151,7 +151,7 @@ export class AccessControllerMiddlware extends ControllerMiddleware {
     let e: ModelWithUsers = (element as ModelByApp);
     if (!e.users) throw new Error('Access denied');
 
-    for (let index in e.users || []) {
+    for (let index in e.users || []) {
       let id = e.users[index];
       if (id.toString() === res.locals.user._id.toString()) return true;
     }   
@@ -163,7 +163,7 @@ export class AccessControllerMiddlware extends ControllerMiddleware {
     let e: ModelWithUsersRoles = (element as ModelByApp);
     if (!e.users) throw new Error('Access denied');
 
-    for (let index in e.users || []) {
+    for (let index in e.users || []) {
       let user = e.users[index];
       if (user._id.toString() === res.locals.user._id.toString()) {
         for (let roleIndex in roles) {

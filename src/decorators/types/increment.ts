@@ -28,7 +28,7 @@ incrementDecorator.toDocument = (updateQuery: UpdateQuery, key: string, value: a
   let deco: Deco = options.deco;
   if (element[key]) return Promise.resolve();
   let counterId = options.deco.collectionName + ':' + key;
-  let counterMin = options.min || 1;
+  let counterMin = options.min || 1;
 
   let counterPromise: Promise<Number>;
   if (counters[counterId]) {

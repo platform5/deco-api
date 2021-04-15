@@ -24,7 +24,7 @@ export class AuthMiddleware {
       tokenPromise = UserModel.authUser(res.locals.app._id, req.body.username, req.body.password).then((user) => {
         if (!user) throw new Error('Invalid username or password');
         let token: AccessTokenModel;
-        if (res.locals.app.requireDoubleAuth || (user as UserModel).requireDoubleAuth) {
+        if (res.locals.app.requireDoubleAuth || (user as UserModel).requireDoubleAuth) {
           token = new AccessTokenModel();
           token.init('double-auth', user._id, res.locals.app._id, 10, 'minutes');
           // todo: notify user of his double auth code
@@ -98,7 +98,7 @@ export class AuthMiddleware {
   }
 
   static revokeToken(req: Request, res: Response, next: NextFunction) {
-    if (!req.body || !req.body.token) return next(new Error('Invalid request'));
+    if (!req.body || !req.body.token) return next(new Error('Invalid request'));
     if (typeof req.body.token !== 'string') return next(new Error('Invalid request'));
     AccessTokenModel.getOneWithQuery({token: req.body.token}).then((accessTokenElement) => {
       if (!accessTokenElement) return Promise.resolve(accessTokenElement);
@@ -208,8 +208,8 @@ export class AuthMiddleware {
       //let userId: ObjectId = res.locals.user._id;
   
       
-      let authorizedRoles = res.locals.app[prop] || [];
-      for (let role of res.locals.user.roles || []) {
+      let authorizedRoles = res.locals.app[prop] || [];
+      for (let role of res.locals.user.roles || []) {
         if (authorizedRoles.indexOf(role) !== -1) return next();
       }
   
@@ -257,7 +257,7 @@ export class AuthMiddleware {
   }
 
   static forgotPassword(req: Request, res: Response, next: NextFunction) {
-    if (!req.body || !req.body.q) return next(new Error('Invalid request'));
+    if (!req.body || !req.body.q) return next(new Error('Invalid request'));
     if (typeof req.body.q !== 'string') return next(new Error('Invalid request'));
 
     let query: any = {
@@ -316,7 +316,7 @@ export class AuthMiddleware {
   }
 
   static resetPassword(req: Request, res: Response, next: NextFunction) {
-    if (!req.body || !req.body.token || !req.body.code || !req.body.newPassword) return next(new Error('Invalid request'));
+    if (!req.body || !req.body.token || !req.body.code || !req.body.newPassword) return next(new Error('Invalid request'));
     if (typeof req.body.token !== 'string') return next(new Error('Invalid request'));
     if (typeof req.body.code !== 'string') return next(new Error('Invalid request'));
     if (typeof req.body.newPassword !== 'string') return next(new Error('Invalid request'));

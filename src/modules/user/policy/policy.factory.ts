@@ -1,4 +1,4 @@
-import {  Policy, PolicyRule, PolicyCondition } from './policy.model';
+import {  Policy, PolicyRule, PolicyCondition } from './policy.model';
 let debug = require('debug')('app:controller:policy:factory');
 
 export class PolicyFactory  {
@@ -119,7 +119,7 @@ export class PolicyFactory  {
     });
   }
 
-  static userRole(roles: string | Array<string>, operation: 'include' | 'exclude' = 'include') {
+  static userRole(roles: string | Array<string>, operation: 'include' | 'exclude' = 'include') {
     if (!Array.isArray(roles)) { roles = [roles]};
     return new Policy({
       route: [
@@ -176,9 +176,9 @@ export class PolicyFactory  {
     return PolicyFactory.keyMustEqual('members.userId', 'res.locals', 'user._id');
   }
 
-  public static projectMember(role: 'reader' | 'member' | 'manager') {
+  public static projectMember(role: 'reader' | 'member' | 'manager') {
     let roles: Array<'reader'|'member'|'manager'> = ['manager'];
-    if (role === 'member' || role === 'reader') {
+    if (role === 'member' || role === 'reader') {
       roles.push('member');
     }
     if (role === 'reader') {
@@ -213,7 +213,7 @@ export class PolicyFactory  {
     return new Policy({
       route: [
         {
-          conditions: {
+          conditions: {
             key: {
               type: 'query',
               queryModel: 'App',

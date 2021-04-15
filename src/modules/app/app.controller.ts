@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { ControllerMiddleware, MultipartMiddleware } from '../../';
-import { AppModel } from './app.model';
-import { AppControllerMiddleware} from './app.middleware.controller';
-import { AppMiddleware } from './app.middleware';
-import { AuthMiddleware } from '../user/auth.middleware';
+import { AppModel } from './app.model';
+import { AppControllerMiddleware} from './app.middleware.controller';
+import { AppMiddleware } from './app.middleware';
+import { AuthMiddleware } from '../user/auth.middleware';
 let debug = require('debug')('app:controller:app');
 
 const router: Router = Router();

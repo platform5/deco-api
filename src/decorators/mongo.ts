@@ -12,7 +12,7 @@ interface MongoIndexOptions {
   unique?: boolean;
   sparse?: boolean;
   partialFilterExpression?: any;
-  expireAfterSeconds?: number | undefined;
+  expireAfterSeconds?: number | undefined;
 }
 
 interface MongoCollectionIndexOptions {
@@ -33,7 +33,7 @@ let defaultOptions: MongoIndexOptions = {
 let index = (options: MongoIndexOptions = {}): any => {
   options = Object.assign({}, defaultOptions, options);
   
-  let deco = (target: any, key: string, descriptor?: PropertyDescriptor): void | any => {
+  let deco = (target: any, key: string, descriptor?: PropertyDescriptor): void | any => {
     if (descriptor) descriptor.writable = true;
 
     datastore.isReady().then(() => {

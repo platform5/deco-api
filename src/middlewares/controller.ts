@@ -54,7 +54,7 @@ export interface AutoFetchConfig {
   matchingKeyInRelatedModel: string;
   destinationKey: string;
   model: typeof Model;
-  deco?: Deco | Promise<Deco>;
+  deco?: Deco | Promise<Deco>;
   baseQuery?: any,
   includeModelProp: Array<string>;
   fetchMultiple?: boolean;
@@ -111,7 +111,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
   }
 
   sortQueryFromReq(req: Request, res: Response, query: Query, deco?: Deco): Promise<Query> {
-    if (!req.query || !req.query.sort) return Promise.resolve(query);
+    if (!req.query || !req.query.sort) return Promise.resolve(query);
 
     for (let sort of (req.query.sort as string).split(',')) {
       // sort can be (a) fieldName or (b) -fieldName
@@ -165,7 +165,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
 
     for (let prop of deco.propertySearchables) {
       const type = deco.propertyTypes[prop].name;
-      const isNumber = type === 'integer' || type === 'float' || type.substr(0, 13) === 'increment-by-';
+      const isNumber = type === 'integer' || type === 'float' || type.substr(0, 13) === 'increment-by-';
       if (isNumber) {
         let query = { $where: `/.*${this.escapeRegExp((req.query.q as string))}.*/.test(this.${prop})` };
         searchQuery.$or.push(query);
@@ -266,7 +266,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
     let promises: Array<Promise<any>> = [];
 
     for (let relatedQuerySettings of relatedQueriesSettings) {
-      let relatedQuery: Query = relatedQuerySettings.baseQuery || new Query();
+      let relatedQuery: Query = relatedQuerySettings.baseQuery || new Query();
       let queryProps: StringAnyMap = {};
 
       for (let prop in req.query) {
@@ -341,7 +341,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
     if (prop === 'id') {
       fieldType = '_id';
       filterOptions = {type: 'ids'};
-    } else if (prop === '_updatedAt' || prop === '_createdAt') {
+    } else if (prop === '_updatedAt' || prop === '_createdAt') {
       fieldType = 'date';
       filterOptions = {type: 'date', dateFormat: 'YYYY-MM-DDTHH:mm:ssZ'};
     } else if (prop === '__global__') {
@@ -349,7 +349,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
       filterOptions = {type: 'query'};
     } else {
       fieldType = deco.propertyTypes[prop].name;
-      filterOptions = deco.propertyFilterablesOptions[prop] || {};
+      filterOptions = deco.propertyFilterablesOptions[prop] || {};
     }
     if (typeof filterValue === 'string') {
       let queryMatch = filterValue.match(/^<(.*)>$/);
@@ -456,7 +456,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
       if (filterValue.indexOf('_all_') !== -1) return;
       let q:any = {};
       if (filterValue.indexOf('__none__') !== -1) {
-        q[`${prop}.0`] = {$exists: false};
+        q[`${prop}.0`] = {$exists: false};
         query.addQuery(q);
         return;
       }
@@ -474,7 +474,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
       // if the field doesn't have the ":" symbol => it's an exact date
 
       //let value = req.query[field]; => filterValue
-      let dateFormat = deco.propertyTypesOptions.dateFormat || Settings.defaultDateFormat;
+      let dateFormat = deco.propertyTypesOptions.dateFormat || Settings.defaultDateFormat;
       let fromDate = null;
       let toDate = null;
       if (filterValue.indexOf(':') === -1) {
@@ -562,10 +562,10 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
       // passing all or -1 means true or false
       if (filterValue === 'all' || filterValue === -1) return;
       let value = null;
-      if (filterValue === true || filterValue === 'true' || filterValue === 1 || filterValue === '1') {
+      if (filterValue === true || filterValue === 'true' || filterValue === 1 || filterValue === '1') {
         value = true;
       }
-      if (filterValue === false || filterValue === 'false' || filterValue === 0 || filterValue === '0') {
+      if (filterValue === false || filterValue === 'false' || filterValue === 0 || filterValue === '0') {
         value = false;
       }
       if (value === null) {
@@ -658,10 +658,10 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
         elements = [res.locals.element];
         autoFetchSingleElement = true;
       }
-      if (!req.query.autoFetch || !elements || !elements.length) {
+      if (!req.query.autoFetch || !elements || !elements.length) {
         if (send) {
           res.send(elements);
-        } else {
+        } else {
           next();
         }
         return;
@@ -899,7 +899,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
     };
   }
 
-  prepareGetOneQuery(elementId: string | ObjectId, req: Request, res: Response, options: GetOneOptions): Promise<Query> {
+  prepareGetOneQuery(elementId: string | ObjectId, req: Request, res: Response, options: GetOneOptions): Promise<Query> {
     if (typeof elementId === 'string') {
       try {
         elementId = new ObjectId(elementId);
@@ -931,7 +931,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
         if (options && options.ignoreDownload) return Promise.resolve(element);
         return this.processDownload(req, res, element);
       }).then((element) => {
-        if (res.locals.fileSent || (options && options.ignoreOutput)) return Promise.resolve(element);
+        if (res.locals.fileSent || (options && options.ignoreOutput)) return Promise.resolve(element);
         return element.output();
       }).then((element) => {
         return this.postOutput(element, req, res);
@@ -974,7 +974,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
     let propValue = (element as any)[prop];
     if (typeDecorator.name === 'files') {
       // because it's an array of files, we must find the right fileId
-      if (!Array.isArray(propValue) || propValue.length === 0) return Promise.resolve(element);
+      if (!Array.isArray(propValue) || propValue.length === 0) return Promise.resolve(element);
       if (!req.query.fileId) return Promise.resolve(element);
       let found = false;
       for (let file of propValue) {
@@ -987,7 +987,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
       if (!found) return Promise.resolve(element);
     }
 
-    if (env === 'development' && (req.url.indexOf('localhost') !== -1 || req.url.indexOf('/stage/') !== -1)) {
+    if (env === 'development' && (req.url.indexOf('localhost') !== -1 || req.url.indexOf('/stage/') !== -1)) {
       let replaceValues: StringTMap<any> = {
         "application/octet-stream": {
           "originalname": "dwg1.dwg",
@@ -1115,13 +1115,13 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
         minWidth = dims[0] ? parseInt(dims[0], 10) : 0;
         minHeight = dims[1] ? parseInt(dims[1], 10) : 0;
       }
-      if (typeof minWidth !== 'number' || typeof minHeight !== 'number' || isNaN(minWidth) || isNaN(minHeight)) {
+      if (typeof minWidth !== 'number' || typeof minHeight !== 'number' || isNaN(minWidth) || isNaN(minHeight)) {
         throw new Error('Invalid preview request');
       }
       // find the best possible preview
       let currentFilePreview: any = null;
       let currentFilePreviewSize: number = Infinity;
-      for (let preview of propValue.previews || []) {
+      for (let preview of propValue.previews || []) {
         if (preview.width >= minWidth && preview.height >= minHeight && preview.size < currentFilePreviewSize) {
           currentFilePreview = preview;
           currentFilePreviewSize = preview.size;

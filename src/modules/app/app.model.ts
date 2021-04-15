@@ -113,10 +113,10 @@ export class AppModel extends Model {
   @io.all
   openUserRegistration: boolean = true;
 
-  @type.select({options: ['emailOrMobile', 'emailAndMobile', 'emailOnly', 'mobileOnly', 'none']})
+  @type.select({options: ['emailOrMobile', 'emailAndMobile', 'emailOnly', 'mobileOnly', 'none']})
   @validate.required
   @io.all
-  createAccountValidation: 'emailOrMobile' | 'emailAndMobile' | 'emailOnly' | 'mobileOnly' | 'none' = 'emailOrMobile';
+  createAccountValidation: 'emailOrMobile' | 'emailAndMobile' | 'emailOnly' | 'mobileOnly' | 'none' = 'emailOrMobile';
 
   @type.array({type: 'string'})
   @io.all
@@ -260,7 +260,7 @@ export class AppModel extends Model {
   toDocument(operation: 'insert' | 'update' | 'upsert'): Promise<UpdateQuery> {
     return super.toDocument(operation).then((data: UpdateQuery) => {
       let document = data.getInsertDocument();
-      if (!document.roles || !Array.isArray(document.roles)) document.roles = ['admin'];
+      if (!document.roles || !Array.isArray(document.roles)) document.roles = ['admin'];
       if (document.roles.indexOf('admin') === -1) document.roles.push('admin');
       data.set('roles', document.roles);
       return data;

@@ -10,7 +10,7 @@ api.deco.ts provides a set of features to quickly build a powerful, yet flexible
 
 If you decorate nothing, api.deco.ts doesn't do much. We recommand that you use a maximum of this library features as it will give you a powerful set of tools. However the tendency is to build large library that, once included pollute your codebase with many useless features. We don't want that to happen. We believe that your code must remain as small and easy to understand as possible. Therefore we haven't built a large framework that you must learn and obey to, rather a set of features that you can use.
 
-## Centered on Models
+## Centered on Models
 
 What will drive your API design is the data that you want to manage with it. These data will be grouped in *models*, which are at the core of api.deco.ts concepts. First you need to create a Model that suits your needs, for exemple:
 
@@ -61,7 +61,7 @@ export PersonModel {
 * [Validation decorators](./validates.md)
 * [Input / Output decorators](./io.md)
 
-## Based on ExpressJS
+## Based on ExpressJS
 
 We have made the choice to use ExpressJS as foundation for this library. This opinionated decision has helped us to follow a standard and made our features very easy to plug into a well-known and used NodeJS library.
 

@@ -7,7 +7,7 @@ export interface DynamicField {
   type: 'any' | 'string' | 'integer' | 'float' | 'boolean' | 'date' | 'array' | 'object' | 'file' | 'files' | 'model' | 'models';
   options: any;
   required: boolean;
-  filterable: 'no' | 'auto' | 'equal' | 'number' | 'text' | 'categories' | 'tags' | 'date' | 'id' | 'ids' | 'boolean';
+  filterable: 'no' | 'auto' | 'equal' | 'number' | 'text' | 'categories' | 'tags' | 'date' | 'id' | 'ids' | 'boolean';
   searchable: boolean;
   sortable: boolean;
 }

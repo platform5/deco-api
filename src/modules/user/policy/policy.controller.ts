@@ -4,7 +4,7 @@ import { AuthMiddleware } from './../auth.middleware';
 import { ControllerMiddleware } from './../../../middlewares/controller';
 import { NextFunction } from 'express';
 import { ObjectId, Query, Model, GetAllOptions, GetOneOptions } from '../../../';
-import { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import resolvePath from 'object-resolve-path';
 import { Policy, PolicyPointer, PolicyPointerConfig } from './policy.model';
 import moment from 'moment';
@@ -15,11 +15,11 @@ let debug = require('debug')('app:controller:policy:middleware');
 export class PolicyController extends ControllerMiddleware {
 
   private async computePointer(pointer: PolicyPointer, req: Request, res: Response): Promise<any> {
-    if (typeof pointer === 'string' || typeof pointer === 'number' || typeof pointer === 'boolean' || Array.isArray(pointer)) {
+    if (typeof pointer === 'string' || typeof pointer === 'number' || typeof pointer === 'boolean' || Array.isArray(pointer)) {
       return pointer;
     }
     
-    if (!pointer.type || pointer.type === 'default') {
+    if (!pointer.type || pointer.type === 'default') {
       return pointer.pointer;
     } else if (pointer.type === 'property') {
       let source: any;
@@ -64,7 +64,7 @@ export class PolicyController extends ControllerMiddleware {
         if (val.substr(0, 5) == '$req.') {
           val = resolvePath(req, val.substr(5));
           // try to convert to ObjectId
-          if (val.length === 32 && this.key && (this.key === '_id' || this.key.substr(-2) === 'Id')) {
+          if (val.length === 32 && this.key && (this.key === '_id' || this.key.substr(-2) === 'Id')) {
             try {
               val = new ObjectId(val);
             } catch (error) {
@@ -123,11 +123,11 @@ export class PolicyController extends ControllerMiddleware {
     }
   }
 
-  public addPolicy(newPolicy: Policy | Policy[]) {
+  public addPolicy(newPolicy: Policy | Policy[]) {
     return PolicyController.addPolicy(newPolicy);
   }
 
-  public static addPolicy(newPolicy: Policy | Policy[]) {
+  public static addPolicy(newPolicy: Policy | Policy[]) {
     return (_req: Request, res: Response, next: NextFunction) => {
       if (!res.locals.policy) {
         res.locals.policy = new Policy();
@@ -150,7 +150,7 @@ export class PolicyController extends ControllerMiddleware {
       try {
 
         const policy: Policy = (res.locals.policy as Policy).clone();
-        for (let rule of policy.route || []) {
+        for (let rule of policy.route || []) {
           if (rule.method?.length) {
             if (rule.method.indexOf(req.method.toLowerCase()) === -1) {
               // ignore rules that target specific methods
@@ -160,14 +160,14 @@ export class PolicyController extends ControllerMiddleware {
           // determine if policy should apply by checking its conditions
           let ruleIsRelevant = false;
           rule.conditions = Array.isArray(rule.conditions) ? rule.conditions : [rule.conditions];
-          rule.conditionsOperator = rule.conditionsOperator || 'and';
+          rule.conditionsOperator = rule.conditionsOperator || 'and';
           for (let condition of rule.conditions) {
             let key = await this.computePointer(condition.key, req, res);
             let value = condition.value ? await this.computePointer(condition.value, req, res) : undefined;
             let conditionMatch: boolean = true;
             if (condition.operation === 'equals') {
               conditionMatch = key === value;
-            } else if (condition.operation === 'exists') {
+            } else if (condition.operation === 'exists') {
               conditionMatch = key !== undefined;
             } else if (condition.operation === '!exists') {
               conditionMatch = key === undefined;
@@ -201,7 +201,7 @@ export class PolicyController extends ControllerMiddleware {
           }
           if (ruleIsRelevant && rule.access === false) {
             throw new Error('Access denied');
-          } else if (!ruleIsRelevant && (rule.access === undefined || rule.access === true)) {
+          } else if (!ruleIsRelevant && (rule.access === undefined || rule.access === true)) {
             throw new Error('Access denied');
           }
         }
@@ -226,7 +226,7 @@ export class PolicyController extends ControllerMiddleware {
       return;
     }
     const policy: Policy = (res.locals.policy as Policy).clone();
-    for (let rule of policy.access || []) {
+    for (let rule of policy.access || []) {
       if (rule.method?.length) {
         if (rule.method.indexOf(req.method.toLowerCase()) === -1) {
           // ignore rules that target specific methods
@@ -285,7 +285,7 @@ export class PolicyController extends ControllerMiddleware {
   //       let query: any = {};
   //       if (rule.operation === 'equals') {
   //         query[key] = value;
-  //       } else if (rule.operation === 'exists' || rule.operation === '!exists') {
+  //       } else if (rule.operation === 'exists' || rule.operation === '!exists') {
   //         query[key] = {$exists: rule.operation === 'exists'};
   //       } else if (rule.operation === 'include') {
   //         query[key] = {$in: value}

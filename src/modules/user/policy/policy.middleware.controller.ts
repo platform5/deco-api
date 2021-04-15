@@ -25,8 +25,8 @@ export class PolicyControllerMiddlware extends ControllerMiddleware {
     let policy = this.getPolicy(req, res);
     if (!policy) return null;
     if ((policy as any)[`${operation}Policy`]) return (policy as any)[`${operation}Policy`];
-    else if ((operation === 'getAll' || operation === 'getOne') && policy.readModelPolicy) return policy.readModelPolicy;
-    else if ((operation === 'post' || operation === 'put' || operation === 'delete') && policy.writeModelPolicy) return policy.writeModelPolicy;
+    else if ((operation === 'getAll' || operation === 'getOne') && policy.readModelPolicy) return policy.readModelPolicy;
+    else if ((operation === 'post' || operation === 'put' || operation === 'delete') && policy.writeModelPolicy) return policy.writeModelPolicy;
     else if (policy.globalModelPolicy) return policy.globalModelPolicy;
     return null;
   }
@@ -148,7 +148,7 @@ export class PolicyControllerMiddlware extends ControllerMiddleware {
         for (let property of modelAccessPolicy.userIdByProperty) {
           if (typeof property !== 'string') continue;
           let found = this.compareElementPropertyWithIds(element, property, [res.locals.user._id]);
-          foundInAtLeastOne = foundInAtLeastOne || found;
+          foundInAtLeastOne = foundInAtLeastOne || found;
         }
         if (!foundInAtLeastOne) throw new Error('Access denied');
       }

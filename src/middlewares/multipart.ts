@@ -47,7 +47,7 @@ let fileFilter = (req: Request, file: any, cb: Function) => {
     return;
   }
 
-  if (!options || !options[file.fieldname] || !options[file.fieldname].accepted) {
+  if (!options || !options[file.fieldname] || !options[file.fieldname].accepted) {
     filter = false;
     cb(null, true);
     return;
@@ -55,7 +55,7 @@ let fileFilter = (req: Request, file: any, cb: Function) => {
     options[file.fieldname].accepted = [options[file.fieldname].accepted];
   }
   if (options && Array.isArray(options[file.fieldname].accepted) && filter) {
-    let accepted = (options[file.fieldname].accepted || []).join('|');
+    let accepted = (options[file.fieldname].accepted || []).join('|');
     accepted = accepted.replace(/\*/g, '.*');
     accepted = accepted.replace(/\//g, '\/');
     accepted = accepted.replace('+', '\\+');
@@ -69,7 +69,7 @@ let uploadEngine = multer({ fileFilter: fileFilter, storage: storage })
 export class MultipartMiddleware {
   static uploadEngine = uploadEngine;
 
-  static parseDeco(deco: Deco, storage: 'fs' | 'gfs' = 'fs'): Array<RequestHandler> {
+  static parseDeco(deco: Deco, storage: 'fs' | 'gfs' = 'fs'): Array<RequestHandler> {
     if (storage !== 'fs') {
       throw new Error(`Only 'fs' storage is available at the moment`);
     }

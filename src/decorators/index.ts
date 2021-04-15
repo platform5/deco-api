@@ -1,15 +1,15 @@
 import { TypeDecorator } from './types/type-decorator';
-export { TypeDecorator};
+export { TypeDecorator};
 
 import { Metadata } from './types/metadata';
 export { Metadata }
 
 import { PropertyValidation } from './validate';
-export { PropertyValidation};
+export { PropertyValidation};
 
 export * from './model';
 import * as Policies from './policy';
-export { Policies }
+export { Policies }
 
 import * as io from './io';
 export {io};

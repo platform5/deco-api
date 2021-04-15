@@ -117,7 +117,7 @@ export class DicoControllerMiddleware extends AccessControllerMiddlware {
         return next();
       }
 
-      if (!res.locals.elements || !Array.isArray(res.locals.elements)) return res.send({});
+      if (!res.locals.elements || !Array.isArray(res.locals.elements)) return res.send({});
       
       let backendStructure: StringAnyMap = {};
       for (let element of res.locals.elements) {
@@ -150,7 +150,7 @@ export class DicoControllerMiddleware extends AccessControllerMiddlware {
 
   public combineForContexts() {
     return (req: Request, res: Response, next: NextFunction) => {
-      if (!res.locals.elements || !Array.isArray(res.locals.elements)) return res.send([]);
+      if (!res.locals.elements || !Array.isArray(res.locals.elements)) return res.send([]);
       let contexts: string[] = [];
       for (let element of res.locals.elements) {
         const parts: string[] = element.key.split('.');
@@ -214,16 +214,16 @@ export class DicoControllerMiddleware extends AccessControllerMiddlware {
 
           if (fix) {
             const ids: ObjectId[] = [];
-            for (let el of dotElements) {
+            for (let el of dotElements) {
               ids.push(el._id);
             }
-            for (let el of lowercaseKeyElements) {
+            for (let el of lowercaseKeyElements) {
               ids.push(el._id);
             }
-            for (let el of contextAsKeyElements) {
+            for (let el of contextAsKeyElements) {
               ids.push(el._id);
             }
-            for (let el of keyAsContextElements) {
+            for (let el of keyAsContextElements) {
               ids.push(el._id);
             }
             result.removeIdsLength = ids.length;

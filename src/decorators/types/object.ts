@@ -1,8 +1,8 @@
 import { TypeDecorator } from './type-decorator';
 import { inputString, inputBoolean, inputDate, inputFloat, inputInteger } from './basics';
 import { validateString, validateInteger, validateFloat, validateBoolean, validateDate } from './basics';
-import { inputModel, inputModels, validateModel, validateModels } from './models';
-import { inputArray, validateArray } from './array';
+import { inputModel, inputModels, validateModel, validateModels } from './models';
+import { inputArray, validateArray } from './array';
 import moment from 'moment';
 let debug = require('debug')('deco-api:decorators:types:object');
 
@@ -29,8 +29,8 @@ export let inputObject = (value: any, options: any) => {
       if (keySettings.type === 'boolean') value[key] = inputBoolean(value[key]);
       if (keySettings.type === 'date') value[key] = inputDate(value[key]);
       if (keySettings.type === 'array') value[key] = inputArray(value[key], keySettings.options);
-      if (keySettings.type === 'model') value[key] =  inputModel(value[key], keySettings.options, key);
-      if (keySettings.type === 'models') value[key] =  inputModels(value[key], keySettings.options, key);
+      if (keySettings.type === 'model') value[key] =  inputModel(value[key], keySettings.options, key);
+      if (keySettings.type === 'models') value[key] =  inputModels(value[key], keySettings.options, key);
     }
   }
   return value;

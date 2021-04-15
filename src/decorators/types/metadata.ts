@@ -41,7 +41,7 @@ metadataDecorator.validate = (value: any, obj: any, options: any) => {
   return validateMetadata(value, options);
 };
 metadataDecorator.toDocument = (updateQuery: UpdateQuery, key: string, value: any, operation: 'insert' | 'update' | 'upsert', options: any, element: any, target: any) => {
-  if (value === null || value === undefined || value === 'null') {
+  if (value === null || value === undefined || value === 'null') {
     updateQuery.unset(key, '');
   } else {
     updateQuery.set(key, value);

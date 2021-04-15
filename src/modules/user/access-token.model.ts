@@ -50,7 +50,7 @@ export class AccessTokenModel extends Model {
     this.model = AccessTokenModel;
   }
 
-  init(type: 'access' | 'double-auth', userId: ObjectId, appId: ObjectId,  validity: number = 2, validityUnit: 'hours' | 'minutes' | 'days' | 'weeks' = 'weeks') {
+  init(type: 'access' | 'double-auth', userId: ObjectId, appId: ObjectId,  validity: number = 2, validityUnit: 'hours' | 'minutes' | 'days' | 'weeks' = 'weeks') {
     //super();
     this.type = type;
     this.userId = userId;

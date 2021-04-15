@@ -1,6 +1,6 @@
 import { Model, ObjectId, UpdateQuery, InstanceFromDocumentOptions } from '../../';
 import { Request, Response, NextFunction } from "express";
-import { MembersController } from './members.controller';
+import { MembersController } from './members.controller';
 
 
 export abstract class Members extends Model {

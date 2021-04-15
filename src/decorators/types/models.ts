@@ -64,7 +64,7 @@ modelDecorator.output = (key: string, value: any, options: any, element: any, ta
   return Promise.resolve(value);
 };
 export let validateModel = async (value: any, options: any) => {
-  if (options.model === 'not-set' || !options.model) return Promise.reject(new Error(`Model not set in (${options.key})`));
+  if (options.model === 'not-set' || !options.model) return Promise.reject(new Error(`Model not set in (${options.key})`));
   if (options.model !instanceof Model) throw new Error('options.model must be a Model instance');
 
   if (value === undefined || value === null) return true;
@@ -106,7 +106,7 @@ export let inputModels = (value: any, options: any, key: string) => {
   if (options.model === 'not-set') return Promise.reject(new Error(`Model not set in (${key})`));
   if (options.model !instanceof Model) return Promise.reject(new Error('options.model must be a Model instance'));
 
-  if (value === 'null' || value === null || value === undefined || value === 'undefined') value = [];
+  if (value === 'null' || value === null || value === undefined || value === 'undefined') value = [];
 
   if (typeof value === 'string') value = value.split(',');
 
@@ -142,7 +142,7 @@ modelsDecorator.output = (key: string, value: any, options: any, element: any, t
   return Promise.resolve(value);
 };
 export let validateModels = async (value: any, options: any) => {
-  if (options.model === 'not-set' || !options.model) return Promise.reject(new Error(`Model not set in (${options.key})`));
+  if (options.model === 'not-set' || !options.model) return Promise.reject(new Error(`Model not set in (${options.key})`));
   if (options.model !instanceof Model) return Promise.reject(new Error('options.model must be a Model instance'));
 
   if (value === undefined || value === null || value === []) return true;
@@ -162,7 +162,7 @@ modelsDecorator.toDocument = async (updateQuery: UpdateQuery, key: string, value
 
   if (options.crossDirectional) {
     const model = (options.model as typeof Model);
-    if (operation !== 'insert' && value === undefined || (Array.isArray(value) && value.length === 0)) {
+    if (operation !== 'insert' && value === undefined || (Array.isArray(value) && value.length === 0)) {
       // remove this item from any relationship on this key
       const query: any = {};
       query[key] = element._id;
@@ -176,7 +176,7 @@ modelsDecorator.toDocument = async (updateQuery: UpdateQuery, key: string, value
       if (operation === 'insert' && !element._id) {
         element._id = new ObjectId();
       }
-      const originalValue = element[`_original${key}`] || [];
+      const originalValue = element[`_original${key}`] || [];
       const idsNotToAdd: string[] = originalValue.map((id: any) => id.toString());
       // must fetch all related elements and check if we must add some more ids into the relation
       // for this we only query "new" elements that were not in the relationship before

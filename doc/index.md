@@ -16,6 +16,6 @@ Welcome to the minimal documentation of api.deco.ts.
 * [How to POST files](./files.md)
 * [Settings](./settings.md)
 * Helpers
-  * [Query](./query-helper.md)
+  * [Query](./query-helper.md)
 * Real Life Exemples
   * [Exemple1](./exemple1.md)

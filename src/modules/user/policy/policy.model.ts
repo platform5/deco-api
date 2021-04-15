@@ -2,7 +2,7 @@ import { ObjectId, Model } from '../../../';
 
 let debug = require('debug')('app:controller:policy:model');
 
-export type CrudOperation = 'create' | 'read' | 'update' | 'delete';
+export type CrudOperation = 'create' | 'read' | 'update' | 'delete';
 export type Operations = CrudOperation;
 
 export interface PolicyInterface {
@@ -69,15 +69,15 @@ export class Policy implements PolicyInterface {
 }
 
 export interface PolicyPointerConfig {
-  type?: 'default' | 'property' | 'query' | 'prepared';
+  type?: 'default' | 'property' | 'query' | 'prepared';
   propertySource?: 'element' | 'res.locals' | 'req.query' | 'req.params';
   pointer: any;
-  queryModel?: string | ObjectId | typeof Model; // string = Core Model, ObjectId = DynamicConfig
-  queryType?: 'one' | 'many';
+  queryModel?: string | ObjectId | typeof Model; // string = Core Model, ObjectId = DynamicConfig
+  queryType?: 'one' | 'many';
   query?: any;
 }
 
-export type PolicyPointer = PolicyPointerConfig | string | number | boolean | Array<string>;
+export type PolicyPointer = PolicyPointerConfig | string | number | boolean | Array<string>;
 
 export interface PolicyCondition {
   key: PolicyPointer;
@@ -88,8 +88,8 @@ export interface PolicyCondition {
 export interface PolicyRule {
   method?: Array<'get' | 'post' | 'put' | 'delete' | string>, // if not provided, apply to all, otherwise only apply to these methods
   //prepare?: Array<PolicyPointer>;
-  conditions: PolicyCondition | PolicyCondition[];
-  conditionsOperator?: 'and' | 'or'; // and is default  
+  conditions: PolicyCondition | PolicyCondition[];
+  conditionsOperator?: 'and' | 'or'; // and is default  
   access?: boolean; // true for allow access (default)
   includeProperties?: Array<string>;
   excludeProperties?: Array<string>;
