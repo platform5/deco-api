@@ -192,7 +192,7 @@ modelsDecorator.toDocument = async (updateQuery: UpdateQuery, key: string, value
             }
           }
         }
-      }
+      } 
       // value is now a ObjectId[] with all valid relationships
       if (!valuesString.includes(element._id.toString())) {
         valuesString.push(element._id.toString());
