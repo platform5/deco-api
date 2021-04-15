@@ -223,11 +223,13 @@ exports.modelsDecorator.toDocument = (updateQuery, key, value, operation, option
             }
             const setQuery = {};
             setQuery[key] = value;
+            const unsetMatch = { _id: { $nin: value } };
+            unsetMatch[key] = { $in: value };
             const unsetQuery = {};
             unsetQuery[key] = [];
             yield model.deco.db.collection(model.deco.collectionName).updateMany({ _id: { $in: value } }, { $set: setQuery });
             // and remove all these values from any other documents that might be linked to it
-            yield model.deco.db.collection(model.deco.collectionName).updateMany({ _id: { $nin: value } }, { $set: unsetQuery });
+            yield model.deco.db.collection(model.deco.collectionName).updateMany({ _id: unsetMatch }, { $set: unsetQuery });
             updateQuery.set(key, value);
         }
     }
