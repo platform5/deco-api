@@ -1,6 +1,6 @@
 {
   "name": "deco-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Quickly deploy a fully customizable yet very simple REST api. Leverage the power of javascript decorators to help you design a NodeJS Api Sever that really meets your needs.",
   "main": "build/index.js",
   "scripts": {
@@ -11,7 +11,12 @@
     "type": "git",
     "url": "https://github.com/platform5/deco-api"
   },
-  "keywords": ["API", "REST", "express", "decorator"],
+  "keywords": [
+    "API",
+    "REST",
+    "express",
+    "decorator"
+  ],
   "author": "platform5",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
