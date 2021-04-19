@@ -7,9 +7,13 @@
     "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/platform5/deco-api"
+  },
+  "keywords": ["API", "REST", "express", "decorator"],
+  "author": "platform5",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@types/email-templates": "^8.0.1",
     "@types/express": "^4.17.11",
