@@ -1,0 +1,17 @@
+/node_modules
+
+# Documentation
+doc
+docs
+typedoc.json
+
+# Source
+src
+
+# emails ?
+coverage
+Makefile
+tsconfig.json
+types.d.ts
+update-prod.sh
+update-stage.sh
