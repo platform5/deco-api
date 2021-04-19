@@ -1,15 +1,15 @@
 /node_modules
 
 # Documentation
-doc
-docs
+/doc
+/docs
 typedoc.json
 
 # Source
-src
+/src
 
 # emails ?
-coverage
+/coverage
 Makefile
 tsconfig.json
 types.d.ts
