@@ -6,7 +6,7 @@
 typedoc.json
 
 # Source
-/src
+# /src
 
 # emails ?
 /coverage

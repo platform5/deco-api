@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/modules/model-hits/index.ts"],"names":[],"mappings":";;;;;AAAA,6CAAwC;AACxC,wCAAmC","sourcesContent":["export * from './model.hits.controller';\nexport * from './model.hits.model';"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/modules/model-hits/index.ts"],"names":[],"mappings":";;;;;AAAA,6CAAwC;AACxC,wCAAmC"}

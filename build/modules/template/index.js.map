@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/modules/template/index.ts"],"names":[],"mappings":";;;;;AAAA,2CAAsC;AACtC,sCAAiC","sourcesContent":["export * from './template.controller';\nexport * from './template.model';"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/modules/template/index.ts"],"names":[],"mappings":";;;;;AAAA,2CAAsC;AACtC,sCAAiC"}

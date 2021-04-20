@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/modules/dico/index.ts"],"names":[],"mappings":";;;;;AAAA,uCAAkC;AAClC,kDAA6C;AAC7C,kCAA6B","sourcesContent":["export * from './dico.controller';\nexport * from './dico.middleware.controller';\nexport * from './dico.model';"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/modules/dico/index.ts"],"names":[],"mappings":";;;;;AAAA,uCAAkC;AAClC,kDAA6C;AAC7C,kCAA6B"}

@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../src/interfaces/index.ts"],"names":[],"mappings":";;;;;AAAA,4BAAuB","sourcesContent":["export * from './deco';\nexport * from './types';"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../src/interfaces/index.ts"],"names":[],"mappings":";;;;;AAAA,4BAAuB"}
