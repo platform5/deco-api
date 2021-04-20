@@ -1,1 +1,0 @@
-{"version":3,"file":"geojson.d.ts","sourceRoot":"","sources":["../../../src/decorators/types/geojson.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,kBAAkB,CAAC;AAGjD,eAAO,IAAI,uBAAuB,eAAsC,CAAC;AACzE,eAAO,MAAM,cAAc,uGAAsC,CAAC;AAclE,wBAAgB,eAAe,CAAC,KAAK,EAAE,GAAG,EAAE,OAAO,EAAE,GAAG,gBAEvD"}

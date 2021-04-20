@@ -1,1 +1,0 @@
-{"version":3,"file":"query.d.ts","sourceRoot":"","sources":["../../src/decorators/query.ts"],"names":[],"mappings":"AAAA,wBAAgB,aAAa,CAAC,MAAM,EAAE,GAAG,EAAE,QAAQ,EAAE,MAAM,EAAE,GAAG,EAAE,MAAM,GAAG,MAAM,GAAG,MAAM,EAAE,OAAO,KAAK,QAKvG;AAED,eAAO,MAAM,UAAU,gFAKtB,CAAA;AAED,eAAO,MAAM,UAAU,mGAStB,CAAA;AAED,eAAO,MAAM,QAAQ,gFAKpB,CAAA;AAED,eAAO,MAAM,GAAG,gFASf,CAAA"}

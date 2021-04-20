@@ -3,6 +3,7 @@
   "version": "1.0.5",
   "description": "Quickly deploy a fully customizable yet very simple REST api. Leverage the power of javascript decorators to help you design a NodeJS Api Sever that really meets your needs.",
   "main": "build/index.js",
+  "typings": "build/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -68,9 +69,5 @@
     "@types/jest": "^23.3.0",
     "jest": "^23.4.1",
     "ts-jest": "^23.0.1"
-  },
-  "typings": "definitions/index",
-  "typescript": {
-    "definition": "definitions/index"
   }
 }
