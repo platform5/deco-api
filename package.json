@@ -68,5 +68,9 @@
     "@types/jest": "^23.3.0",
     "jest": "^23.4.1",
     "ts-jest": "^23.0.1"
+  },
+  "typings": "definitions/index",
+  "typescript": {
+    "definition": "definitions/index"
   }
 }

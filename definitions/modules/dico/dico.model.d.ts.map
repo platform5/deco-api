@@ -1,0 +1,1 @@
+{"version":3,"file":"dico.model.d.ts","sourceRoot":"","sources":["../../../src/modules/dico/dico.model.ts"],"names":[],"mappings":"AACA,OAAO,EAAS,KAAK,EAA6B,QAAQ,EAAS,MAAM,QAAQ,CAAC;AAGlF,qBACa,SAAU,SAAQ,KAAK;IAQ3B,KAAK,EAAE,QAAQ,GAAG,IAAI,CAAQ;IAS9B,GAAG,EAAE,MAAM,CAAM;IAMjB,KAAK,EAAE,MAAM,CAAM;IAMnB,IAAI,EAAE,KAAK,CAAC,MAAM,CAAC,CAAM;CACjC"}
