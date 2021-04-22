@@ -10,6 +10,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var ValidationTokenModel_1;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ValidationTokenModel = void 0;
 const app_model_1 = require("./../app/app.model");
 const __1 = require("../../");
 const crypto_1 = __importDefault(require("crypto"));

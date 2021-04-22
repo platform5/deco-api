@@ -10,6 +10,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var AppModel_1;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AppModel = void 0;
 const __1 = require("../../");
 const crypto_1 = __importDefault(require("crypto"));
 let debug = require('debug')('app:models:app');
@@ -70,7 +71,7 @@ let AppModel = AppModel_1 = class AppModel extends __1.Model {
             let publicKeys = [];
             for (let index in this.publicKeys) {
                 let key = this.publicKeys[index];
-                if (key.key) {
+                if (!key.key) {
                     continue;
                 }
                 publicKeys.push({ name: key.name, expires: key.expires, active: key.active, last4: key.key.substr(-4) });
@@ -79,7 +80,7 @@ let AppModel = AppModel_1 = class AppModel extends __1.Model {
             let privateKeys = [];
             for (let index in this.privateKeys) {
                 let key = this.privateKeys[index];
-                if (key.key) {
+                if (!key.key) {
                     continue;
                 }
                 privateKeys.push({ name: key.name, expires: key.expires, active: key.active, last4: key.key.substr(-4) });

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.propertyPolicy = exports.modelPolicy = exports.QueryByModel = void 0;
 class QueryByModel {
 }
 exports.QueryByModel = QueryByModel;

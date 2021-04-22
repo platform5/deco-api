@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DynamicHelper = void 0;
 const dynamicdata2_model_1 = require("./dynamicdata2.model");
 const dynamic2_middleware_controller_1 = require("./dynamic2.middleware.controller");
 const app_model_1 = require("./../app/app.model");

@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Action = exports.ActionsService = void 0;
 let debug = require('debug')('app:actions:service');
 class ActionsService {
     static setVariables(res, variables) {

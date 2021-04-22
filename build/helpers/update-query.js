@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UpdateQuery = void 0;
 let debug = require('debug')('deco-api:helpers:update-query');
 class UpdateQuery {
     constructor() {

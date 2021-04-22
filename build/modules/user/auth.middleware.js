@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuthMiddleware = void 0;
 const change_email_or_mobile_token_model_1 = require("./change-email-or-mobile-token.model");
 const reset_password_token_model_1 = require("./reset-password-token.model");
 const user_model_1 = require("./user.model");

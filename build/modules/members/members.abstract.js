@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Members = void 0;
 const __1 = require("../../");
 const members_controller_1 = require("./members.controller");
 class Members extends __1.Model {

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TypeDecorator = void 0;
 // aurelia-validation tips
 // https://stackoverflow.com/a/49354106/437725
 require("aurelia-polyfills");

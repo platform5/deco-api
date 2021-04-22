@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Model = exports.model = void 0;
 const update_query_1 = require("./../helpers/update-query");
 const query_1 = require("./../helpers/query");
 const datastore_1 = require("../helpers/datastore");

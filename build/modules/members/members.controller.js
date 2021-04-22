@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MembersController = void 0;
 const auth_middleware_1 = require("./../user/auth.middleware");
 const user_model_1 = require("./../user/user.model");
 const __1 = require("../../");

@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DicoControllerMiddleware = void 0;
 const dico_model_1 = require("./dico.model");
 const access_middleware_controller_1 = require("./../user/access.middleware.controller");
 const __1 = require("../../");

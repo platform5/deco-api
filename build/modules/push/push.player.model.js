@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var PushPlayerModel_1;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PushPlayerModel = void 0;
 const user_model_1 = require("./../user/user.model");
 const app_model_1 = require("./../app/app.model");
 const __1 = require("../../");

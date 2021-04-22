@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.uniqueByApp = exports.slug = exports.email = exports.maxLength = exports.minLength = exports.required = exports.addTargetValidation = exports.ValidationRules = void 0;
 const aurelia_validation_1 = require("aurelia-validation");
-exports.ValidationRules = aurelia_validation_1.ValidationRules;
+Object.defineProperty(exports, "ValidationRules", { enumerable: true, get: function () { return aurelia_validation_1.ValidationRules; } });
 let debug = require('debug')('deco-api:decorators:validate');
 function addTargetValidation(target, type, key, options = {}) {
     if (!target._validations)
@@ -62,7 +63,7 @@ exports.uniqueByApp = (target, key, descriptor) => {
         return descriptor;
 };
 aurelia_validation_1.ValidationRules.customRule(`validate:uniqueByApp`, (value, obj, options) => {
-    var _a, _b;
+    var _a;
     if (value === null || value === undefined || value === '')
         return true;
     let query = {};
@@ -73,7 +74,7 @@ aurelia_validation_1.ValidationRules.customRule(`validate:uniqueByApp`, (value, 
     }
     else if (options.instance.request && options.instance.request.body) {
         let req = options.instance.request;
-        query.appId = (_b = (_a = req) === null || _a === void 0 ? void 0 : _a.body) === null || _b === void 0 ? void 0 : _b.appId;
+        query.appId = (_a = req === null || req === void 0 ? void 0 : req.body) === null || _a === void 0 ? void 0 : _a.appId;
     }
     return options.target.getOneWithQuery(query).then((element) => {
         if (element)

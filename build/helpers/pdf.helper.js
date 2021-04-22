@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PDFTextBlock = exports.PDFBlock = exports.PDF = void 0;
 const pdf_lib_1 = require("pdf-lib");
 const marked_1 = __importDefault(require("marked"));
 class PDF {
@@ -94,15 +95,14 @@ class PDFBlock {
         this.pdf = pdf;
     }
     moveDownAndAddPageIfNecessary(value, options) {
-        var _a, _b, _c;
         this.pdf.currentPage.moveDown(value);
         const top = this.pdf.currentPage.getY();
         const left = this.pdf.currentPage.getX();
-        const marginBottom = ((_a = options) === null || _a === void 0 ? void 0 : _a.marginBottom) || 0;
+        const marginBottom = (options === null || options === void 0 ? void 0 : options.marginBottom) || 0;
         if (top < marginBottom) {
             this.pdf.addPage();
-            const offsetX = ((_b = options) === null || _b === void 0 ? void 0 : _b.newPageOffsetX) || 0;
-            const offsetY = ((_c = options) === null || _c === void 0 ? void 0 : _c.newPageOffsetY) || 0;
+            const offsetX = (options === null || options === void 0 ? void 0 : options.newPageOffsetX) || 0;
+            const offsetY = (options === null || options === void 0 ? void 0 : options.newPageOffsetY) || 0;
             this.pdf.currentPage.moveTo(left + offsetX, this.pdf.currentPage.getY() - offsetY);
         }
     }

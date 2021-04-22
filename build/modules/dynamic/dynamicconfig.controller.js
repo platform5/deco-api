@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DynamicConfigController = void 0;
 const controller_1 = require("./../../middlewares/controller");
 const dynamicconfig_model_1 = require("./dynamicconfig.model");
 const access_middleware_controller_1 = require("./../user/access.middleware.controller");
