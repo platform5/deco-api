@@ -237,7 +237,7 @@ export class AppModel extends Model {
       let publicKeys: Array<any> = [];
       for (let index in this.publicKeys) {
         let key = this.publicKeys[index];
-        if (key.key) {
+        if (!key.key) {
           continue;
         }
         publicKeys.push({name: key.name, expires: key.expires, active: key.active, last4: key.key.substr(-4)});
@@ -247,7 +247,7 @@ export class AppModel extends Model {
       let privateKeys: Array<any> = [];
       for (let index in this.privateKeys) {
         let key = this.privateKeys[index];
-        if (key.key) {
+        if (!key.key) {
           continue;
         }
         privateKeys.push({name: key.name, expires: key.expires, active: key.active, last4: key.key.substr(-4)});
