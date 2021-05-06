@@ -1,4 +1,3 @@
-import { StringTMap } from './../../interfaces/types';
 import { UpdateQuery } from './../../helpers/update-query';
 // aurelia-validation tips
 // https://stackoverflow.com/a/49354106/437725
@@ -104,7 +103,7 @@ export class TypeDecorator {
 
 import { idDecorator, dateDecorator } from '../types/basics';
 
-function setBaseModelTypes(): StringTMap<TypeDecorator> {
+function setBaseModelTypes(): {[key: string]: TypeDecorator} {
   return {
     _id: idDecorator,
     _createdAt: dateDecorator,

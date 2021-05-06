@@ -1,5 +1,5 @@
 import { AppModel } from './../app/app.model';
-import { model, Model, type, io, query, validate, ObjectId, StringStringMap, mongo } from '../../';
+import { model, Model, type, io, query, validate, ObjectId, mongo } from '../../';
 let debug = require('debug')('app:models:dico');
 
 @model('template')
@@ -23,19 +23,19 @@ export class TemplateModel extends Model {
   @type.string({multilang: true, locales: []})
   @io.all
   @validate.required
-  public subject: string | StringStringMap = '';
+  public subject: string | {[key: string]: string} = '';
 
   @type.string({multilang: true, locales: []})
   @io.all
   @validate.required
-  public html: string | StringStringMap = '';
+  public html: string | {[key: string]: string} = '';
 
   @type.string({multilang: true, locales: []})
   @io.all
-  public text: string | StringStringMap = '';
+  public text: string | {[key: string]: string} = '';
 
   @type.string({multilang: true, locales: []})
   @io.all
-  public sms: string | StringStringMap = '';
+  public sms: string | {[key: string]: string} = '';
 
 }

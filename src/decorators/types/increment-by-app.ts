@@ -1,4 +1,4 @@
-import { Deco, datastore, StringNumberMap, UpdateQuery } from '../../';
+import { Deco, datastore, UpdateQuery } from '../../';
 import { TypeDecorator } from './type-decorator';
 let debug = require('debug')('deco-api:decorators:types:increment-by-app');
 
@@ -16,7 +16,7 @@ export let validateIncrementByApp = async (value: any, options: any) => {
 incrementByAppDecorator.validate = (value: any, obj: any, options: any) => {
   return validateIncrementByApp(value, options);
 };
-let counters: StringNumberMap = {};
+let counters: {[key: string]: number} = {};
 incrementByAppDecorator.toDocument = (updateQuery: UpdateQuery, key: string, value: any, operation: 'insert' | 'update' | 'upsert', options: any, element: any, target: any) => {
   if (!options.deco) {
     console.warn('Missing deco in increment decorator');

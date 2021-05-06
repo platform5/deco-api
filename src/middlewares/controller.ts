@@ -1,5 +1,4 @@
 import { GetAllOptions, GetOneOptions } from './../decorators/model';
-import { StringAnyMap, StringTMap } from '../interfaces/types';
 import { ControllerHooksMiddleware } from './controller.hooks';
 import { Model } from "../decorators";
 import { ObjectId } from 'mongodb';
@@ -8,7 +7,7 @@ import { Query } from '../helpers/query';
 import { Settings } from '../helpers/settings';
 import moment from 'moment';
 import fs from 'fs';
-import { Deco, RelatedModel } from '../interfaces';
+import { Deco } from '../interfaces';
 import { relations } from '../decorators/types/models';
 import resolvePath from 'object-resolve-path';
 import traverse from 'traverse';
@@ -175,7 +174,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
       if (isMultilang && req.query.locale) {
         prop += `.${req.query.locale}`;
       }
-      let search: StringAnyMap = {};
+      let search: {[key: string]: any} = {};
       search[prop] = {
         $regex: this.prepareSearchRegexp((req.query.q as string)),
         $options: '-i'
@@ -267,7 +266,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
 
     for (let relatedQuerySettings of relatedQueriesSettings) {
       let relatedQuery: Query = relatedQuerySettings.baseQuery || new Query();
-      let queryProps: StringAnyMap = {};
+      let queryProps: {[key: string]: any} = {};
 
       for (let prop in req.query) {
         if (prop.indexOf('.') === -1) continue;
@@ -306,7 +305,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
     });
   }
 
-  filterQueryFromDeco(deco: Deco, query: Query, queryProps: StringAnyMap): Promise<Query> {
+  filterQueryFromDeco(deco: Deco, query: Query, queryProps: {[key: string]: any}): Promise<Query> {
     if (deco.propertyFilterables.indexOf('_createdAt') === -1) deco.propertyFilterables.push('_createdAt');
     if (deco.propertyFilterables.indexOf('_updatedAt') === -1) deco.propertyFilterables.push('_updatedAt');
     if (deco.propertyFilterables.indexOf('_createdBy') === -1) deco.propertyFilterables.push('_createdBy');
@@ -775,8 +774,8 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
           let config = autoFetchConfigs[index];
           if (!elementsByConfig[index] || !elementsByConfig[index].length) continue;
           let matchingKey = config.matchingKeyInRelatedModel;
-          let elementsByIds: StringTMap<Model> = {};
-          let elementsByIdsArray: StringTMap<Array<Model>> = {};
+          let elementsByIds: {[key: string]: Model} = {};
+          let elementsByIdsArray: {[key: string]: Model[]} = {};
           for (let relatedElement of elementsByConfig[index]) {
             if (matchingKey === '_id' && relatedElement._id === undefined && relatedElement.id) {
               matchingKey = 'id';
@@ -988,7 +987,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
     }
 
     if (env === 'development' && (req.url.indexOf('localhost') !== -1 || req.url.indexOf('/stage/') !== -1)) {
-      let replaceValues: StringTMap<any> = {
+      let replaceValues: {[key: string]: any} = {
         "application/octet-stream": {
           "originalname": "dwg1.dwg",
           "encoding": "7bit",
@@ -1328,7 +1327,7 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
 
   allowOnlyInBody(props: Array<string>) {
     return (req: Request, res: Response, next: NextFunction) => {
-      let newBody: StringAnyMap = {};
+      let newBody: {[key: string]: any} = {};
       for (let key in req.body) {
         if (props.indexOf(key) !== -1) newBody[key] = req.body[key];
       }

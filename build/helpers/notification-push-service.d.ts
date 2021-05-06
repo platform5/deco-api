@@ -1,4 +1,4 @@
-import { PushNotificationModel, StringTMap, ObjectId, AppModel } from '../';
+import { PushNotificationModel, ObjectId, AppModel } from '../';
 import PushNotifications from 'node-pushnotifications';
 export interface PushConfig {
     enabled?: boolean;
@@ -15,7 +15,9 @@ export declare class NotificationPushService {
     configString: string;
     lastUsageAt: Date;
     connected: boolean;
-    static servicesByApp: StringTMap<NotificationPushService>;
+    static servicesByApp: {
+        [key: string]: NotificationPushService;
+    };
     static pushConfigFromApp(app: AppModel): PushConfig;
     static serviceForApp(app: AppModel): NotificationPushService;
     static shutdownUnsedService(): void;

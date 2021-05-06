@@ -1,6 +1,5 @@
 import { Deco } from './../../interfaces/deco';
 import { datastore } from './../../helpers/datastore';
-import { StringNumberMap } from './../../interfaces/types';
 import { UpdateQuery } from './../../helpers/update-query';
 import { TypeDecorator } from './type-decorator';
 let debug = require('debug')('deco-api:decorators:types:increment');
@@ -19,7 +18,7 @@ export let validateIncrement = async (value: any, options: any) => {
 incrementDecorator.validate = (value: any, obj: any, options: any) => {
   return validateIncrement(value, options);
 };
-let counters: StringNumberMap = {};
+let counters: {[key: string]: number} = {};
 incrementDecorator.toDocument = (updateQuery: UpdateQuery, key: string, value: any, operation: 'insert' | 'update' | 'upsert', options: any, element: any, target: any) => {
   if (!options.deco) {
     console.warn('Missing deco in increment decorator');

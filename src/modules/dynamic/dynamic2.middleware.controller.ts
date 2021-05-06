@@ -4,8 +4,8 @@ import { AppModel } from './../app/app.model';
 import { DynamicConfigModel } from './dynamicconfig.model';
 import { DynamicDataModel2 } from './dynamicdata2.model';
 import { Request, Response, NextFunction } from 'express';
-import { RelatedModelFilterQueryConfig, StringTMap, Policies } from '../../';
-import { Deco, TypeDecorator, type, ObjectId, Query, Model, MultipartMiddleware, UpdateQuery, StringStringMap } from '../../';
+import { RelatedModelFilterQueryConfig, Policies } from '../../';
+import { Deco, TypeDecorator, type, ObjectId, Query, Model, MultipartMiddleware, UpdateQuery } from '../../';
 import { NotificationEmailService, TemplateOverride } from '../../';
 import moment from 'moment';
 let debug = require('debug')('app:middleware:controllers:dynamic2');
@@ -402,7 +402,7 @@ export class Dynamic2MiddlwareController extends PolicyControllerMiddlware {
   }
 
   findOriginalModelRelations(req: Request, res: Response, relatedQueriesSettings: Array<RelatedModelFilterQueryConfig>): Promise<Array<RelatedModelFilterQueryConfig>> {
-    let relatedModelsConfigs: StringTMap<DynamicConfigModel> = {};
+    let relatedModelsConfigs: {[key: string]: DynamicConfigModel} = {};
     let config = (res.locals.dynamicConfigModel as DynamicConfigModel);
     return super.findOriginalModelRelations(req, res, relatedQueriesSettings).then(() => {
       let relatedModelsIds: Array<ObjectId> = [];
@@ -494,7 +494,7 @@ export class Dynamic2MiddlwareController extends PolicyControllerMiddlware {
 
   prepareModelNotification(res: Response, element: Model) {
     let config: DynamicConfigModel = res.locals.dynamicConfigModel;
-    let keyValues: StringStringMap = {};
+    let keyValues: {[key: string]: string} = {};
     let promises: Array<Promise<any>> = [];
     keyValues.id = element._id.toString();
     for (let property in element.deco.propertyTypes) {
@@ -549,7 +549,7 @@ export class Dynamic2MiddlwareController extends PolicyControllerMiddlware {
     });
   }
 
-  sendNotification(app: AppModel, email: string, subject: string, element: Model, keyValues: StringStringMap, contentPrefix: string, contentSuffix: string, template: string = 'model-notification', templateOverride: TemplateOverride | null) {
+  sendNotification(app: AppModel, email: string, subject: string, element: Model, keyValues: {[key: string]: string}, contentPrefix: string, contentSuffix: string, template: string = 'model-notification', templateOverride: TemplateOverride | null) {
     let emailService = NotificationEmailService.serviceForApp(app);
 
     return emailService.send(email, template, {

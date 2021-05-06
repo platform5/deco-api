@@ -1,4 +1,4 @@
-import { PushPlayerModel, PushNotificationModel, StringTMap, Query, ObjectId, AppModel } from '../';
+import { PushPlayerModel, PushNotificationModel, Query, ObjectId, AppModel } from '../';
 import PushNotifications from 'node-pushnotifications';
 import moment from 'moment';
 let debug = require('debug')('app:helpers:notification-push-service');
@@ -21,7 +21,7 @@ export class NotificationPushService {
   lastUsageAt: Date;
   connected: boolean = false;
 
-  static servicesByApp: StringTMap<NotificationPushService> = {};
+  static servicesByApp: {[key: string]: NotificationPushService} = {};
 
   static pushConfigFromApp(app: AppModel): PushConfig {
     let pushConfig: PushConfig = {

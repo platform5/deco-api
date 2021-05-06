@@ -1,4 +1,4 @@
-import { Model, ObjectId, StringNumberMap } from '../../';
+import { Model, ObjectId } from '../../';
 export interface NbPlayers {
     nb: number;
     inactive?: number;
@@ -14,6 +14,8 @@ export declare class PushPlayerModel extends Model {
     active: boolean;
     constructor();
     static nbPlayers(appId: ObjectId): Promise<NbPlayers>;
-    static tags(appId: ObjectId): Promise<StringNumberMap>;
+    static tags(appId: ObjectId): Promise<{
+        [key: string]: number;
+    }>;
 }
 //# sourceMappingURL=push.player.model.d.ts.map

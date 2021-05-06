@@ -1,6 +1,5 @@
 import { Db, ObjectId } from 'mongodb';
 import { ModelOptions, Model } from './../decorators/model';
-import { StringAnyMap, StringTMap } from './types';
 import { PropertyValidation } from '../decorators/validate';
 import { TypeDecorator } from '../decorators/types/index';
 
@@ -17,19 +16,19 @@ export interface Deco {
   options: ModelOptions;
   db: Db;
 
-  propertyTypes: StringTMap<TypeDecorator>;
-  propertyTypesOptions: StringAnyMap;
+  propertyTypes: {[key: string]: TypeDecorator};
+  propertyTypesOptions: {[key: string]: any};
 
   propertyInputs: Array<string>;
   propertyOutputs: Array<string>;
   propertyToDocuments: Array<string>;
 
-  propertyValidations: StringTMap<Array<PropertyValidation>>;
+  propertyValidations: {[key: string]: PropertyValidation[]};
 
   propertySearchables: Array<string>;
   propertySortables: Array<string>;
   propertyFilterables: Array<string>;
-  propertyFilterablesOptions: StringAnyMap;
+  propertyFilterablesOptions: {[key: string]: any};
 }
 
 export function cloneDeco(deco: Deco): Deco {

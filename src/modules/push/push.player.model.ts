@@ -1,6 +1,6 @@
 import { UserModel } from './../user/user.model';
 import { AppModel } from './../app/app.model';
-import { model, Model, type, io, query, validate, ObjectId, StringNumberMap, mongo } from '../../';
+import { model, Model, type, io, query, validate, ObjectId, mongo } from '../../';
 let debug = require('debug')('app:models:dico');
 
 export interface NbPlayers {
@@ -71,13 +71,13 @@ export class PushPlayerModel extends Model {
     });
   }
 
-  static tags(appId: ObjectId): Promise<StringNumberMap> {
+  static tags(appId: ObjectId): Promise<{[key: string]: number}> {
     return PushPlayerModel.deco.db.collection(PushPlayerModel.deco.collectionName).aggregate([ 
       { $match : { appId : appId, active: true } },
       { $unwind: "$tags" },
       { $group: { _id: "$tags", count: { $sum: 1 } } }
     ]).toArray().then((result) => {
-      let tags: StringNumberMap = {};
+      let tags: {[key: string]: number} = {};
       for (let r of result) {
         tags[r._id] = r.count;
       }

@@ -1,4 +1,3 @@
-import { StringAnyMap, StringTMap } from './../interfaces/types';
 import { UpdateQuery } from './../helpers/update-query';
 import { Query } from './../helpers/query';
 import { datastore } from '../helpers/datastore';
@@ -108,7 +107,7 @@ export class Model {
 
   public filesToRemove: Array<string> = []; // array of path
 
-  private _refLocales?: StringTMap<StringAnyMap>;
+  private _refLocales?: {[key: string]: {[key: string]: any}};
 
   private _deco: Deco;
 

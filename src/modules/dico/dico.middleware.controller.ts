@@ -1,7 +1,7 @@
 import { DicoModel } from './dico.model';
 import { AccessControllerMiddlware } from './../user/access.middleware.controller';
 import { Request, Response, NextFunction } from 'express';
-import { Model, ObjectId, Query, StringAnyMap } from '../../';
+import { Model, ObjectId, Query } from '../../';
 import fs from 'fs';
 import moment from 'moment';
 let debug = require('debug')('app:middleware:controllers:dico');
@@ -119,7 +119,7 @@ export class DicoControllerMiddleware extends AccessControllerMiddlware {
 
       if (!res.locals.elements || !Array.isArray(res.locals.elements)) return res.send({});
       
-      let backendStructure: StringAnyMap = {};
+      let backendStructure: {[key: string]: any} = {};
       for (let element of res.locals.elements) {
         backendStructure[element.key] = element.value;
       }

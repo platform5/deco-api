@@ -1,5 +1,4 @@
 import { GetOneOptions } from './../decorators/model';
-import { StringAnyMap } from '../interfaces/types';
 import { ControllerHooksMiddleware } from './controller.hooks';
 import { Model } from "../decorators";
 import { ObjectId } from 'mongodb';
@@ -67,7 +66,9 @@ export declare class ControllerMiddleware extends ControllerHooksMiddleware {
     findOriginalModelRelations(req: Request, res: Response, relatedQueriesSettings: Array<RelatedModelFilterQueryConfig>, deco?: Deco): Promise<Array<RelatedModelFilterQueryConfig>>;
     findDetectedModelRelations(req: Request, res: Response, relatedQueriesSettings: Array<RelatedModelFilterQueryConfig>): Promise<Array<RelatedModelFilterQueryConfig>>;
     placeRelationalFiltersInReq(req: Request, res: Response, relatedQueriesSettings: Array<RelatedModelFilterQueryConfig>, query: Query, deco?: Deco): Promise<void>;
-    filterQueryFromDeco(deco: Deco, query: Query, queryProps: StringAnyMap): Promise<Query>;
+    filterQueryFromDeco(deco: Deco, query: Query, queryProps: {
+        [key: string]: any;
+    }): Promise<Query>;
     filterQueryFromReq(req: Request, res: Response, query: Query, deco?: Deco): Promise<Query>;
     extendQueryBasedOnDecoPropAndValue(query: Query, deco: Deco, prop: string, filterValue: any): void;
     prepareQueryFromReq(): (req: Request, res: Response, next: NextFunction) => void;

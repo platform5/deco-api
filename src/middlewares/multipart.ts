@@ -1,4 +1,3 @@
-import { StringAnyMap } from './../interfaces/types';
 import { Deco } from './../interfaces';
 import { Model } from './../decorators/model';
 import { Settings } from '../helpers/settings';
@@ -9,7 +8,7 @@ import crypto from 'crypto';
 let debug = require('debug')('deco-api:middlewares:multipart');
 
 export interface MultipartRequest extends Request {
-  filesPropertyOptions?: StringAnyMap;
+  filesPropertyOptions?: {[key: string]: any};
 }
 
 let storage = multer.diskStorage({

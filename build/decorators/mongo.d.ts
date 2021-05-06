@@ -1,9 +1,10 @@
-import { StringTMap } from '../interfaces';
 declare type MongoIndexDirection = -1 | 1;
 interface MongoIndexOptions {
     type?: 'single' | 'compound' | '2dsphere';
     direction?: -1 | 1;
-    compoundFields?: StringTMap<MongoIndexDirection>;
+    compoundFields?: {
+        [key: string]: MongoIndexDirection;
+    };
     unique?: boolean;
     sparse?: boolean;
     partialFilterExpression?: any;

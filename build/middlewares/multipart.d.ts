@@ -1,9 +1,10 @@
-import { StringAnyMap } from './../interfaces/types';
 import { Deco } from './../interfaces';
 import multer from 'multer';
 import { RequestHandler, Request, Response, NextFunction } from 'express';
 export interface MultipartRequest extends Request {
-    filesPropertyOptions?: StringAnyMap;
+    filesPropertyOptions?: {
+        [key: string]: any;
+    };
 }
 export declare class MultipartMiddleware {
     static uploadEngine: multer.Multer;

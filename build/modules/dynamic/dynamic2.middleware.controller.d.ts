@@ -3,7 +3,7 @@ import { AppModel } from './../app/app.model';
 import { DynamicConfigModel } from './dynamicconfig.model';
 import { Request, Response, NextFunction } from 'express';
 import { RelatedModelFilterQueryConfig, Policies } from '../../';
-import { Deco, TypeDecorator, ObjectId, Query, Model, StringStringMap } from '../../';
+import { Deco, TypeDecorator, ObjectId, Query, Model } from '../../';
 import { TemplateOverride } from '../../';
 export declare let dynamicModelDecorator: TypeDecorator;
 export declare let dynamicModelsDecorator: TypeDecorator;
@@ -28,6 +28,8 @@ export declare class Dynamic2MiddlwareController extends PolicyControllerMiddlwa
     findOriginalModelRelations(req: Request, res: Response, relatedQueriesSettings: Array<RelatedModelFilterQueryConfig>): Promise<Array<RelatedModelFilterQueryConfig>>;
     findDetectedModelRelations(req: Request, res: Response, relatedQueriesSettings: Array<RelatedModelFilterQueryConfig>): Promise<Array<RelatedModelFilterQueryConfig>>;
     prepareModelNotification(res: Response, element: Model): Promise<Model>;
-    sendNotification(app: AppModel, email: string, subject: string, element: Model, keyValues: StringStringMap, contentPrefix: string, contentSuffix: string, template: string | undefined, templateOverride: TemplateOverride | null): Promise<boolean>;
+    sendNotification(app: AppModel, email: string, subject: string, element: Model, keyValues: {
+        [key: string]: string;
+    }, contentPrefix: string, contentSuffix: string, template: string | undefined, templateOverride: TemplateOverride | null): Promise<boolean>;
 }
 //# sourceMappingURL=dynamic2.middleware.controller.d.ts.map

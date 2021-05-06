@@ -3,7 +3,7 @@ import { AppModel } from './../app/app.model';
 import { UserModel } from './user.model';
 import { ControllerMiddleware } from './../../middlewares/controller';
 import { Request, Response, NextFunction } from 'express';
-import { Model, ObjectId, Query, StringTMap } from '../../';
+import { Model, ObjectId, Query } from '../../';
 import { smsService, NotificationEmailService} from '../../';
 import moment from 'moment';
 import { appEvents } from '../../helpers';
@@ -338,7 +338,7 @@ export class UserControllerMiddleware extends ControllerMiddleware {
     let rightInstance = res.locals.paramApp instanceof AppModel;
     if (!rightInstance) return next(new Error('res.locals.paramApp is not a valid AppModel object'));
     if (!res.locals.elements) return next(new Error('Missing elements'));
-    let rolesByUserId: StringTMap<Array<string>> = {};
+    let rolesByUserId: {[key: string]: string[]} = {};
     let paramApp = (res.locals.paramApp as AppModel);
     for (let user of paramApp.users) {
       rolesByUserId[user._id.toString()] = user.roles;

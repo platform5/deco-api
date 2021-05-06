@@ -1,6 +1,5 @@
 import { Deco } from './../interfaces/deco';
 import { datastore } from './../helpers/datastore';
-import { StringTMap } from '../interfaces';
 let debug = require('debug')('deco-api:decorators:mongo-index');
 
 type MongoIndexDirection = -1 | 1;
@@ -8,7 +7,7 @@ type MongoIndexDirection = -1 | 1;
 interface MongoIndexOptions {
   type?: 'single' | 'compound' | '2dsphere';
   direction?: -1 | 1;
-  compoundFields?: StringTMap<MongoIndexDirection>;
+  compoundFields?: {[key: string]: MongoIndexDirection};
   unique?: boolean;
   sparse?: boolean;
   partialFilterExpression?: any;

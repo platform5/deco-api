@@ -1,5 +1,5 @@
 import path from 'path';
-import { TemplateModel, StringStringMap,  AppModel } from '../';
+import { TemplateModel, AppModel } from '../';
 import Email from 'email-templates';
 import nodemailer from 'nodemailer';
 import { Transporter } from 'nodemailer';
@@ -97,9 +97,9 @@ export class NotificationEmailService {
       }
       templatePromise = TemplateModel.getOneWithQuery({appId: data.app._id, key: templatePath}).then((template) => {
         if (!template) return;
-        let _subject = (template.subject as StringStringMap);
-        let _html = (template.html as StringStringMap);
-        let _text = (template.text as StringStringMap);
+        let _subject = (template.subject as {[key: string]: string});
+        let _html = (template.html as {[key: string]: string});
+        let _text = (template.text as {[key: string]: string});
         if (_subject && _subject[locale]) {
           templateOverride = {
             subject: _subject[locale],
