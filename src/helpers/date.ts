@@ -3,7 +3,7 @@ import moment from 'moment';
 export class DateHelper {
   public static moment(date: string | Date | moment.Moment, suggestedFormat?: string | string[]): undefined | moment.Moment {
     if (!date) return undefined;
-    let m: moment.Moment;
+    let m: moment.Moment | undefined;
     if (typeof date === 'string') {
 
       const seemsIsoString = date.includes('T') && date.includes('Z');
