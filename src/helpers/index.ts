@@ -1,6 +1,7 @@
 export * from './actions';
 export * from './app-events';
 export * from './aurelia-validator';
+export * from './cron';
 export * from './datastore';
 export * from './date';
 export * from './file';

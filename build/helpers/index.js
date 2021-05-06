@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./actions"), exports);
 __exportStar(require("./app-events"), exports);
 __exportStar(require("./aurelia-validator"), exports);
+__exportStar(require("./cron"), exports);
 __exportStar(require("./datastore"), exports);
 __exportStar(require("./date"), exports);
 __exportStar(require("./file"), exports);
