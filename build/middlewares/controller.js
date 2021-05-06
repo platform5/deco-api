@@ -916,7 +916,7 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
                 return this.model.getOneWithQuery(query, getOneOptions);
             }).then((element) => {
                 if (!element)
-                    return Promise.reject('Element not found');
+                    return Promise.reject(new Error('Element not found'));
                 element.request = req;
                 return this.getOneElement(element, req, res);
             }).then((element) => {
@@ -1256,7 +1256,7 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
                 return this.model.getOneWithQuery(query, getOneOptions);
             }).then((element) => {
                 if (!element)
-                    return Promise.reject('Element not found');
+                    return Promise.reject(new Error('Element not found'));
                 element.request = req;
                 return this.putElement(element, req, res);
             }).then((element) => {
@@ -1301,7 +1301,7 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
                 return this.model.getOneWithQuery(query, getOneOptions);
             }).then((element) => {
                 if (!element)
-                    return Promise.reject('element not found');
+                    return Promise.reject(new Error('Element not found'));
                 element.request = req;
                 return this.deleteElement(element, req, res);
             }).then((element) => {
