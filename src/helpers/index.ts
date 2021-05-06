@@ -2,6 +2,7 @@ export * from './actions';
 export * from './app-events';
 export * from './aurelia-validator';
 export * from './datastore';
+export * from './date';
 export * from './file';
 export * from './model.helper';
 export * from './notification-email-service';

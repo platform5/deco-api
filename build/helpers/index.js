@@ -14,6 +14,7 @@ __exportStar(require("./actions"), exports);
 __exportStar(require("./app-events"), exports);
 __exportStar(require("./aurelia-validator"), exports);
 __exportStar(require("./datastore"), exports);
+__exportStar(require("./date"), exports);
 __exportStar(require("./file"), exports);
 __exportStar(require("./model.helper"), exports);
 __exportStar(require("./notification-email-service"), exports);
