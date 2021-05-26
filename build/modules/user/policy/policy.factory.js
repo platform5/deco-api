@@ -153,7 +153,7 @@ class PolicyFactory {
                 key: {
                     type: 'property',
                     propertySource: 'res.locals',
-                    pointer: 'actions'
+                    pointer: 'userAction'
                 },
                 operation: 'include',
                 value: action
