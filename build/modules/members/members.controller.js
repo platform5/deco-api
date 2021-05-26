@@ -352,10 +352,10 @@ class MembersController {
                         }
                     }
                     if (roles.indexOf(instance.superAdminRole) !== -1) {
-                        res.locals.actions = instance.actions();
+                        res.locals.userAction = instance.actions();
                     }
                     else {
-                        res.locals.actions = roles.reduce((actions, role) => {
+                        res.locals.userAction = roles.reduce((actions, role) => {
                             const newActions = instance.roles[role] || [];
                             newActions.map((action) => {
                                 if (actions.indexOf(action) === -1)
