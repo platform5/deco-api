@@ -255,9 +255,9 @@ export class PolicyController extends ControllerMiddleware {
         } else if (condition.operation === '!exists' && key !== undefined) {
           ruleQuery.addQueryForKey(key, {$exists: false})
         } else if (condition.operation === 'include') {
-          ruleQuery.addQueryForKey(key, {$in: value});
+          ruleQuery.addQueryForKey(key, {$in: Array.isArray(value) ? value : [value]});
         } else if (condition.operation === 'exclude') {
-          ruleQuery.addQueryForKey(key, {$nin: value});
+          ruleQuery.addQueryForKey(key, {$nin: Array.isArray(value) ? value : [value]});
         }
         if (ruleQuery) {
           queries.push(ruleQuery);
