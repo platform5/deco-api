@@ -15,7 +15,7 @@ The role of Deco API Policies is to protect the API routes with a very customiza
 
 At the route level, you must:
 
-1. Attach a policy to the `res.locals.policy` property
+1. Attach a policy to the `res.locals.policy` property. This is commonly done with `addPolicy()`
 2. Apply the policy by placing the `checkRoutePolicy()` method in the middleware chain.
 
 Exemple:
@@ -44,9 +44,9 @@ In the following sections we will explore in details how this work and learn mor
 * Create custom policies to suit specific needs
 * Make use of policies *mounting points*
 
-You might also be interested to [learn about the Members models](./members.md) which can create policies automatically for you following a *members* pattern.
+You might also be interested to [learn about the Members models](./members.md) which can create policies automatically following a *members* pattern.
 
-## Prepare a route Controller to use Policies
+## Prepare a route Controller to use Policies
 
 In Deco API, the most basic way to create a controller is to create an instance of `ControllerMiddleware` and then use its method to create routes. If you want to use policies you only need to use the extended version of this middleware called `PolicyController`:
 
@@ -112,7 +112,7 @@ This policy ensure that the current request contains a param (given in argument)
 
 ### `localsMustExist(param: string)` (route policy)
 
-This policy is very similar to `paramMustExist` but ensure that a propery exists in `res.locals` instead of in `req.params. For exemple, if setting it as: `PolicyFactory.localsMustExist('settings')` it will ensure that `req.params.settings` exists.
+This policy is very similar to `paramMustExist` but ensure that a propery exists in `res.locals` instead of in `req.params`. For exemple, if setting it as: `PolicyFactory.localsMustExist('settings')` it will ensure that `res.locals.settings` exists.
 
 ### `appId()` (access policy)
 
@@ -147,7 +147,7 @@ In order to fully understand this policy let's talk about sources and pointers.
 For exemple:
 
 * With `source = 'res.locals'`
-* and `pointer = 'app._id'
+* and `pointer = 'app._id'`
 
 the value used for comparison will be `res.locals.app._id`. It is common to use a source as `res.locals` but it can be any other accessible object such as `req.body` for exemple.
 
