@@ -271,35 +271,6 @@ export class PolicyController extends ControllerMiddleware {
     }
   }
 
-  // public async extendGetAllQuery(query: Query, req: Request, res: Response): Promise<void> {
-  //   const policy: Policy = res.locals.policy;
-  //   if (!policy?.access) {
-  //     return;
-  //   }
-
-  //   for (let rule of policy.access) {
-  //     let value = await this.computeValue(rule, req, res);
-  //     let key = rule.key; //  this.computeSpecialProperty(rule.key, req, res); // I don't think computing here makes any sense ?
-      
-  //     if (rule.type === 'property') {
-  //       let query: any = {};
-  //       if (rule.operation === 'equals') {
-  //         query[key] = value;
-  //       } else if (rule.operation === 'exists' || rule.operation === '!exists') {
-  //         query[key] = {$exists: rule.operation === 'exists'};
-  //       } else if (rule.operation === 'include') {
-  //         query[key] = {$in: value}
-  //       } else if (rule.operation === 'exclude') {
-  //         query[key] = {$nin: value}
-  //       }
-  //       query.addQuery()
-  //     }
-  //   }
-
-  //   return Promise.resolve();
-  // }
-
-
 }
 
 
