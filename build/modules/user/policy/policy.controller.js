@@ -89,7 +89,7 @@ class PolicyController extends controller_1.ControllerMiddleware {
                         if (val.substr(0, 5) == '$req.') {
                             val = object_resolve_path_1.default(req, val.substr(5));
                             // try to convert to ObjectId
-                            if (val.length === 32 && this.key && (this.key === '_id' || this.key.substr(-2) === 'Id')) {
+                            if (val.length === 24 && this.key && (this.key === '_id' || this.key.substr(-2) === 'Id')) {
                                 try {
                                     val = new __1.ObjectId(val);
                                 }
