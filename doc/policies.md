@@ -250,8 +250,8 @@ Finally, let's look at the `PolicyPointer`:
 export type PolicyPointer = PolicyPointerConfig | string | number | boolean | Array<string>;
 
 export interface PolicyPointerConfig {
-  type?: 'default' | 'property' | 'query' | 'prepared';
-  propertySource?: 'element' | 'res.locals' | 'req.query' | 'req.params';
+  type?: 'default' | 'property' | 'query';
+  propertySource?: 'element' | 'res.locals' | 'req.query' | 'req.params' | 'req.body';
   pointer: any;
   queryModel?: string | ObjectId | typeof Model; // string = Core Model, ObjectId = DynamicConfig
   queryType?: 'one' | 'many';

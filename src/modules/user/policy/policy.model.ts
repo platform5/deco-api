@@ -69,7 +69,14 @@ export class Policy implements PolicyInterface {
 }
 
 export interface PolicyPointerConfig {
-  type?: 'default' | 'property' | 'query' | 'prepared';
+  /**
+   * type: pointer type
+   * - default: with a hard-coded value in property "pointer"
+   * - property: value is resolved from in the "propertySource" with the path contained in "pointer"
+   * - query: the value is resolved using a query with "queryModel" and "queryType". The query result is used then as source for the "pointer" path
+   * 
+   */
+  type?: 'default' | 'property' | 'query';
   propertySource?: 'element' | 'res.locals' | 'req.query' | 'req.params' | 'req.body';
   pointer: any;
   queryModel?: string | ObjectId | typeof Model; // string = Core Model, ObjectId = DynamicConfig
