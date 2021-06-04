@@ -3,7 +3,7 @@ export declare class PolicyFactory {
     static authenticate(): Policy;
     static paramMustExist(param: string): Policy;
     static localsMustExist(param: string): Policy;
-    static keyMustEqual(key: string, source: 'res.locals', pointer: string): Policy;
+    static keyMustEqual(key: string, source: 'element' | 'res.locals' | 'req.query' | 'req.params' | 'req.body', pointer: string): Policy;
     static appId(): Policy;
     static shopId(): Policy;
     static appKeyMustBeEqualsTo(key: string, value: any): Policy;

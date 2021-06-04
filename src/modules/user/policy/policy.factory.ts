@@ -54,7 +54,7 @@ export class PolicyFactory  {
     });
   }
 
-  static keyMustEqual(key: string, source: 'res.locals', pointer: string) {
+  static keyMustEqual(key: string, source: 'element' | 'res.locals' | 'req.query' | 'req.params' | 'req.body' , pointer: string) {
     const policy = new Policy();
     if (source === 'res.locals') {
       policy.extend(PolicyFactory.localsMustExist(pointer));

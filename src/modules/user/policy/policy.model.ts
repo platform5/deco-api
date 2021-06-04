@@ -70,7 +70,7 @@ export class Policy implements PolicyInterface {
 
 export interface PolicyPointerConfig {
   type?: 'default' | 'property' | 'query' | 'prepared';
-  propertySource?: 'element' | 'res.locals' | 'req.query' | 'req.params';
+  propertySource?: 'element' | 'res.locals' | 'req.query' | 'req.params' | 'req.body';
   pointer: any;
   queryModel?: string | ObjectId | typeof Model; // string = Core Model, ObjectId = DynamicConfig
   queryType?: 'one' | 'many';
