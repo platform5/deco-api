@@ -45,10 +45,11 @@ class NotificationSMSService {
                 }
                 if (_sms && _sms[locale]) {
                     templateString = _sms[locale];
+                    options.cache = false;
                 }
             }
             let txt = templateString !== null
-                ? pug_1.default.render(templateString)
+                ? pug_1.default.render(templateString, options)
                 : pug_1.default.renderFile(templatePath + '/' + template + '/sms.pug', options);
             return this.api.message
                 .sms()

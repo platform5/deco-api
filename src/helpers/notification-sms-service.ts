@@ -36,11 +36,12 @@ export class NotificationSMSService {
       }
       if (_sms && _sms[locale]) {
         templateString = _sms[locale];
+        options.cache = false;
       }
     }
 
     let txt = templateString !== null
-                ? pug.render(templateString)
+                ? pug.render(templateString, options)
                 : pug.renderFile(templatePath + '/' + template + '/sms.pug', options);
 
     return this.api.message
