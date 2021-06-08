@@ -1,3 +1,4 @@
+import { TemplateModel } from './../modules/template/template.model';
 import SMSAPI from 'smsapicom';
 import pug from 'pug';
 import path from 'path';
@@ -15,7 +16,7 @@ export class NotificationSMSService {
     this.templatePath = templatePath;
   }
 
-  public send(mobile: string, template: string, data: any, templateSettings?: {rootPath?: string}) {
+  public async send(mobile: string, template: string, data: any, templateSettings?: {rootPath?: string}) {
     data.cache = true;
     data.pretty = false;
 
@@ -23,7 +24,24 @@ export class NotificationSMSService {
 
     const templatePath = templateSettings?.rootPath ? templateSettings.rootPath : this.templatePath;
 
-    let txt = pug.renderFile(templatePath + '/' + template + '/sms.pug', options);
+    const dbTemplate = await TemplateModel.getOneWithQuery({appId: data.app._id, key: template});
+    let templateString: string | null = null;
+    if (dbTemplate) {
+      let _sms = (dbTemplate.sms as {[key: string]: string});
+      let locale = data.app.defaultLocale;
+      if (data.user && data.user.locale) {
+        locale = data.user.locale;
+      } else if (data.locale) {
+        locale = data.locale;
+      }
+      if (_sms && _sms[locale]) {
+        templateString = _sms[locale];
+      }
+    }
+
+    let txt = templateString !== null
+                ? pug.render(templateString)
+                : pug.renderFile(templatePath + '/' + template + '/sms.pug', options);
 
     return this.api.message
       .sms()

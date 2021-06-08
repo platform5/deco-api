@@ -77,7 +77,11 @@ class NotificationEmailService {
             subjectPrefix: env === 'production' ? false : `${env}: `
         };
         let templatePromise = Promise.resolve();
-        const shouldOverrideTemplate = templateOverride && templateOverride.subject && templateOverride.html;
+        let shouldOverrideTemplate = templateOverride !== null
+            && templateOverride.subject !== undefined
+            && templateOverride.subject.length > 0
+            && templateOverride.html !== undefined
+            && templateOverride.html.length > 0;
         if (templatePath && data && data.app && data.app._id && !shouldOverrideTemplate) {
             let locale = data.app.defaultLocale;
             if (data.user && data.user.locale) {
@@ -98,6 +102,7 @@ class NotificationEmailService {
                         html: _html[locale],
                         text: _text[locale],
                     };
+                    shouldOverrideTemplate = true;
                 }
             });
         }

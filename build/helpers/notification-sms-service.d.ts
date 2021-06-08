@@ -4,7 +4,7 @@ export declare class NotificationSMSService {
     constructor(accessToken: string, templatePath: string);
     send(mobile: string, template: string, data: any, templateSettings?: {
         rootPath?: string;
-    }): any;
+    }): Promise<any>;
 }
 declare let smsService: NotificationSMSService;
 export { smsService };

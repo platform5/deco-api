@@ -87,7 +87,11 @@ export class NotificationEmailService {
     };
 
     let templatePromise: Promise<any> = Promise.resolve();
-    const shouldOverrideTemplate = templateOverride && templateOverride.subject && templateOverride.html;
+    let shouldOverrideTemplate = templateOverride !== null
+                                  && templateOverride.subject !== undefined 
+                                  && templateOverride.subject.length > 0 
+                                  && templateOverride.html !== undefined 
+                                  && templateOverride.html.length > 0;
     if (templatePath && data && data.app && data.app._id && !shouldOverrideTemplate) {
       let locale = data.app.defaultLocale;
       if (data.user && data.user.locale) {
@@ -105,7 +109,8 @@ export class NotificationEmailService {
             subject: _subject[locale],
             html: _html[locale],
             text: _text[locale],
-          }
+          };
+          shouldOverrideTemplate = true;
         }
       });
     }
