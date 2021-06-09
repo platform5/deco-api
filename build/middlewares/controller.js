@@ -263,7 +263,7 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
         deco.propertyFilterablesOptions._createdAt = { type: 'date' };
         deco.propertyFilterablesOptions._updatedAt = { type: 'date' };
         deco.propertyFilterablesOptions._createdBy = { type: 'id' };
-        deco.propertyFilterablesOptions._updatedAt = { type: 'id' };
+        deco.propertyFilterablesOptions._updatedBy = { type: 'id' };
         deco.propertyFilterablesOptions.id = { type: 'ids' };
         for (let prop of deco.propertyFilterables) {
             let filterValue = queryProps[prop];
