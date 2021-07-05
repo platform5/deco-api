@@ -94,7 +94,7 @@ class DateHelper {
         };
         let unitNb = 1;
         let unitIndex = unit === 'w' ? current.week() : current.month();
-        while (current.isBefore(end)) {
+        while (current.isSameOrBefore(end)) {
             if (unit === 'w' && !daysOfWeekOrMonth.includes(current.isoWeekday())) {
                 current.add(1, 'day');
                 continue; // ignored as not the right day of week

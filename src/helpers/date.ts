@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export class DateHelper {
-  public static moment(date: string | Date | moment.Moment, suggestedFormat?: string | string[]): undefined | moment.Moment {
+  public static moment(date: string | Date | moment.Moment, suggestedFormat?: string | string[]): undefined | moment.Moment {
     if (!date) return undefined;
     let m: moment.Moment | undefined;
     if (typeof date === 'string') {
@@ -70,11 +70,11 @@ export class DateHelper {
     daysOfWeekOrMonth: number[], 
     options?: {nbDaysLimit?: number}): moment.Moment[] {
 
-    if (!start.isValid() || !end.isValid || end.isBefore(start)) {
+    if (!start.isValid() || !end.isValid || end.isBefore(start)) {
       throw new Error('Invalid start/end dates, end must be after start');
     }
 
-    const nbDaysLimit = options?.nbDaysLimit || 365 *5;
+    const nbDaysLimit = options?.nbDaysLimit || 365 *5;
     if (end.diff(start, 'days') > nbDaysLimit) {
       throw new Error('Invalid start/end dates, end is too far from start');
     }
@@ -89,7 +89,7 @@ export class DateHelper {
     };
     let unitNb = 1;
     let unitIndex = unit === 'w' ? current.week() : current.month();
-    while(current.isBefore(end)) {
+    while(current.isSameOrBefore(end)) {
       if(unit === 'w' && !daysOfWeekOrMonth.includes(current.isoWeekday())) {
         current.add(1, 'day');
         continue; // ignored as not the right day of week
