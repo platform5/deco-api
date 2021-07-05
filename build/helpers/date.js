@@ -116,7 +116,7 @@ class DateHelper {
             }
             if (!foundFirstDate) {
                 foundFirstDate = true;
-                unitNb = 1;
+                unitNb = 0;
             }
             dates.push(current.clone());
             current.add(1, 'day');
