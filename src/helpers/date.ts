@@ -88,6 +88,7 @@ export class DateHelper {
       '1/4': 4
     };
     let unitNb = 1;
+    let foundFirstDate = false;
     let unitIndex = unit === 'w' ? current.week() : current.month();
     while(current.isSameOrBefore(end)) {
       if(unit === 'w' && !daysOfWeekOrMonth.includes(current.isoWeekday())) {
@@ -103,9 +104,18 @@ export class DateHelper {
         unitNb++;
       }
       unitIndex = currentUnitIndex;
-      if (unitNb % modulos[frequency] === 0) {
-        dates.push(current.clone());
+      // we ignore the frequency only after finding at least one available date
+      if (foundFirstDate && unitNb % modulos[frequency] !== 0) {
+        current.add(1, 'day');
+        continue; // ignored as not the right frequency
       }
+      if (!foundFirstDate) {
+        foundFirstDate = true;
+        unitNb = 1;
+      }
+      
+      dates.push(current.clone());
+      
       current.add(1, 'day');
     }
     return dates;
