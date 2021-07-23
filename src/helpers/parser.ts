@@ -66,12 +66,14 @@ export class Parser {
     if (typeof text !== 'string' || text.length === 0) {
       return text;
     }
-    const matches = text.match(/(#|!){(.*?)}/gm);
+    const matches = text.match(/(#|!!|!){(.*?)}/gm);
     if (!matches) {
       return text;
     }
     for (const original of matches) {
-      const parts = original.substr(2, original.length - 3).split(':');
+      const specificMatches = original.match(/(#|!!|!){(.*?)}/m) as [string, string, string];
+      const replaceOperator: '#' | '!' | '!!' = specificMatches[1] as '#' | '!' | '!!';
+      const parts = specificMatches[2].split(':');
       let replace: undefined | string = undefined;
       let object: any = objects[parts[0]];
       parts.shift();
@@ -79,8 +81,14 @@ export class Parser {
       // If the original is written with !{...} it means that if the value is not found (undefined)
       // we will remove the entire line
       // But if the original is written with #{} it means that we simply display an empty value (empty string '')
-      if (replace === undefined && original.substr(0, 1) === '#') {
+      if (replace === undefined && replaceOperator === '#') {
         replace = ''; // set an empty string => it will trigger the replace
+      }
+      if (replace === '' && replaceOperator === '!') {
+        replace = undefined;
+      }
+      if ((!replace || replace === '0') && replaceOperator === '!!') {
+        replace = undefined;
       }
       if (replace !== undefined) {
         text = text.replace(original, replace);
