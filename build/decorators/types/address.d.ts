@@ -13,5 +13,6 @@ export interface Address {
     city?: string;
     zip?: string;
     country?: string;
+    description?: string;
 }
 //# sourceMappingURL=address.d.ts.map

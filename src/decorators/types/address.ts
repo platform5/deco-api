@@ -10,7 +10,7 @@ export let inputAddress = (value: any) => {
 export let validateAddress = (value: any, options?: any) => {
   if (value === undefined) return true;
   if (typeof value !== 'object') return false;
-  let allowedKeys = ['label', 'street', 'city', 'zip', 'country'];
+  let allowedKeys = ['label', 'street', 'city', 'zip', 'country', 'description'];
   for (let key in value) {
     if (allowedKeys.indexOf(key) === -1) return false;
     if (typeof value[key] !== 'string') return false;
@@ -63,4 +63,5 @@ export interface Address {
   city?: string;
   zip?: string;
   country?: string;
+  description?: string;
 }

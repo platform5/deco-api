@@ -14,7 +14,7 @@ exports.validateAddress = (value, options) => {
         return true;
     if (typeof value !== 'object')
         return false;
-    let allowedKeys = ['label', 'street', 'city', 'zip', 'country'];
+    let allowedKeys = ['label', 'street', 'city', 'zip', 'country', 'description'];
     for (let key in value) {
         if (allowedKeys.indexOf(key) === -1)
             return false;
