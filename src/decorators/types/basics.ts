@@ -122,7 +122,7 @@ selectDecorator.validate = (value: any, obj: any, options: any) => {
   if (value === undefined || value === null) return true;
   if (!options.multiple) {
     // validate non-multiple values
-    if (typeof value !== 'string') return false;
+    if (typeof value !== 'string' && typeof value !== 'number' && typeof value !== 'boolean') return false;
     if (options.allowAny) return true;
     if (options.options.indexOf(value) === -1) return false;
   } else if (options.multiple) {
