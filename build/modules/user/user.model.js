@@ -33,6 +33,9 @@ let UserModel = UserModel_1 = class UserModel extends __1.Model {
         this.requireDoubleAuth = false;
         this.roles = [];
         this.hideOnboarding = false;
+        this.LDAPLogin = false;
+        this.LDAPUrl = '';
+        this.LDAPDC = '';
     }
     static hashFromPassword(password) {
         return crypto_1.default.createHmac('sha1', __1.Settings.cryptoKey).update(password).digest('hex');
@@ -142,6 +145,18 @@ __decorate([
     __1.io.output,
     __1.io.toDocument
 ], UserModel.prototype, "hideOnboarding", void 0);
+__decorate([
+    __1.type.boolean,
+    __1.io.toDocument
+], UserModel.prototype, "LDAPLogin", void 0);
+__decorate([
+    __1.type.string,
+    __1.io.toDocument
+], UserModel.prototype, "LDAPUrl", void 0);
+__decorate([
+    __1.type.string,
+    __1.io.toDocument
+], UserModel.prototype, "LDAPDC", void 0);
 UserModel = UserModel_1 = __decorate([
     __1.Policies.modelPolicy('getAll', { public: false, userIdByProperty: '_createdBy' }),
     __1.Policies.modelPolicy('getOne', { public: false, userIdByProperty: '_createdBy' }),

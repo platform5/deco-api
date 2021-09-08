@@ -93,6 +93,18 @@ export class UserModel extends Model {
   @io.toDocument
   hideOnboarding: boolean = false;
 
+  @type.boolean
+  @io.toDocument
+  LDAPLogin: boolean = false;
+
+  @type.string
+  @io.toDocument
+  LDAPUrl: string = '';
+
+  @type.string
+  @io.toDocument
+  LDAPDC: string = '';
+
   static hashFromPassword(password: string) {
     return crypto.createHmac('sha1', Settings.cryptoKey).update(password).digest('hex');
   }
