@@ -93,7 +93,7 @@ export class UserModel extends Model {
   @io.toDocument
   hideOnboarding: boolean = false;
 
-  @type.boolean
+  @type.string
   @io.toDocument
   LDAPServer: string;
 

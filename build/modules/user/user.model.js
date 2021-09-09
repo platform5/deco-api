@@ -143,7 +143,7 @@ __decorate([
     __1.io.toDocument
 ], UserModel.prototype, "hideOnboarding", void 0);
 __decorate([
-    __1.type.boolean,
+    __1.type.string,
     __1.io.toDocument
 ], UserModel.prototype, "LDAPServer", void 0);
 UserModel = UserModel_1 = __decorate([
