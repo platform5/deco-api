@@ -13,9 +13,7 @@ export declare class UserModel extends Model {
     locale: string;
     roles: Array<string>;
     hideOnboarding: boolean;
-    LDAPLogin: boolean;
-    LDAPUrl: string;
-    LDAPDC: string;
+    LDAPServer: string;
     static hashFromPassword(password: string): string;
     generateHash(password: string): void;
     toDocument(operation: 'insert' | 'update' | 'upsert', properties?: Array<string>): Promise<UpdateQuery>;
