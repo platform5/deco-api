@@ -164,6 +164,7 @@ class UserControllerMiddleware extends controller_1.ControllerMiddleware {
             return emailServiceForApp.send(tokenElement.data.email, 'validate-email', {
                 app: res.locals.app,
                 locale: req.body.locale,
+                clientUrl: req.body.clientUrl,
                 user: tokenElement.data,
                 token: tokenElement,
                 device: {
