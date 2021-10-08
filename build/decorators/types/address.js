@@ -14,11 +14,15 @@ exports.validateAddress = (value, options) => {
         return true;
     if (typeof value !== 'object')
         return false;
-    let allowedKeys = ['label', 'street', 'city', 'zip', 'country', 'description'];
+    let allowedKeys = ['label', 'street', 'city', 'zip', 'country', 'description', 'lat', 'lng'];
+    let stringKeys = ['label', 'street', 'city', 'zip', 'country', 'description'];
+    let numberKeys = ['lat', 'lng'];
     for (let key in value) {
         if (allowedKeys.indexOf(key) === -1)
             return false;
-        if (typeof value[key] !== 'string')
+        if (stringKeys.includes(key) && typeof value[key] !== 'string')
+            return false;
+        if (numberKeys.includes(key) && typeof value[key] !== 'number')
             return false;
     }
     return true;
