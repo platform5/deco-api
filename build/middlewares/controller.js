@@ -406,6 +406,9 @@ class ControllerMiddleware extends controller_hooks_1.ControllerHooksMiddleware 
             let categories;
             if (filterOptions.ObjectId === false) {
                 categories = filterValue.split(',').map((item) => item.trim());
+                if (filterOptions.isNumber === true) {
+                    categories = categories.map((c) => parseFloat(c));
+                }
             }
             else {
                 try {

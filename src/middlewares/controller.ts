@@ -436,6 +436,9 @@ export class ControllerMiddleware extends ControllerHooksMiddleware {
       let categories;
       if (filterOptions.ObjectId === false) {
         categories = filterValue.split(',').map((item:string) => item.trim() );
+        if (filterOptions.isNumber === true) {
+          categories = categories.map((c: string) => parseFloat(c));
+        }
       } else {
         try {
           categories = filterValue.split(',').map((item:string) => new ObjectId(item.trim()) );
