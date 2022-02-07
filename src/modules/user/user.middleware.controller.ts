@@ -134,7 +134,7 @@ export class UserControllerMiddleware extends ControllerMiddleware {
       }
       let emailServiceForApp = NotificationEmailService.serviceForApp(res.locals.app);
       if (this.ignoreEmailsForTestAccounts && tokenElement.emailCode === `${tokenElement.data.email}a1b2c3`) return Promise.resolve(tokenElement);
-      return emailServiceForApp.send(tokenElement.data.email, 'validate-email', {
+      return emailServiceForApp.send([tokenElement.data.email, app.smtpConfigFromEmail], 'validate-email', {
         app: res.locals.app,
         locale: req.body.locale,
         clientUrl: req.body.clientUrl,
