@@ -143,6 +143,13 @@ filesDecorator.input = (key: string, value: any, options: any, element: any, tar
     }
   }
 
+  // find file id to sort
+  if (element.request.body[key + Settings.fileSortSuffix]) {
+    if (Array.isArray(element.request.body[key + Settings.fileSortSuffix])) {
+      value.sortFiles = element.request.body[key + Settings.fileSortSuffix];
+    }
+  }
+
   if (value.length === 0) return Promise.resolve(value);
   let originalNames: Array<string> = value.map((item: any) => item.originalname);
 
@@ -263,13 +270,23 @@ filesDecorator.toDocument = (updateQuery: UpdateQuery, key: string, value: any, 
     }
     finalValue = finalValue2;
   }
-
   if (clearOrRemove) {
     for (let newFile of value) {
       finalValue.push(newFile)
     }
     updateQuery.set(key, finalValue);
-  } else {
+  } 
+  else if ((value as any).sortFiles && Array.isArray((value as any).sortFiles)) {
+    let finalValue2 = [];
+    for (let filename of ((value as any).sortFiles)){
+      for (let file of finalValue) {
+        if (file.filename == filename) finalValue2.push(file);
+      }
+    }
+    finalValue = finalValue2;
+    updateQuery.set(key, finalValue);
+  }
+  else {
     let newFiles = [];
     for (let newFile of value) {
       newFiles.push(newFile);
