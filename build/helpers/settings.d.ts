@@ -3,6 +3,7 @@ export declare class Settings {
     static defaultDateFormat: string;
     static filePreviewSuffix: string;
     static fileRemoveSuffix: string;
+    static fileSortSuffix: string;
     static fileClearSuffix: string;
     static defaultLocale: string;
     static cryptoKey: string;

@@ -15,6 +15,7 @@ exports.Settings = Settings;
 Settings.defaultDateFormat = 'DD-MM-YYYY';
 Settings.filePreviewSuffix = '_preview';
 Settings.fileRemoveSuffix = '_remove';
+Settings.fileSortSuffix = '_sort';
 Settings.fileClearSuffix = '_clear';
 Settings.defaultLocale = 'fr';
 Settings.cryptoKey = 'hewAdviwud52%289ynvsodaDahfbpwitd';

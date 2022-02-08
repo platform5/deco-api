@@ -142,6 +142,12 @@ exports.filesDecorator.input = (key, value, options, element, target) => {
             value.removeFiles = element.request.body[key + settings_1.Settings.fileRemoveSuffix];
         }
     }
+    // find file id to sort
+    if (element.request.body[key + settings_1.Settings.fileSortSuffix]) {
+        if (Array.isArray(element.request.body[key + settings_1.Settings.fileSortSuffix])) {
+            value.sortFiles = element.request.body[key + settings_1.Settings.fileSortSuffix];
+        }
+    }
     if (value.length === 0)
         return Promise.resolve(value);
     let originalNames = value.map((item) => item.originalname);
@@ -264,6 +270,17 @@ exports.filesDecorator.toDocument = (updateQuery, key, value, operation, options
         for (let newFile of value) {
             finalValue.push(newFile);
         }
+        updateQuery.set(key, finalValue);
+    }
+    else if (value.sortFiles && Array.isArray(value.sortFiles)) {
+        let finalValue2 = [];
+        for (let filename of (value.sortFiles)) {
+            for (let file of finalValue) {
+                if (file.filename == filename)
+                    finalValue2.push(file);
+            }
+        }
+        finalValue = finalValue2;
         updateQuery.set(key, finalValue);
     }
     else {
