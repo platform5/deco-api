@@ -123,15 +123,15 @@ __decorate([
     __1.io.all
 ], DynamicConfigModel.prototype, "notificationAdminSubject", void 0);
 __decorate([
-    __1.type.string,
+    __1.type.string({ textarea: true }),
     __1.io.all
 ], DynamicConfigModel.prototype, "notificationAdminContentPrefix", void 0);
 __decorate([
-    __1.type.string,
+    __1.type.string({ textarea: true }),
     __1.io.all
 ], DynamicConfigModel.prototype, "notificationAdminContentSuffix", void 0);
 __decorate([
-    __1.type.string,
+    __1.type.string({ textarea: true }),
     __1.io.all
 ], DynamicConfigModel.prototype, "notificationAdminTemplate", void 0);
 __decorate([
@@ -143,15 +143,15 @@ __decorate([
     __1.io.all
 ], DynamicConfigModel.prototype, "notificationUserSubject", void 0);
 __decorate([
-    __1.type.string,
+    __1.type.string({ textarea: true }),
     __1.io.all
 ], DynamicConfigModel.prototype, "notificationUserContentPrefix", void 0);
 __decorate([
-    __1.type.string,
+    __1.type.string({ textarea: true }),
     __1.io.all
 ], DynamicConfigModel.prototype, "notificationUserContentSuffix", void 0);
 __decorate([
-    __1.type.string,
+    __1.type.string({ textarea: true }),
     __1.io.all
 ], DynamicConfigModel.prototype, "notificationUserTemplate", void 0);
 __decorate([

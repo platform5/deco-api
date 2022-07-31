@@ -487,8 +487,10 @@ class Dynamic2MiddlwareController extends policy_middleware_controller_1.PolicyC
             let value = element[property];
             if (!value)
                 continue;
-            keyValues['_' + property] = value;
-            keyValues[property] = '';
+            // TODO : Test the disabled double key (_var)
+            // keyValues['_'+property] = value;
+            // keyValues[property] = '';
+            keyValues[property] = value;
             promises.push(type.toString(property, value, options, this, element).then((str) => {
                 keyValues[property] = str;
             }));
