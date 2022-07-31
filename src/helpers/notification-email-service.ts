@@ -122,6 +122,7 @@ export class NotificationEmailService {
           if (view.indexOf('/subject') !== -1 && _templateOverride.subject) {
             return new Promise((resolve, reject) => {
               const compiledFunction = pug.compile((_templateOverride.subject as string));
+              // TODO : Fix html transformation (don't transform first word in html)
               let html = compiledFunction(locals);
               email.juiceResources(html).then(resolve).catch(reject);
             });

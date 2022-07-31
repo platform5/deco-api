@@ -106,15 +106,15 @@ export class DynamicConfigModel extends Model {
   @io.all
   public notificationAdminSubject: string;
 
-  @type.string
+  @type.string({textarea: true})
   @io.all
   public notificationAdminContentPrefix: string;
 
-  @type.string
+  @type.string({textarea: true})
   @io.all
   public notificationAdminContentSuffix: string;
 
-  @type.string
+  @type.string({textarea: true})
   @io.all
   public notificationAdminTemplate: string;
 
@@ -126,15 +126,15 @@ export class DynamicConfigModel extends Model {
   @io.all
   public notificationUserSubject: string;
 
-  @type.string
+  @type.string({textarea: true})
   @io.all
   public notificationUserContentPrefix: string;
 
-  @type.string
+  @type.string({textarea: true})
   @io.all
   public notificationUserContentSuffix: string;
 
-  @type.string
+  @type.string({textarea: true})
   @io.all
   public notificationUserTemplate: string;
 

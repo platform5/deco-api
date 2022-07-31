@@ -505,8 +505,10 @@ export class Dynamic2MiddlwareController extends PolicyControllerMiddlware {
       let options: any = element.deco.propertyTypesOptions[property];
       let value = (element as any)[property];
       if (!value) continue;
-      keyValues['_'+property] = value;
-      keyValues[property] = '';
+      // TODO : Test the disabled double key (_var)
+      // keyValues['_'+property] = value;
+      // keyValues[property] = '';
+      keyValues[property] = value;
       promises.push(type.toString(property, value, options, this, element).then((str) => {
         keyValues[property] = str;
       }));
