@@ -1,6 +1,6 @@
 import { AppModel } from './../app/app.model';
 import { UserModel } from './user.model';
-import { model, Model, type, io, query, validate, ObjectId, mongo, Policies } from '../../';
+import { model, Model, type, io, query, validate, ObjectId, mongo, Policies, Metadata } from '../../';
 let debug = require('debug')('app:models:profile');
 
 @model('profile')
@@ -50,5 +50,9 @@ export class ProfileModel extends Model {
   @type.string
   @io.all
   public department: string;
+
+  @type.metadata
+  @io.all
+  public metadata: Array<Metadata>;
   
 }
