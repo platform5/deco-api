@@ -1,4 +1,4 @@
-import { Model, ObjectId } from '../../';
+import { Model, ObjectId, Metadata } from '../../';
 export declare class ProfileModel extends Model {
     appId: ObjectId | null;
     userId: ObjectId | null;
@@ -9,5 +9,6 @@ export declare class ProfileModel extends Model {
     country: string;
     company: string;
     department: string;
+    metadata: Array<Metadata>;
 }
 //# sourceMappingURL=profile.model.d.ts.map

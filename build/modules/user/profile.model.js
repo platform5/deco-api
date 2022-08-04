@@ -60,6 +60,10 @@ __decorate([
     __1.type.string,
     __1.io.all
 ], ProfileModel.prototype, "department", void 0);
+__decorate([
+    __1.type.metadata,
+    __1.io.all
+], ProfileModel.prototype, "metadata", void 0);
 ProfileModel = __decorate([
     __1.model('profile'),
     __1.Policies.modelPolicy('getAll', { public: false, userIdByProperty: '_createdBy' }),
