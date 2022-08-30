@@ -1,6 +1,6 @@
 {
   "name": "deco-api",
-  "version": "1.1.32",
+  "version": "1.1.33",
   "description": "Quickly deploy a fully customizable yet very simple REST api. Leverage the power of javascript decorators to help you design a NodeJS Api Sever that really meets your needs.",
   "main": "build/index.js",
   "typings": "build/index.d.ts",
