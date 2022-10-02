@@ -29,7 +29,7 @@ declare module 'traverse-async' {
   export {traverse, config};
 }
 
-declare module 'smsapicom' {
+declare module 'smsapi' {
   var SMSAPI: any;
   export = SMSAPI;
 }

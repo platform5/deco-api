@@ -1,5 +1,5 @@
 import { TemplateModel } from './../modules/template/template.model';
-import SMSAPI from 'smsapicom';
+import SMSAPI from 'smsapi';
 import pug from 'pug';
 import path from 'path';
 
