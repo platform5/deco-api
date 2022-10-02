@@ -168,7 +168,7 @@ exports.validateModels = (value, options) => __awaiter(void 0, void 0, void 0, f
         return Promise.reject(new Error(`Model not set in (${options.key})`));
     if (options.model instanceof model_1.Model)
         return Promise.reject(new Error('options.model must be a Model instance'));
-    if (value === undefined || value === null || value === [])
+    if (value === undefined || value === null || Array.isArray(value))
         return true;
     // fetch the model relations
     return options.model.getAll(new query_1.Query({ _id: { $in: value } })).then((elements) => {

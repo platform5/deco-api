@@ -295,7 +295,7 @@ exports.filesDecorator.toDocument = (updateQuery, key, value, operation, options
 exports.filesDecorator.validate = (value, obj, options) => {
     if (value === null)
         return false;
-    if (value === undefined || value === [])
+    if (value === undefined || Array.isArray(value))
         return true;
     for (let file of value) {
         if (!file.originalname || !file.encoding || !file.mimetype || !file.destination || !file.filename || !file.path || !file.size)

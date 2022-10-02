@@ -76,7 +76,7 @@ exports.dynamicModelsDecorator.toDocument = (updateQuery, key, value, operation,
     return Promise.resolve();
 };
 exports.dynamicModelsDecorator.validate = (value, obj, options) => {
-    if (value === undefined || value === [])
+    if (value === undefined || Array.isArray(value))
         return true;
     if (!Array.isArray(value))
         return false;
