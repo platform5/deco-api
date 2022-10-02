@@ -77,7 +77,7 @@ dynamicModelsDecorator.toDocument = (updateQuery: UpdateQuery, key: string, valu
   return Promise.resolve();
 };
 dynamicModelsDecorator.validate = (value: any, obj: any, options: any) => {
-  if (value === undefined || value === []) return true;
+  if (value === undefined || Array.isArray(value)) return true;
   if (!Array.isArray(value)) return false;
   let uniqueValue: Array<ObjectId> = [];
     let uniqueValueString: Array<string> = [];

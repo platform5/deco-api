@@ -126,7 +126,7 @@ export class Model {
     if (typeof type === 'string') type = [type];
     for (let propName in deco.propertyTypes) {
       let typeDec: TypeDecorator = deco.propertyTypes[propName];
-      if (type === [] || type.indexOf(typeDec.name) !== -1) properties.push(propName);
+      if ( Array.isArray(type) && type.indexOf(typeDec.name) !== -1) properties.push(propName);
     }
     return properties;
   }

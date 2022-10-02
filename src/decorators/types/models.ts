@@ -145,7 +145,7 @@ export let validateModels = async (value: any, options: any) => {
   if (options.model === 'not-set' || !options.model) return Promise.reject(new Error(`Model not set in (${options.key})`));
   if (options.model !instanceof Model) return Promise.reject(new Error('options.model must be a Model instance'));
 
-  if (value === undefined || value === null || value === []) return true;
+  if (value === undefined || value === null || Array.isArray(value)) return true;
 
   // fetch the model relations
   return options.model.getAll(new Query({_id: {$in: value}})).then((elements: Array<Model>) => {
