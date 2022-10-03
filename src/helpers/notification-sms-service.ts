@@ -72,7 +72,7 @@ export class NotificationSMSService {
         }
         return true;
       } catch (err) {
-        console.log(err);
+        console.log((err as any).data.message);
         return false;
     }
     // return this.api.sms.sendSms
