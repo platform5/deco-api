@@ -16,15 +16,9 @@ exports.smsService = exports.NotificationSMSService = void 0;
 const template_model_1 = require("./../modules/template/template.model");
 const pug_1 = __importDefault(require("pug"));
 const path_1 = __importDefault(require("path"));
-// import SMSAPI from 'smsapi';
 const { SMSAPI } = require('smsapi');
 class NotificationSMSService {
     constructor(accessToken, templatePath) {
-        // this.api = new SMSAPI({
-        //   oauth: {
-        //     accessToken: accessToken
-        //   }
-        // });
         this.accessToken = accessToken;
         this.templatePath = templatePath;
     }
@@ -32,6 +26,10 @@ class NotificationSMSService {
         return __awaiter(this, void 0, void 0, function* () {
             data.cache = true;
             data.pretty = false;
+            let from = 'Info';
+            if (data.app && data.app.smtpConfigFromName) {
+                from = data.app.smtpConfigFromName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(" ", "%20");
+            }
             let options = Object.assign({}, data, { pretty: false, cache: true });
             const templatePath = (templateSettings === null || templateSettings === void 0 ? void 0 : templateSettings.rootPath) ? templateSettings.rootPath : this.templatePath;
             const dbTemplate = yield template_model_1.TemplateModel.getOneWithQuery({ appId: data.app._id, key: template });
@@ -55,8 +53,10 @@ class NotificationSMSService {
                 : pug_1.default.renderFile(templatePath + '/' + template + '/sms.pug', options);
             const apiToken = this.accessToken;
             const smsapi = new SMSAPI(apiToken);
+            let endpoint = '/sms.do?from=' + from;
+            smsapi.sms.endpoint = endpoint;
             try {
-                const result = yield smsapi.sms.sendSms(mobile, txt, '3333');
+                const result = yield smsapi.sms.sendSms(mobile, txt);
                 console.log(result);
                 let allSended = false;
                 if (result.list && result.list.length > 0) {
@@ -84,16 +84,6 @@ class NotificationSMSService {
                 console.log(err.data.message);
                 return false;
             }
-            // return this.api.sms.sendSms
-            //   .sms()
-            //   //.from(app.name)
-            //   .from('Info')
-            //   .to(mobile)
-            //   .message(txt)
-            //   .execute() // return Promise
-            // .then(() => {
-            //   return true;
-            // });
         });
     }
 }

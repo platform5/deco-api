@@ -14,16 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.smsService = exports.NotificationSMSService = void 0;
 const template_model_1 = require("./../modules/template/template.model");
-const smsapi_1 = __importDefault(require("smsapi"));
 const pug_1 = __importDefault(require("pug"));
 const path_1 = __importDefault(require("path"));
 class NotificationSMSService {
     constructor(accessToken, templatePath) {
-        this.api = new smsapi_1.default({
-            oauth: {
-                accessToken: accessToken
-            }
-        });
+        // this.api = new SMSAPI({
+        //   oauth: {
+        //     accessToken: accessToken
+        //   }
+        // });
         this.templatePath = templatePath;
     }
     send(mobile, template, data, templateSettings) {
