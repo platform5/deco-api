@@ -1,6 +1,7 @@
 import { TemplateModel } from './../modules/template/template.model';
 import pug from 'pug';
 import path from 'path';
+import { SMSAPI } from 'smsapi';
 // import SMSAPI from 'smsapi';
 const { SMSAPI } = require('smsapi');
 
@@ -50,7 +51,7 @@ export class NotificationSMSService {
       const apiToken = this.accessToken;
       const smsapi = new SMSAPI(apiToken);
       try {
-        const result: SmsResult = await smsapi.sms.sendSms(mobile, txt, '3333');
+        const result: SmsResult = await smsapi.sms.sendSms(mobile, txt, 'Info');
         console.log(result);
         let allSended: boolean = false;
         if (result.list && result.list.length > 0) {
