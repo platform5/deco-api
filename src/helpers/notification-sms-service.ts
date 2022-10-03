@@ -1,20 +1,13 @@
 import { TemplateModel } from './../modules/template/template.model';
 import pug from 'pug';
 import path from 'path';
-// import SMSAPI from 'smsapi';
 const { SMSAPI } = require('smsapi');
 
 export class NotificationSMSService {
-  // api: any;
   templatePath: string;
   accessToken: string;
 
   constructor(accessToken: string, templatePath: string) {
-    // this.api = new SMSAPI({
-    //   oauth: {
-    //     accessToken: accessToken
-    //   }
-    // });
     this.accessToken = accessToken;
     this.templatePath = templatePath;
   }
@@ -22,6 +15,11 @@ export class NotificationSMSService {
   public async send(mobile: string, template: string, data: any, templateSettings?: {rootPath?: string}) {
     data.cache = true;
     data.pretty = false;
+
+    let from: string = 'Info';
+    if (data.app && data.app.smtpConfigFromName) {
+       from = (data.app.smtpConfigFromName as string).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(" ", "%20");
+    }
 
     let options = Object.assign({}, data, {pretty: false, cache: true});
 
@@ -49,8 +47,11 @@ export class NotificationSMSService {
 
       const apiToken = this.accessToken;
       const smsapi = new SMSAPI(apiToken);
+      let endpoint: string = '/sms.do?from=' + from;
+      smsapi.sms.endpoint = endpoint;
+
       try {
-        const result: SmsResult = await smsapi.sms.sendSms(mobile, txt, 'Info');
+        const result: SmsResult = await smsapi.sms.sendSms(mobile, txt);
         console.log(result);
         let allSended: boolean = false;
         if (result.list && result.list.length > 0) {
@@ -75,16 +76,6 @@ export class NotificationSMSService {
         console.log((err as any).data.message);
         return false;
     }
-    // return this.api.sms.sendSms
-    //   .sms()
-    //   //.from(app.name)
-    //   .from('Info')
-    //   .to(mobile)
-    //   .message(txt)
-    //   .execute() // return Promise
-    // .then(() => {
-    //   return true;
-    // });
   }
 
 }
