@@ -1,18 +1,21 @@
 import { TemplateModel } from './../modules/template/template.model';
-import SMSAPI from 'smsapi';
 import pug from 'pug';
 import path from 'path';
+// import SMSAPI from 'smsapi';
+const { SMSAPI } = require('smsapi');
 
 export class NotificationSMSService {
-  api: any;
+  // api: any;
   templatePath: string;
+  accessToken: string;
 
   constructor(accessToken: string, templatePath: string) {
-    this.api = new SMSAPI({
-      oauth: {
-        accessToken: accessToken
-      }
-    });
+    // this.api = new SMSAPI({
+    //   oauth: {
+    //     accessToken: accessToken
+    //   }
+    // });
+    this.accessToken = accessToken;
     this.templatePath = templatePath;
   }
 
@@ -44,16 +47,44 @@ export class NotificationSMSService {
                 ? pug.render(templateString, options)
                 : pug.renderFile(templatePath + '/' + template + '/sms.pug', options);
 
-    return this.api.message
-      .sms()
-      //.from(app.name)
-      .from('Info')
-      .to(mobile)
-      .message(txt)
-      .execute() // return Promise
-    .then(() => {
-      return true;
-    });
+      const apiToken = this.accessToken;
+      const smsapi = new SMSAPI(apiToken);
+      try {
+        const result: SmsResult = await smsapi.sms.sendSms(mobile, txt, '3333');
+        console.log(result);
+        let allSended: boolean = false;
+        if (result.list && result.list.length > 0) {
+          console.log(result);
+          for (const item of result.list) {
+              try {
+                const check = await smsapi.hlr.check(item.submittedNumber);
+                if (check.status == 'OK') {
+                  allSended = true;
+                } else {
+                  allSended =  false;
+                  break;
+                }
+            } catch (err) {
+                console.log(err);
+            }
+          }
+          return allSended;
+        }
+        return true;
+      } catch (err) {
+        console.log(err);
+        return false;
+    }
+    // return this.api.sms.sendSms
+    //   .sms()
+    //   //.from(app.name)
+    //   .from('Info')
+    //   .to(mobile)
+    //   .message(txt)
+    //   .execute() // return Promise
+    // .then(() => {
+    //   return true;
+    // });
   }
 
 }
@@ -61,3 +92,23 @@ export class NotificationSMSService {
 let smsService = new NotificationSMSService('CPoPsSfiSe4lvUTm4kk7ibyMKWcvjCeZ7SEI1bUa', path.resolve(__dirname, '../../emails'));
 
 export {smsService};
+
+export interface List {
+    id: string;
+    points: number;
+    number: string;
+    dateSent: Date;
+    submittedNumber: string;
+    status: string;
+    error?: any;
+    idx?: any;
+    parts: number;
+}
+
+export interface SmsResult {
+    count: number;
+    list: List[];
+    message: string;
+    length: number;
+    parts: string;
+}
