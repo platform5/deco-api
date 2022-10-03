@@ -1,7 +1,6 @@
 import { TemplateModel } from './../modules/template/template.model';
 import pug from 'pug';
 import path from 'path';
-import { SMSAPI } from 'smsapi';
 // import SMSAPI from 'smsapi';
 const { SMSAPI } = require('smsapi');
 
