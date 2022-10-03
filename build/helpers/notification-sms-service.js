@@ -14,16 +14,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.smsService = exports.NotificationSMSService = void 0;
 const template_model_1 = require("./../modules/template/template.model");
-const smsapi_1 = __importDefault(require("smsapi"));
 const pug_1 = __importDefault(require("pug"));
 const path_1 = __importDefault(require("path"));
+// import SMSAPI from 'smsapi';
+const { SMSAPI } = require('smsapi');
 class NotificationSMSService {
     constructor(accessToken, templatePath) {
-        this.api = new smsapi_1.default({
-            oauth: {
-                accessToken: accessToken
-            }
-        });
+        // this.api = new SMSAPI({
+        //   oauth: {
+        //     accessToken: accessToken
+        //   }
+        // });
+        this.accessToken = accessToken;
         this.templatePath = templatePath;
     }
     send(mobile, template, data, templateSettings) {
@@ -51,16 +53,47 @@ class NotificationSMSService {
             let txt = templateString !== null
                 ? pug_1.default.render(templateString, options)
                 : pug_1.default.renderFile(templatePath + '/' + template + '/sms.pug', options);
-            return this.api.message
-                .sms()
-                //.from(app.name)
-                .from('Info')
-                .to(mobile)
-                .message(txt)
-                .execute() // return Promise
-                .then(() => {
+            const apiToken = this.accessToken;
+            const smsapi = new SMSAPI(apiToken);
+            try {
+                const result = yield smsapi.sms.sendSms(mobile, txt, '3333');
+                console.log(result);
+                let allSended = false;
+                if (result.list && result.list.length > 0) {
+                    console.log(result);
+                    for (const item of result.list) {
+                        try {
+                            const check = yield smsapi.hlr.check(item.submittedNumber);
+                            if (check.status == 'OK') {
+                                allSended = true;
+                            }
+                            else {
+                                allSended = false;
+                                break;
+                            }
+                        }
+                        catch (err) {
+                            console.log(err);
+                        }
+                    }
+                    return allSended;
+                }
                 return true;
-            });
+            }
+            catch (err) {
+                console.log(err.data.message);
+                return false;
+            }
+            // return this.api.sms.sendSms
+            //   .sms()
+            //   //.from(app.name)
+            //   .from('Info')
+            //   .to(mobile)
+            //   .message(txt)
+            //   .execute() // return Promise
+            // .then(() => {
+            //   return true;
+            // });
         });
     }
 }
