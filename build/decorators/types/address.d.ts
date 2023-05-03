@@ -14,6 +14,7 @@ export interface Address {
     zip?: string;
     country?: string;
     description?: string;
+    accessInformation?: string;
     lat?: number;
     lng?: number;
 }
