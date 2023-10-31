@@ -309,10 +309,12 @@ export class UserControllerMiddleware extends ControllerMiddleware {
     let results: Array<any> = [];
     for (let index in elements) {
       let element = elements[index];
+      let shortEmail: string = element.email ? element.email.substring(element.email.indexOf('@'), element.email.lastIndexOf('.')) : '';
       results.push({
         id: element.id,
         firstname: element.firstname,
         lastname: element.lastname,
+        shortEmail: shortEmail,
         picture: (element.profile && element.profile.picture) ? element.profile.picture : null,
         profileId: (element.profile && element.profile.id) ? element.profile.id : null
       });
