@@ -356,10 +356,12 @@ class UserControllerMiddleware extends controller_1.ControllerMiddleware {
         let results = [];
         for (let index in elements) {
             let element = elements[index];
+            let shortEmail = element.email ? element.email.substring(element.email.indexOf('@'), element.email.lastIndexOf('.')) : '';
             results.push({
                 id: element.id,
                 firstname: element.firstname,
                 lastname: element.lastname,
+                shortEmail: shortEmail,
                 picture: (element.profile && element.profile.picture) ? element.profile.picture : null,
                 profileId: (element.profile && element.profile.id) ? element.profile.id : null
             });
